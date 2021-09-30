@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Papillon</string>
-    <string name="toolbar_name">User Name</string>
+    <string name="toolbar_name">Имя пользователя</string>
+    <string name="user_name">Имя пользователя</string>
+    <string name="user_avatar">Аватар пользователя</string>
+    <string name="is_you">Вы</string>
+
 
 </resources>
