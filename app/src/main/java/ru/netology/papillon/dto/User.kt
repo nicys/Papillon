@@ -1,4 +1,4 @@
-package ru.netology.papillon
+package ru.netology.papillon.dto
 
 data class User(
     val idUser: Long = 0L,
