@@ -25,7 +25,7 @@ class AllUsersFragment : Fragment() {
         val binding = FragmentAllUsersBinding.inflate(inflater, container, false)
 
         val adapter = UsersAdapter(object : OnUserInteractionListener {
-            override fun onUserClicked(user: User) {
+            override fun onUserClick(user: User) {
                 TODO("Not yet implemented")
             }
 
@@ -34,7 +34,8 @@ class AllUsersFragment : Fragment() {
         binding.listOfUsers.adapter = adapter
 
         binding.listOfUsers.addItemDecoration(
-            DividerItemDecoration(requireContext(),
+            DividerItemDecoration(
+                requireContext(),
                 DividerItemDecoration.VERTICAL
             )
         )

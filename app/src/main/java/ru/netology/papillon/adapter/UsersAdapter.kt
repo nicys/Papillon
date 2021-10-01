@@ -6,12 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.netology.papillon.R
 import ru.netology.papillon.databinding.CardUserBinding
 import ru.netology.papillon.dto.User
 
 interface OnUserInteractionListener {
-    fun onUserClicked(user: User)
+    fun onUserClick(user: User)
 }
 
 class UsersAdapter(private val onUserInteractionListener: OnUserInteractionListener) :
@@ -52,7 +51,7 @@ class UsersViewHolder(
         }
 
         binding.userCard.setOnClickListener {
-            onUserInteractionListener.onUserClicked(user)
+            onUserInteractionListener.onUserClick(user)
         }
     }
 
