@@ -5,6 +5,8 @@
     <string name="user_name">Имя пользователя</string>
     <string name="user_avatar">Аватар пользователя</string>
     <string name="is_you">Вы</string>
+    <string name="company">Нетология</string>
+    <string name="position">Студент курса андроид разработки</string>
 
 
 </resources>

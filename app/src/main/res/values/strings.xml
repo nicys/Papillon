@@ -2,13 +2,20 @@
     <string name="app_name">Papillon</string>
     <string name="toolbar_name">User Name</string>
     <string name="user_name">User Name</string>
+    <string name="menu_vert_popup" translatable="false">vert menu</string>
     <string name="bottom_nav_home" translatable="false">Home</string>
     <string name="bottom_nav_search" translatable="false">Search</string>
     <string name="bottom_nav_share" translatable="false">Share</string>
     <string name="bottom_nav_likes" translatable="false">Likes</string>
     <string name="bottom_nav_profile" translatable="false">Profile</string>
+    <string name="person_was" translatable="false">30/09/21 at 13:07</string>
     <string name="user_avatar">User avatar</string>
     <string name="is_you">You</string>
-    <string name="person_was" translatable="false">30/09/21 at 13:07</string>
+    <string name="company">Netology</string>
+    <string name="position">Student of the android development course</string>
+    <string name="period" translatable="false">29.09.2020 - 29.11.2021</string>
+    <string name="web" translatable="false">netology.ru</string>
+
+
 
 </resources>
