@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Papillon</string>
     <string name="toolbar_name">User Name</string>
-    <string name="user_name">User Name</string>
+    <string name="user_name">user Name</string>
+    <string name="user_surname">user Surname</string>
     <string name="menu_vert_popup" translatable="false">vert menu</string>
     <string name="bottom_nav_home" translatable="false">Home</string>
     <string name="bottom_nav_search" translatable="false">Search</string>
