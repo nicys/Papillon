@@ -10,7 +10,7 @@ import ru.netology.papillon.databinding.CardUserBinding
 import ru.netology.papillon.dto.User
 
 interface OnUserInteractionListener {
-    fun onUserClick(user: User)
+//    fun onUserClick(user: User)
 }
 
 class UsersAdapter(private val onUserInteractionListener: OnUserInteractionListener) :
@@ -51,9 +51,9 @@ class UsersViewHolder(
             cvIsYou.visibility = if (user.isMe) View.VISIBLE else View.GONE
         }
 
-        binding.userCard.setOnClickListener {
-            onUserInteractionListener.onUserClick(user)
-        }
+//        binding.userCard.setOnClickListener {
+//            onUserInteractionListener.onUserClick(user)
+//        }
     }
 
 }
