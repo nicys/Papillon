@@ -15,6 +15,8 @@ data class Post(
     val likesCount: Int = 0,
     val shares: String = "",
     val sharesCnt: Int = 0,
+    val views: String = "",
+    val viewsCnt: Int = 0,
     val videoAttach: String? = null,
     val audioAttach: String? = null,
     val imageAttach: String? = null,
