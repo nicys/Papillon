@@ -10,11 +10,12 @@
     <color name="black">#FF000000</color>
     <color name="dark_grey">#534F4F</color>
     <color name="divider">#BDBDBD</color>
+    <color name="grey">#DADADA</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_light">#FAFAFA</color>
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimary2">#00ACC1</color>
     <color name="colorPrimary3">#017D8C</color>
     <color name="light_blue">#C2F8FF</color>
-    <color name="red">#DF3E3B</color>
+    <color name="red">#FF0000</color>
 </resources>
