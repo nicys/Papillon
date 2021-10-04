@@ -5,16 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="AllUsersFragment">
+    tools:context=".AllUsersFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_of_users"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="0dp"
         tools:listitem="@layout/card_user" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
