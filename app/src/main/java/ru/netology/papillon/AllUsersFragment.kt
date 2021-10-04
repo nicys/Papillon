@@ -25,9 +25,9 @@ class AllUsersFragment : Fragment() {
         val binding = FragmentAllUsersBinding.inflate(inflater, container, false)
 
         val adapter = UsersAdapter(object : OnUserInteractionListener {
-            override fun onUserClick(user: User) {
-                TODO("Not yet implemented")
-            }
+//            override fun onUserClick(user: User) {
+//                TODO("Not yet implemented")
+//            }
 
         })
 

@@ -29,14 +29,14 @@
             android:layout_marginStart="12dp"
             android:textColor="@color/dark_grey"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@id/tV_userLogin"
+            app:layout_constraintBottom_toTopOf="@id/tv_userLogin"
             app:layout_constraintStart_toEndOf="@id/iv_avatar"
             app:layout_constraintTop_toTopOf="@id/iv_avatar"
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="@string/user_name" />
 
         <TextView
-            android:id="@+id/tV_userLogin"
+            android:id="@+id/tv_userLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/divider"

@@ -36,7 +36,7 @@
         app:layout_constraintBottom_toBottomOf="@id/iV_avatar"
         app:layout_constraintStart_toEndOf="@id/iV_avatar"
         app:layout_constraintTop_toBottomOf="@id/tV_userName"
-        tools:text="12/23/07 at 15:00" />
+        tools:text="@string/period" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/menu"
@@ -61,7 +61,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:autoLink="web"
-        android:lineSpacingMultiplier="1.5"
+        android:lineSpacingExtra="2dp"
         android:paddingTop="@dimen/common_spacing"
         android:paddingBottom="@dimen/common_spacing"
         android:textColor="@color/black"
@@ -150,7 +150,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/footer"
         style="@style/Widget.AppTheme.ViewsButton"
-        app:rippleColor="null"
         tools:text="300"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
