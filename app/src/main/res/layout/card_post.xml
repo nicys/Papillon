@@ -39,15 +39,15 @@
         tools:text="12/23/07 at 15:00" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/bt_post_options"
-        style="@style/Widget.AppTheme.IconButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/menu"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:checkable="true"
         app:icon="@drawable/ic_baseline_more_vert_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iV_avatar"
-        app:rippleColor="@null"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.AppTheme.MenuButton" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/header"
@@ -73,8 +73,8 @@
 
     <ImageView
         android:id="@+id/image_attachment"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:scaleType="fitStart"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/footer"
@@ -84,8 +84,8 @@
 
     <FrameLayout
         android:id="@+id/video_container"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/footer"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,8 +94,8 @@
 
         <ImageView
             android:id="@+id/videoThumbnail"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             android:scaleType="centerCrop" />
 
         <ImageView
@@ -117,14 +117,40 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_like"
-        style="@style/Widget.AppTheme.LikeCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:checkable="true"
-        app:icon="@drawable/ic_like_24_dp"
+        app:icon="@drawable/ic_likes_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/footer"
-        tools:checked="true"
-        tools:text="23" />
+        style="@style/Widget.AppTheme.LikesButton"
+        tools:text="300" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:checkable="true"
+        app:icon="@drawable/ic_shares_24"
+        app:layout_constraintStart_toEndOf="@+id/bt_like"
+        app:layout_constraintTop_toBottomOf="@+id/footer"
+        style="@style/Widget.AppTheme.SharesButton"
+        tools:text="300" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_views"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:checkable="true"
+        app:icon="@drawable/ic_views_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/footer"
+        style="@style/Widget.AppTheme.ViewsButton"
+        app:rippleColor="null"
+        tools:text="300"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
