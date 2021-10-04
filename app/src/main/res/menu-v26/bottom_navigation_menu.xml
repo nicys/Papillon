@@ -19,7 +19,7 @@
         android:id="@+id/page_4"
         android:enabled="true"
         android:icon="@drawable/ic_likes_24"
-        android:title="@string/bottom_nav_likes" />
+        android:title="@string/bottom_nav_favorites" />
     <item
         android:id="@+id/page_5"
         android:enabled="true"

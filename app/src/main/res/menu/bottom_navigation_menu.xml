@@ -4,25 +4,24 @@
         android:id="@+id/page_1"
         android:enabled="true"
         android:icon="@drawable/ic_home_24"
-        android:title="@string/bottom_nav_home" />
+        android:title="@string/bottom_nav_home"
+        android:orderInCategory="1"/>
     <item
         android:id="@+id/page_2"
         android:enabled="true"
         android:icon="@drawable/ic_search_24"
-        android:title="@string/bottom_nav_search" />
+        android:title="@string/bottom_nav_search"
+        android:orderInCategory="2"/>
     <item
         android:id="@+id/page_3"
         android:enabled="true"
-        android:icon="@drawable/ic_shares_24"
-        android:title="@string/bottom_nav_share" />
+        android:icon="@drawable/ic_post_add_24"
+        android:title="@string/bottom_nav_add_post"
+        android:orderInCategory="4"/>
     <item
         android:id="@+id/page_4"
         android:enabled="true"
-        android:icon="@drawable/ic_likes_24"
-        android:title="@string/bottom_nav_likes" />
-    <item
-        android:id="@+id/page_5"
-        android:enabled="true"
-        android:icon="@drawable/ic_profile_24"
-        android:title="@string/bottom_nav_profile" />
+        android:icon="@drawable/ic_favorite_24"
+        android:title="@string/bottom_nav_favorites"
+        android:orderInCategory="3"/>
 </menu>
