@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 import ru.netology.papillon.extensions.getCurrentDateTime
 
 @Parcelize
-data class Post @RequiresApi(Build.VERSION_CODES.O) constructor(
+data class Post(
     val id: Long = 0L,
     val authorId: Long = 0L,
     val author: String = "",
