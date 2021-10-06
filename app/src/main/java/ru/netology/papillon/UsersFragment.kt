@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import ru.netology.papillon.adapter.OnUserInteractionListener
 import ru.netology.papillon.adapter.UsersAdapter
-import ru.netology.papillon.databinding.FragmentAllUsersBinding
+import ru.netology.papillon.databinding.FragmentUsersBinding
 import ru.netology.papillon.dto.User
 import ru.netology.papillon.viewmodel.UserViewModel
 
@@ -22,7 +22,7 @@ class UsersFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentAllUsersBinding.inflate(inflater, container, false)
+        val binding = FragmentUsersBinding.inflate(inflater, container, false)
 
         val adapter = UsersAdapter(object : OnUserInteractionListener {
 //            override fun onUserClick(user: User) {
