@@ -2,13 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/post_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="8dp"
     android:paddingHorizontal="@dimen/common_spacing">
 
     <ImageView
-        android:id="@+id/iV_avatar"
+        android:id="@+id/iv_avatar"
         android:layout_width="@dimen/avatar_size"
         android:layout_height="@dimen/avatar_size"
         android:scaleType="fitCenter"
@@ -16,26 +17,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tV_userName"
+        android:id="@+id/tv_userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textColor="@color/dark_grey"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/tV_published"
-        app:layout_constraintStart_toEndOf="@id/iV_avatar"
-        app:layout_constraintTop_toTopOf="@id/iV_avatar"
+        app:layout_constraintBottom_toTopOf="@id/tv_published"
+        app:layout_constraintStart_toEndOf="@id/iv_avatar"
+        app:layout_constraintTop_toTopOf="@id/iv_avatar"
         tools:text="@string/user_name" />
 
     <TextView
-        android:id="@+id/tV_published"
+        android:id="@+id/tv_published"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/iV_avatar"
-        app:layout_constraintStart_toEndOf="@id/iV_avatar"
-        app:layout_constraintTop_toBottomOf="@id/tV_userName"
+        app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+        app:layout_constraintStart_toEndOf="@id/iv_avatar"
         tools:text="@string/period" />
 
     <com.google.android.material.button.MaterialButton
@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="iV_avatar,tV_published" />
+        app:constraint_referenced_ids="iv_avatar,tv_published" />
 
     <TextView
         android:id="@+id/tv_content"
@@ -93,13 +93,13 @@
         app:layout_constraintTop_toBottomOf="@id/tv_content">
 
         <ImageView
-            android:id="@+id/videoThumbnail"
+            android:id="@+id/iv_video"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop" />
 
         <ImageView
-            android:id="@+id/iV_video_play_icon"
+            android:id="@+id/iv_video_play_icon"
             android:layout_width="82dp"
             android:layout_height="82dp"
             android:layout_gravity="center"
