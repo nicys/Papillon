@@ -1,15 +1,20 @@
 package ru.netology.papillon.dto
 
+import android.os.Build
 import android.os.Parcelable
+import androidx.annotation.RequiresApi
 import kotlinx.parcelize.Parcelize
+import ru.netology.papillon.utils.AndroidUtils
+import java.time.Instant
+import java.util.*
 
 @Parcelize
-data class Post(
+data class Post @RequiresApi(Build.VERSION_CODES.O) constructor(
     val id: Long = 0L,
     val authorId: Long = 0L,
     val author: String = "",
     val authorAvatar: String? = null,
-    val published: String = "",
+    val published: String = AndroidUtils.getCurrentDateTime().toString(),
     val content: String = "",
     val likedByMe: Boolean = false,
     val likesCount: Int = 0,
