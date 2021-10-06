@@ -13,7 +13,7 @@ import ru.netology.papillon.databinding.FragmentAllUsersBinding
 import ru.netology.papillon.dto.User
 import ru.netology.papillon.viewmodel.UserViewModel
 
-class AllUsersFragment : Fragment() {
+class UsersFragment : Fragment() {
 
     val viewModel: UserViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
