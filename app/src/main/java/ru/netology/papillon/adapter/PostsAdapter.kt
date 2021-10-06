@@ -77,7 +77,7 @@ class PostViewHolder(
 
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
-                    inflate(R.menu.post_options)
+                    inflate(R.menu.post_options_menu)
                     setOnMenuItemClickListener { item ->
                         when (item.itemId) {
                             R.id.delete -> {
