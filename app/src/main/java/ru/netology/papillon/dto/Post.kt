@@ -4,9 +4,7 @@ import android.os.Build
 import android.os.Parcelable
 import androidx.annotation.RequiresApi
 import kotlinx.parcelize.Parcelize
-import ru.netology.papillon.utils.AndroidUtils
-import java.time.Instant
-import java.util.*
+import ru.netology.papillon.extensions.getCurrentDateTime
 
 @Parcelize
 data class Post @RequiresApi(Build.VERSION_CODES.O) constructor(
@@ -14,7 +12,7 @@ data class Post @RequiresApi(Build.VERSION_CODES.O) constructor(
     val authorId: Long = 0L,
     val author: String = "",
     val authorAvatar: String? = null,
-    val published: String = AndroidUtils.getCurrentDateTime().toString(),
+    val published: String = getCurrentDateTime().toString(),
     val content: String = "",
     val likedByMe: Boolean = false,
     val likesCount: Int = 0,
