@@ -1,8 +1,6 @@
 package ru.netology.papillon.dto
 
-import android.os.Build
 import android.os.Parcelable
-import androidx.annotation.RequiresApi
 import kotlinx.parcelize.Parcelize
 import ru.netology.papillon.extensions.getCurrentDateTime
 
