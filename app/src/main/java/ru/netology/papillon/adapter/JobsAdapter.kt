@@ -11,12 +11,12 @@ import ru.netology.papillon.R
 import ru.netology.papillon.databinding.CardJobBinding
 import ru.netology.papillon.dto.Job
 
-interface OnJobPopupInteractionListener {
+interface OnJobInteractionListener {
     fun onDeleteJob(job: Job)
     fun onEdinJob(job: Job)
 }
 
-class JodAdapter(private val onJobPopupInteractionListener: OnJobPopupInteractionListener) :
+class JobsAdapter(private val onJobInteractionListener: OnJobInteractionListener) :
     ListAdapter<Job, JobViewHolder>(JobDiffItemCallback) {
     object JobDiffItemCallback : DiffUtil.ItemCallback<Job>() {
         override fun areItemsTheSame(oldItem: Job, newItem: Job): Boolean {
@@ -30,7 +30,7 @@ class JodAdapter(private val onJobPopupInteractionListener: OnJobPopupInteractio
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolder {
         val binding = CardJobBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return JobViewHolder(binding, onJobPopupInteractionListener)
+        return JobViewHolder(binding, onJobInteractionListener)
     }
 
     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
@@ -40,7 +40,7 @@ class JodAdapter(private val onJobPopupInteractionListener: OnJobPopupInteractio
 
 class JobViewHolder(
     private val binding: CardJobBinding,
-    private val onJobPopupInteractionListener: OnJobPopupInteractionListener
+    private val onJobInteractionListener: OnJobInteractionListener
 ): RecyclerView.ViewHolder(binding.root) {
     @SuppressLint("SetTextI18n")
     fun bind(job: Job) {
@@ -55,11 +55,11 @@ class JobViewHolder(
                     setOnMenuItemClickListener { item ->
                         when (item.itemId) {
                             R.id.delete -> {
-                                onJobPopupInteractionListener.onDeleteJob(job)
+                                onJobInteractionListener.onDeleteJob(job)
                                 true
                             }
                             R.id.edit -> {
-                                onJobPopupInteractionListener.onEdinJob(job)
+                                onJobInteractionListener.onEdinJob(job)
                                 true
                             }
                             else -> false
