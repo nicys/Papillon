@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import ru.netology.papillon.adapter.OnUserInteractionListener
 import ru.netology.papillon.adapter.UsersAdapter
 import ru.netology.papillon.databinding.FragmentUsersBinding
-import ru.netology.papillon.dto.User
 import ru.netology.papillon.viewmodel.UserViewModel
 
 class UsersFragment : Fragment() {
