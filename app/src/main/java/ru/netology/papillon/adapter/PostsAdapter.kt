@@ -10,7 +10,7 @@ import ru.netology.papillon.databinding.CardPostBinding
 import ru.netology.papillon.dto.Post
 import ru.netology.papillon.utils.totalizerSmartFeed
 
-interface OnInteractionListener {
+interface OnPostInteractionListener {
     fun onLikePost(post: Post) {}
     fun onEditPost(post: Post) {}
     fun onRemovePost(post: Post) {}
@@ -20,7 +20,7 @@ interface OnInteractionListener {
 }
 
 class PostsAdapter(
-    private val onInteractionListener: OnInteractionListener
+    private val onPostInteractionListener: OnPostInteractionListener
 ) : androidx.recyclerview.widget.ListAdapter<Post, PostViewHolder>(PostDiffCallback) {
     object PostDiffCallback : DiffUtil.ItemCallback<Post>() {
         override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
@@ -34,7 +34,7 @@ class PostsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding, onInteractionListener)
+        return PostViewHolder(binding, onPostInteractionListener)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
@@ -44,7 +44,7 @@ class PostsAdapter(
 
 class PostViewHolder(
     private val binding: CardPostBinding,
-    private val onInteractionListener: OnInteractionListener
+    private val onPostInteractionListener: OnPostInteractionListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(post: Post) {
@@ -56,23 +56,23 @@ class PostViewHolder(
 
             btLike.isChecked = post.likedByMe
             btLike.setOnClickListener {
-                onInteractionListener.onLikePost(post)
+                onPostInteractionListener.onLikePost(post)
             }
             btLike.text = if (post.likedByMe) "1" else "0"
 
             btShare.text = totalizerSmartFeed(post.sharesCnt)
             btShare.setOnClickListener {
-                onInteractionListener.onSharePost(post)
+                onPostInteractionListener.onSharePost(post)
             }
 
             btViews.text = totalizerSmartFeed((post.viewsCnt))
 
             ivVideo.setOnClickListener {
-                onInteractionListener.onVideoPost(post)
+                onPostInteractionListener.onVideoPost(post)
             }
 
             postCard.setOnClickListener {
-                onInteractionListener.onShowPost(post)
+                onPostInteractionListener.onShowPost(post)
             }
 
             menu.setOnClickListener {
@@ -81,11 +81,11 @@ class PostViewHolder(
                     setOnMenuItemClickListener { item ->
                         when (item.itemId) {
                             R.id.delete -> {
-                                onInteractionListener.onRemovePost(post)
+                                onPostInteractionListener.onRemovePost(post)
                                 true
                             }
                             R.id.edit -> {
-                                onInteractionListener.onEditPost(post)
+                                onPostInteractionListener.onEditPost(post)
                                 true
                             }
 
