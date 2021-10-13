@@ -29,6 +29,22 @@ class PostViewModel(application: Application): AndroidViewModel(application) {
         edited.value = post
     }
 
+    fun changeContent(content: String) {
+        val text = content.trim()
+        if (edited.value?.content == text) {
+            return
+        }
+        edited.value = edited.value?.copy(content = text)
+    }
+
+    fun changeVideoURL(videoURL: String) {
+        val text = videoURL
+        if (edited.value?.videoAttach == text) {
+            return
+        }
+        edited.value = edited.value?.copy(videoAttach = text)
+    }
+
     fun likedById(id: Long) = repository.likedById(id)
     fun sharedById(id: Long) = repository.sharedById(id)
     fun removedById(id: Long) = repository.removedById(id)
