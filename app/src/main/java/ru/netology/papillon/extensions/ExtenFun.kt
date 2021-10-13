@@ -24,7 +24,7 @@ fun List<JobEntity>.toDtoJob() = map(JobEntity::toDtoJob)
 fun List<Job>.toJobEntity() = map(Job::toEntityJob)
 
 fun Post.toEntityPost() = PostEntity(id, authorId, author, authorAvatar,
-    published, content, likedByMe, likesCount, shares, sharesCnt, views,
+    published, content, likedByMe, likesCnt, shares, sharesCnt, views,
     viewsCnt, videoAttach, audioAttach, imageAttach)
 fun List<PostEntity>.toDtoPost() = map(PostEntity::toDtoPost)
 fun List<Post>.toEntityPost() = map(Post::toEntityPost)

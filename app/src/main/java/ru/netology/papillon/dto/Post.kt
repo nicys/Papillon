@@ -13,7 +13,7 @@ data class Post(
     val published: String = getCurrentDateTime().toString(),
     val content: String = "",
     val likedByMe: Boolean = false,
-    val likesCount: Int = 0,
+    val likesCnt: Int = 0,
     val shares: String = "",
     val sharesCnt: Int = 0,
     val views: String = "",
