@@ -21,4 +21,5 @@
     <string name="save" translatable="false">ok</string>
     <string name="Enter_content_of_post">Enter content of post</string>
     <string name="Insert_URL_of_video">Enter video URL</string>
+    <string name="chooser_video_post" translatable="false">Video content</string>
 </resources>
