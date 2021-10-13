@@ -10,6 +10,7 @@
     <string name="position">Студент курса андроид разработки</string>
     <string name="edit">Изменить</string>
     <string name="delete">Удалить</string>
-
+    <string name="Enter_content_of_post">Введите контент поста</string>
+    <string name="Insert_URL_of_video">Укажите URL адрес</string>
 
 </resources>
