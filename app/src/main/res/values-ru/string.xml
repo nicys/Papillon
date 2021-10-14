@@ -12,5 +12,11 @@
     <string name="delete">Удалить</string>
     <string name="Enter_content_of_post">Введите контент поста</string>
     <string name="Insert_URL_of_video">Укажите URL адрес</string>
+    <string name="enter_company_name">Название компании</string>
+    <string name="enter_position">Ваша должность</string>
+    <string name="enter_start">Начало работы</string>
+    <string name="enter_finish">Конец работы</string>
+    <string name="cancel">ОТМЕНИТЬ</string>
+    <string name="confirm">ПОДТВЕРДИТЬ</string>
 
 </resources>

@@ -22,5 +22,11 @@
     <string name="Enter_content_of_post">Enter content of post</string>
     <string name="Insert_URL_of_video">Enter video URL</string>
     <string name="chooser_video_post" translatable="false">Video content</string>
-    <string name="add_post_fab" translatable="false">fab</string>
+    <string name="enter_company_name">Name of company</string>
+    <string name="enter_position">Your position</string>
+    <string name="enter_start">Start of period</string>
+    <string name="enter_finish">Finish of period</string>
+    <string name="enter_link" translatable="false">URL</string>
+    <string name="cancel">CANCEL</string>
+    <string name="confirm">CONFIRM</string>
 </resources>
