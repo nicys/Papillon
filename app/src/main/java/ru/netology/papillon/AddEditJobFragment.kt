@@ -52,6 +52,12 @@ class AddEditJobFragment : Fragment() {
             AndroidUtils.hideKeyboard(requireView())
             findNavController().navigateUp()
         }
+
+        binding.btCancel.setOnClickListener {
+            AndroidUtils.hideKeyboard(requireView())
+            findNavController().navigateUp()
+        }
+
         return binding.root
     }
 }
