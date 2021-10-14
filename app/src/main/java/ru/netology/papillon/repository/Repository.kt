@@ -13,7 +13,7 @@ interface PostRepository {
 }
 
 interface JobRepository {
-    fun getAllJob(): LiveData<List<Job>>
+    fun getAllJobs(): LiveData<List<Job>>
     fun removedById(id: Long)
     fun saveJob(job: Job)
 }

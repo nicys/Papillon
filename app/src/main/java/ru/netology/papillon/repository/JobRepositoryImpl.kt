@@ -8,7 +8,7 @@ import ru.netology.papillon.extensions.toEntityJob
 class JobRepositoryImpl(
     private val jobDao: JobDao
 ) : JobRepository {
-    override fun getAllJob() = Transformations.map(jobDao.getAll()) {
+    override fun getAllJobs() = Transformations.map(jobDao.getAll()) {
         it.map {
             Job(it.id, it.company, it.position, it.start, it.finish, it.link)
         }

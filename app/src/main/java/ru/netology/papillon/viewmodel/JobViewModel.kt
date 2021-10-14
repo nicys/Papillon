@@ -15,7 +15,7 @@ class JobViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: JobRepository = JobRepositoryImpl(
         AppDbJob.getInstance(context = application).jobsDao()
     )
-    val data = repository.getAllJob()
+    val data = repository.getAllJobs()
     val edited = MutableLiveData(empty)
 
     fun saveJob() {

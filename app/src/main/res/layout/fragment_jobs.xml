@@ -12,6 +12,7 @@
         android:layout_height="200dp"
         android:layout_marginTop="128dp"
         android:orientation="horizontal"
+        android:background="@color/green"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
