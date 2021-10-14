@@ -8,7 +8,7 @@ import ru.netology.papillon.extensions.toEntityPost
 class PostRepositoryImpl(
     private val postDao: PostDao
 ) : PostRepository {
-    override fun getAll() = Transformations.map(postDao.getAll()) {
+    override fun getAllPosts() = Transformations.map(postDao.getAll()) {
         it.map {
             Post(
                 it.id, it.authorId, it.author, it.authorAvatar, it.published,

@@ -15,7 +15,7 @@ class PostViewModel(application: Application): AndroidViewModel(application) {
     private val repository: PostRepository = PostRepositoryImpl(
         AppDbPost.getInstance(context = application).postsDao()
     )
-    val data = repository.getAll()
+    val data = repository.getAllPosts()
     val edited = MutableLiveData(empty)
 
     fun savePost() {
