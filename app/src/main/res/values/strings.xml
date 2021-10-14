@@ -29,4 +29,5 @@
     <string name="enter_link" translatable="false">URL</string>
     <string name="cancel">CANCEL</string>
     <string name="confirm">CONFIRM</string>
+    <string name="add_post_fab" translatable="false">Add post</string>
 </resources>
