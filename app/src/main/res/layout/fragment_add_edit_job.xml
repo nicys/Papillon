@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minWidth="300dp"
+            android:minHeight="350dp"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+                <EditText
+                    android:id="@+id/et_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:autofillHints="none"
+                    android:hint="@string/enter_company_name"
+                    android:inputType="textCapSentences|textAutoCorrect" />
+
+                <EditText
+                    android:id="@+id/et_position"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:autofillHints="none"
+                    android:hint="@string/enter_position"
+                    android:inputType="textCapSentences|textAutoCorrect" />
+
+                <EditText
+                    android:id="@+id/et_start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:autofillHints="none"
+                    android:hint="@string/enter_start"
+                    android:inputType="none"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_finish"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:autofillHints="none"
+                    android:hint="@string/enter_finish"
+                    android:inputType="none"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_link"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:autofillHints="none"
+                    android:hint="@string/enter_link"
+                    android:inputType="none" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/bt_cancel"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:padding="8dp"
+                    android:text="@string/cancel" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/bt_confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:padding="8dp"
+                    android:text="@string/confirm"
+                    android:textColor="@color/white" />
+
+        </LinearLayout>
+</ScrollView>
