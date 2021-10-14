@@ -4,17 +4,13 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ru.netology.papillon.db.AppDbJob
-import ru.netology.papillon.db.AppDbPost
 import ru.netology.papillon.dto.Job
-import ru.netology.papillon.dto.Post
 import ru.netology.papillon.repository.JobRepository
 import ru.netology.papillon.repository.JobRepositoryImpl
-import ru.netology.papillon.repository.PostRepository
-import ru.netology.papillon.repository.PostRepositoryImpl
 
 private val empty = Job()
 
-class JobViewModel(application: Application): AndroidViewModel(application) {
+class JobViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: JobRepository = JobRepositoryImpl(
         AppDbJob.getInstance(context = application).jobsDao()
