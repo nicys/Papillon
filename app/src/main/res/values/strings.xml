@@ -30,4 +30,8 @@
     <string name="cancel">CANCEL</string>
     <string name="confirm">CONFIRM</string>
     <string name="add_post_fab" translatable="false">Add post</string>
+    <string name="warning_profile">To communicate on the Papillon network, you need to fill out a profile.</string>
+    <string name="fill_profile">-FILL IN THE PROFILE-</string>
+    <string name="button_add_a_job">-ADD A JOB-</string>
+    <string name="button_fill_a_profile">-FILL A PROFILE-</string>
 </resources>

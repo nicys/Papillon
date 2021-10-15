@@ -18,5 +18,9 @@
     <string name="enter_finish">Конец работы</string>
     <string name="cancel">ОТМЕНИТЬ</string>
     <string name="confirm">ПОДТВЕРДИТЬ</string>
+    <string name="warning_profile">Для общения в сети "Papillon" необходимо заполнить профиль.</string>
+    <string name="fill_profile">-ЗАПОЛНИТЬ ПРОФИЛЬ-</string>
+    <string name="button_add_a_job">-ДОБАВЬТЕ РАБОТУ-</string>
+    <string name="button_fill_a_profile">-ЗАПОЛНИТЕ ПРОФИЛЬ-</string>
 
 </resources>
