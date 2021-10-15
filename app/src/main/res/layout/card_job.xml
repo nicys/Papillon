@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="200dp"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginStart="4dp"
     android:layout_marginTop="8dp"
@@ -12,7 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="4dp">
 
@@ -57,7 +57,7 @@
             android:layout_marginBottom="4dp"
             android:textSize="10sp"
             android:textStyle="normal"
-            app:layout_constraintBottom_toTopOf="@+id/tv_web"
+            app:layout_constraintTop_toBottomOf="@+id/tv_position"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="@string/period" />
 
@@ -70,7 +70,7 @@
             android:textColorLink="@color/blue"
             android:textSize="10sp"
             android:textStyle="normal"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_period"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="@string/web" />
 
