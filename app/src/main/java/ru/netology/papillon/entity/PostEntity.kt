@@ -23,7 +23,22 @@ data class PostEntity(
     val audioAttach: String?,
     val imageAttach: String?,
 ) {
-    fun toDtoPost() = Post(id, authorId, author, authorAvatar,
-        published, content, likedByMe, likesCnt, shares, sharesCnt,
-        views, viewsCnt, videoAttach, audioAttach, imageAttach)
+//    fun toDto() = Post(id, authorId, author, authorAvatar, published, content, likedByMe,
+//        likesCnt, shares, sharesCnt, views, viewsCnt, videoAttach, audioAttach, imageAttach)
+
+    companion object {
+        fun fromDto(dto: Post) =
+            PostEntity(dto.id, dto.authorId, dto.author, dto.authorAvatar, dto.published, dto.content, dto.likedByMe,
+            dto.likesCnt, dto.shares, dto.sharesCnt, dto.views, dto.viewsCnt, dto.videoAttach,
+            dto.audioAttach, dto.imageAttach)
+    }
 }
+
+
+
+
+//{
+//    fun toDtoPost() = Post(id, authorId, author, authorAvatar,
+//        published, content, likedByMe, likesCnt, shares, sharesCnt,
+//        views, viewsCnt, videoAttach, audioAttach, imageAttach)
+//}

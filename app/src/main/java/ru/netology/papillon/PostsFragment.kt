@@ -64,6 +64,7 @@ class PostsFragment : Fragment() {
             findNavController().navigate(R.id.action_postsFragment_to_addEditPostFragment)
         }
 
+
         return binding.root
     }
 }

@@ -23,8 +23,8 @@ fun Job.toEntityJob() = JobEntity(id, company, position, start, finish, link)
 fun List<JobEntity>.toDtoJob() = map(JobEntity::toDtoJob)
 fun List<Job>.toJobEntity() = map(Job::toEntityJob)
 
-fun Post.toEntityPost() = PostEntity(id, authorId, author, authorAvatar,
-    published, content, likedByMe, likesCnt, shares, sharesCnt, views,
-    viewsCnt, videoAttach, audioAttach, imageAttach)
-fun List<PostEntity>.toDtoPost() = map(PostEntity::toDtoPost)
-fun List<Post>.toEntityPost() = map(Post::toEntityPost)
+//fun Post.toEntityPost() = PostEntity(id, authorId, author, authorAvatar,
+//    published, content, likedByMe, likesCnt, shares, sharesCnt, views,
+//    viewsCnt, videoAttach, audioAttach, imageAttach)
+//fun List<PostEntity>.toDtoPost() = map(PostEntity::toDtoPost)
+//fun List<Post>.toEntityPost() = map(Post::toEntityPost)

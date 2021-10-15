@@ -3,7 +3,9 @@ package ru.netology.papillon.repository
 import androidx.lifecycle.Transformations
 import ru.netology.papillon.dao.PostDao
 import ru.netology.papillon.dto.Post
-import ru.netology.papillon.extensions.toEntityPost
+import ru.netology.papillon.entity.PostEntity
+//import ru.netology.papillon.extensions.toDtoPost
+//import ru.netology.papillon.extensions.toEntityPost
 
 class PostRepositoryImpl(
     private val postDao: PostDao
@@ -31,6 +33,7 @@ class PostRepositoryImpl(
     }
 
     override fun savePost(post: Post) {
-        postDao.savePost(post.toEntityPost())
+//        postDao.savePost(post.toEntityPost())
+        postDao.savePost(PostEntity.fromDto(post))
     }
 }
