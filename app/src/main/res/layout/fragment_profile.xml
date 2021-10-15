@@ -81,8 +81,20 @@
                 android:id="@+id/profilePost"
                 layout="@layout/item_posts_profile" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bnv_profile"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/bottom_navigation_view_color"
+            android:elevation="4dp"
+            app:itemTextColor="@color/black"
+            app:itemIconTint="@color/bnv_buttons_selector"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_navigation_menu" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
