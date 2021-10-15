@@ -15,7 +15,7 @@ fun getCurrentDateTime(): Date {
     return Calendar.getInstance().time
 }
 
-fun User.toEntityUser() = UserEntity(idUser, avatar, login, name, surname, isMe)
+fun User.toEntityUser() = UserEntity(idUser, avatar, entered, name, surname, isMe)
 fun List<UserEntity>.toDtoUser(): List<User> = map(UserEntity::toDtoUser)
 fun List<User>.toEntityUser(): List<UserEntity> = map(User::toEntityUser)
 

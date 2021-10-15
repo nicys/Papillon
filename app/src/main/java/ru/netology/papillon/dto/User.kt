@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class User(
     val idUser: Long = 0L,
     val avatar: String? = null,
-    val login: String = "",
+    val entered: String = "",
     val name: String = "",
     val surname: String = "",
     val isMe: Boolean = false,
