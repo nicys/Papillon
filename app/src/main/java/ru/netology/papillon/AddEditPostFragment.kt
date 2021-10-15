@@ -33,11 +33,11 @@ class AddEditPostFragment : Fragment() {
         showKeyboard(binding.root)
 
         arguments?.textDataContent?.let { binding.etEditContent.setText(it) }
-        arguments?.textDataVideo?.let { binding.etVideo.setText(it) }
+//        arguments?.textDataVideo?.let { binding.etVideo.setText(it) }
 
         binding.ok.setOnClickListener {
             viewModel.changeContent(binding.etEditContent.text.toString())
-            viewModel.changeVideoURL(binding.etVideo.text.toString())
+//            viewModel.changeVideoURL(binding.etVideo.text.toString())
             viewModel.savePost()
             hideKeyboard(requireView())
             findNavController().navigateUp()
