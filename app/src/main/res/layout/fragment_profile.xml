@@ -18,9 +18,64 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <include
-                android:id="@+id/profileName"
-                layout="@layout/item_user_profile" />
+            <ImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="@dimen/avatar_size_max"
+                android:layout_height="@dimen/avatar_size_max"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/user_avatar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:textColor="@color/dark_grey"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@id/tv_userEnter"
+                app:layout_constraintStart_toEndOf="@id/iv_avatar"
+                app:layout_constraintTop_toTopOf="@id/iv_avatar"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="@string/user_name" />
+
+            <TextView
+                android:id="@+id/tv_userEnter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/divider"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+                app:layout_constraintStart_toStartOf="@id/tv_userName"
+                app:layout_constraintTop_toBottomOf="@id/tv_userName"
+                tools:text="@string/person_was" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_isYou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/green"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/iv_avatar">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:text="@string/is_you"
+                    android:textColor="@color/black"
+                    android:textSize="10sp" />
+            </androidx.cardview.widget.CardView>
+
+<!--            <include-->
+<!--                android:id="@+id/profileName"-->
+<!--                layout="@layout/item_user_profile" />-->
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_add_profile"
@@ -31,7 +86,7 @@
                 android:text="@string/button_fill_a_profile"
                 android:textColor="@color/bottom_navigation_view_color"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profileName" />
+                app:layout_constraintTop_toBottomOf="@id/iv_avatar" />
 
             <TextView
                 android:id="@+id/tv_warning"
@@ -43,7 +98,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/warning_profile"
                 android:textColor="@color/red"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bt_add_profile">
@@ -57,14 +112,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileNameId">
 
             <include
                 android:id="@+id/profileJob"
-                layout="@layout/item_job_profile" />
+                layout="@layout/fragment_jobs" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bt_add_job"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/white"
+                android:text="@string/button_add_a_job"
+                android:textColor="@color/bottom_navigation_view_color"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profileJob" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -79,7 +145,7 @@
 
             <include
                 android:id="@+id/profilePost"
-                layout="@layout/item_posts_profile" />
+                layout="@layout/fragment_posts" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

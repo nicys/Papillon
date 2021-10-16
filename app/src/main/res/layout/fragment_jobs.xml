@@ -9,27 +9,26 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_list_of_jobs"
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:layout_marginTop="128dp"
+        android:layout_height="wrap_content"
+        android:background="@color/bottom_navigation_view_color"
         android:orientation="horizontal"
-        android:background="@color/green"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/card_job"/>
+        tools:listitem="@layout/card_job" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bnv_list_of_jobs"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/bottom_navigation_view_color"
-        android:elevation="4dp"
-        app:itemTextColor="@color/black"
-        app:itemIconTint="@color/bnv_buttons_selector"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu"/>
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/bnv_list_of_jobs"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:background="@color/bottom_navigation_view_color"-->
+<!--        android:elevation="4dp"-->
+<!--        app:itemTextColor="@color/black"-->
+<!--        app:itemIconTint="@color/bnv_buttons_selector"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:menu="@menu/bottom_navigation_menu"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
