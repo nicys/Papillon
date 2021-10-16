@@ -1,5 +1,6 @@
 package ru.netology.papillon.entity
 
+import androidx.annotation.Nullable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ru.netology.papillon.dto.Post
@@ -10,7 +11,7 @@ data class PostEntity(
     val id: Long,
     val authorId: Long,
     val author: String,
-    val authorAvatar: String?,
+    @Nullable val authorAvatar: String?,
     val published: String,
     val content: String,
     val likedByMe: Boolean,
@@ -19,9 +20,9 @@ data class PostEntity(
     val sharesCnt: Int,
     val views: String,
     val viewsCnt: Int,
-    val videoAttach: String?,
-    val audioAttach: String?,
-    val imageAttach: String?,
+    @Nullable val videoAttach: String?,
+    @Nullable val audioAttach: String?,
+    @Nullable val imageAttach: String?,
 ) {
 //    fun toDto() = Post(id, authorId, author, authorAvatar, published, content, likedByMe,
 //        likesCnt, shares, sharesCnt, views, viewsCnt, videoAttach, audioAttach, imageAttach)
