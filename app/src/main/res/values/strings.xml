@@ -35,4 +35,5 @@
     <string name="button_add_a_job">-ADD A JOB-</string>
     <string name="button_fill_a_profile">-FILL A PROFILE-</string>
     <string name="at_home">You are on the home page</string>
+    <string name="enter_user_name">Name of name</string>
 </resources>
