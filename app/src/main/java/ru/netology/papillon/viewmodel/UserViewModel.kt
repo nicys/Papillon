@@ -25,7 +25,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         edited.value = empty
     }
 
-    fun editUser(user: User) {
+    fun editName(user: User) {
         edited.value = user
     }
 

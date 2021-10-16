@@ -30,14 +30,19 @@ class UsersFragment : Fragment() {
 
         })
 
-        binding.listOfUsers.adapter = adapter
+        binding.rvListOfUsers.adapter = adapter
 
-        binding.listOfUsers.addItemDecoration(
+        binding.rvListOfUsers.addItemDecoration(
             DividerItemDecoration(
                 requireContext(),
                 DividerItemDecoration.VERTICAL
             )
         )
+
+        binding.rvListOfUsers.adapter = adapter
+        viewModel.data.observe(viewLifecycleOwner, { jobs ->
+            adapter.submitList(jobs)
+        })
 
 
         return binding.root
