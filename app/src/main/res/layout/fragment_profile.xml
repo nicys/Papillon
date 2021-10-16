@@ -153,7 +153,7 @@
             android:id="@+id/bnv_profile"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@color/bottom_navigation_view_color"
+            android:background="@color/bottom_navigation_view_color2"
             android:elevation="4dp"
             app:itemTextColor="@color/black"
             app:itemIconTint="@color/bnv_buttons_selector"
