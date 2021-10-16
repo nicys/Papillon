@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_postsFragment_to_addEditPostFragment"
             app:destination="@id/addEditPostFragment" />
+        <action
+            android:id="@+id/action_postsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/addEditPostFragment"
@@ -32,4 +35,19 @@
         android:id="@+id/addEditJobFragment"
         android:name="ru.netology.papillon.AddEditJobFragment"
         android:label="AddEditJobFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="ru.netology.papillon.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_postsFragment"
+            app:destination="@id/postsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_addEditPostFragment"
+            app:destination="@id/addEditPostFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_addEditJobFragment"
+            app:destination="@id/addEditJobFragment" />
+    </fragment>
 </navigation>
