@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import ru.netology.papillon.AddEditPostFragment.Companion.textDataContent
 import ru.netology.papillon.AddEditPostFragment.Companion.textDataVideo
 import ru.netology.papillon.adapter.OnPostInteractionListener
@@ -70,6 +71,13 @@ class PostsFragment : Fragment() {
             }
             return@setOnNavigationItemSelectedListener true
         }
+
+        binding.rvListOfPosts.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
 
 
         return binding.root

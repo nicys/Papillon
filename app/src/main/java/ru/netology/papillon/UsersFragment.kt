@@ -40,8 +40,8 @@ class UsersFragment : Fragment() {
         )
 
         binding.rvListOfUsers.adapter = adapter
-        viewModel.data.observe(viewLifecycleOwner, { jobs ->
-            adapter.submitList(jobs)
+        viewModel.data.observe(viewLifecycleOwner, { users ->
+            adapter.submitList(users)
         })
 
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import ru.netology.papillon.AddEditJobFragment.Companion.textDataCompany
 import ru.netology.papillon.AddEditJobFragment.Companion.textDataFinish
 import ru.netology.papillon.AddEditJobFragment.Companion.textDataLink
@@ -50,6 +51,13 @@ class JobsFragment : Fragment() {
         viewModel.data.observe(viewLifecycleOwner, { jobs ->
             adapter.submitList(jobs)
         })
+
+        binding.rvListOfJobs.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
 
         return binding.root
     }

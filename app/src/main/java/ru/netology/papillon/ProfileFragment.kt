@@ -26,6 +26,7 @@ class ProfileFragment : Fragment() {
                 if (this) { cvIsYou.isVisible }
                 if (this) { profileJobId.isVisible }
                 if (this) { profilePostId.isVisible }
+                if (this) { btAddJob.isVisible }
                 if (this) { btAddProfile.visibility = View.GONE }
                 if (this) { tvWarning.visibility = View.GONE }
             }
@@ -35,9 +36,9 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(R.id.action_profileFragment_to_addEditJobFragment)
         }
 
-
-
-
+        binding.btAddProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_addEditUserFragment)
+        }
 
         binding.bnvProfile.setOnNavigationItemSelectedListener {
             when(it.itemId) {
