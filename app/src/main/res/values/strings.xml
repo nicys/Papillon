@@ -34,4 +34,5 @@
     <string name="fill_profile">-FILL IN THE PROFILE-</string>
     <string name="button_add_a_job">-ADD A JOB-</string>
     <string name="button_fill_a_profile">-FILL A PROFILE-</string>
+    <string name="at_home">You are on the home page</string>
 </resources>

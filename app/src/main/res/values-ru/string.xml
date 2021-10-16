@@ -22,5 +22,6 @@
     <string name="fill_profile">-ЗАПОЛНИТЬ ПРОФИЛЬ-</string>
     <string name="button_add_a_job">-ДОБАВЬТЕ РАБОТУ-</string>
     <string name="button_fill_a_profile">-ЗАПОЛНИТЕ ПРОФИЛЬ-</string>
+    <string name="at_home">Вы находитесь на домашней странице</string>
 
 </resources>
