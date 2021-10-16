@@ -45,9 +45,8 @@ class UsersViewHolder(
     fun bind(user: User) {
         with(binding) {
             tvUserName.text = user.name
-            tvUserEnter.text = user.entered
 
-            cvIsYou.visibility = if (user.isMe) View.VISIBLE else View.GONE
+//            cvIsYou.visibility = if (user.isMe) View.VISIBLE else View.GONE
         }
 
 //        binding.userCard.setOnClickListener {
