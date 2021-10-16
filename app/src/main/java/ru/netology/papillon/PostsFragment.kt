@@ -64,6 +64,17 @@ class PostsFragment : Fragment() {
             findNavController().navigate(R.id.action_postsFragment_to_addEditPostFragment)
         }
 
+        binding.bnvListOfPosts.setOnNavigationItemSelectedListener {
+            when(it.itemId) {
+                R.id.page_1 -> findNavController().navigate(R.id.action_postsFragment_to_profileFragment)
+//                R.id.page_2 -> findNavController().navigate(R.id.action_postsFragment_to_profileFragment)
+//                R.id.page_3 -> findNavController().navigate(R.id.action_postsFragment_to_profileFragment)
+//                R.id.page_4 -> findNavController().navigate(R.id.action_postsFragment_to_profileFragment)
+                else -> findNavController().navigate(R.id.action_postsFragment_to_profileFragment)
+            }
+            return@setOnNavigationItemSelectedListener true
+        }
+
 
         return binding.root
     }
