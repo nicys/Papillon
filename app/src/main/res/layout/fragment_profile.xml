@@ -18,64 +18,64 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/iv_avatar"
-                android:layout_width="@dimen/avatar_size_max"
-                android:layout_height="@dimen/avatar_size_max"
-                android:layout_marginStart="8dp"
-                android:contentDescription="@string/user_avatar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+<!--            <ImageView-->
+<!--                android:id="@+id/iv_avatar"-->
+<!--                android:layout_width="@dimen/avatar_size_max"-->
+<!--                android:layout_height="@dimen/avatar_size_max"-->
+<!--                android:layout_marginStart="8dp"-->
+<!--                android:contentDescription="@string/user_avatar"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
-            <TextView
-                android:id="@+id/tv_userName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:textColor="@color/dark_grey"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@id/tv_userEnter"
-                app:layout_constraintStart_toEndOf="@id/iv_avatar"
-                app:layout_constraintTop_toTopOf="@id/iv_avatar"
-                app:layout_constraintVertical_chainStyle="packed"
-                tools:text="@string/user_name" />
+<!--            <TextView-->
+<!--                android:id="@+id/tv_userName"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="12dp"-->
+<!--                android:textColor="@color/dark_grey"-->
+<!--                android:textSize="18sp"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/tv_userEnter"-->
+<!--                app:layout_constraintStart_toEndOf="@id/iv_avatar"-->
+<!--                app:layout_constraintTop_toTopOf="@id/iv_avatar"-->
+<!--                app:layout_constraintVertical_chainStyle="packed"-->
+<!--                tools:text="@string/user_name" />-->
 
-            <TextView
-                android:id="@+id/tv_userEnter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/divider"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
-                app:layout_constraintStart_toStartOf="@id/tv_userName"
-                app:layout_constraintTop_toBottomOf="@id/tv_userName"
-                tools:text="@string/person_was" />
+<!--            <TextView-->
+<!--                android:id="@+id/tv_userEnter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textColor="@color/divider"-->
+<!--                android:textSize="12sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="@id/iv_avatar"-->
+<!--                app:layout_constraintStart_toStartOf="@id/tv_userName"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/tv_userName"-->
+<!--                tools:text="@string/person_was" />-->
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_isYou"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:cardBackgroundColor="@color/green"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="0dp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/iv_avatar">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/cv_isYou"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:visibility="gone"-->
+<!--                app:cardBackgroundColor="@color/green"-->
+<!--                app:cardCornerRadius="12dp"-->
+<!--                app:cardElevation="0dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="@id/iv_avatar"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="@id/iv_avatar">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="4dp"
-                    android:text="@string/is_you"
-                    android:textColor="@color/black"
-                    android:textSize="10sp" />
-            </androidx.cardview.widget.CardView>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:paddingHorizontal="8dp"-->
+<!--                    android:paddingVertical="4dp"-->
+<!--                    android:text="@string/is_you"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="10sp" />-->
+<!--            </androidx.cardview.widget.CardView>-->
 
-<!--            <include-->
-<!--                android:id="@+id/profileName"-->
-<!--                layout="@layout/item_user_profile" />-->
+            <include
+                android:id="@+id/profileUser"
+                layout="@layout/card_user" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_add_profile"
@@ -86,7 +86,7 @@
                 android:text="@string/button_fill_a_profile"
                 android:textColor="@color/bottom_navigation_view_color"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_avatar" />
+                app:layout_constraintTop_toBottomOf="@id/profileUser" />
 
             <TextView
                 android:id="@+id/tv_warning"
