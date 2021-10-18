@@ -87,6 +87,97 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/footer_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="iv_avatar,tv_userEnter,tv_userName,mb_popup_menu,cv_isYou" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bt_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:checkable="true"
+                app:icon="@drawable/ic_favorite_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/footer_1"
+                style="@style/Widget.AppTheme.LikesButton"
+                tools:text="300" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bt_participants"
+                style="@style/Widget.AppTheme.ParticipantsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:checkable="true"
+                app:icon="@drawable/ic_participant_add_24"
+                app:layout_constraintStart_toEndOf="@id/bt_like"
+                app:layout_constraintTop_toBottomOf="@id/footer_1"
+                tools:text="300" />
+
+            <TextView
+                android:id="@+id/tv_online"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/online"
+                android:textColor="@color/green"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/bt_participants"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/footer_1"
+                tools:text="online" />
+
+            <TextView
+                android:id="@+id/tv_offline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@string/offline"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/bt_participants"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/footer_1"
+                tools:text="offline" />
+
+            <ImageView
+                android:id="@+id/iv_online"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:visibility="visible"
+                android:contentDescription="@string/online"
+                app:layout_constraintBottom_toTopOf="@+id/bt_add_profile"
+                app:layout_constraintEnd_toStartOf="@+id/tv_online"
+                app:layout_constraintTop_toBottomOf="@id/footer_1"
+                app:srcCompat="@drawable/ic_event_type_online" />
+
+            <ImageView
+                android:id="@+id/iv_offline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:visibility="gone"
+                android:contentDescription="@string/offline"
+                app:layout_constraintBottom_toTopOf="@+id/bt_add_profile"
+                app:layout_constraintEnd_toStartOf="@+id/tv_online"
+                app:layout_constraintTop_toBottomOf="@id/footer_1"
+                app:srcCompat="@drawable/ic_event_type_offline" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/footer_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="bt_like,bt_participants,iv_offline,iv_online,tv_offline,tv_online" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_add_profile"
                 android:layout_width="match_parent"
@@ -96,7 +187,7 @@
                 android:text="@string/button_fill_a_profile"
                 android:textColor="@color/bottom_navigation_view_color"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_avatar" />
+                app:layout_constraintTop_toBottomOf="@id/footer_2" />
 
             <TextView
                 android:id="@+id/tv_warning"
