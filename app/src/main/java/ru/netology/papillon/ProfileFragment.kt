@@ -54,6 +54,10 @@ class ProfileFragment : Fragment() {
                 if (this) { profileJobId.isVisible }
                 if (this) { profilePostId.isVisible }
                 if (this) { btAddJob.isVisible }
+                if (this) { btLike.isVisible }
+                if (this) { btParticipants.isVisible }
+                if (this) { ivOnline.isVisible }
+                if (this) { tvOnline.isVisible }
                 if (this) { btAddProfile.visibility = View.GONE }
                 if (this) { tvWarning.visibility = View.GONE }
             }
