@@ -7,10 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.netology.papillon.databinding.FragmentProfileBinding
+import ru.netology.papillon.viewmodel.UserViewModel
 
 class ProfileFragment : Fragment() {
+
+    val viewModelUser: UserViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -18,6 +22,8 @@ class ProfileFragment : Fragment() {
     ): View? {
         val binding = FragmentProfileBinding.inflate(inflater, container, false)
         binding.bnvProfile.selectedItemId = R.id.page_3
+
+
 
         val userName = binding.tvUserName.text.toString().trim()
 
