@@ -26,4 +26,8 @@
         <item name="iconTint">@color/more_vert_24_selector</item>
         <item name="backgroundTint">@color/card_post_tint_selector</item>
     </style>
+
+    <style name="Widget.AppTheme.ParticipantsButton" parent="Widget.MaterialComponents.Button.TextButton.Icon" >
+        <item name="iconTint">@color/participants_24_selector</item>
+    </style>
 </resources>
