@@ -9,12 +9,22 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import ru.netology.papillon.AddEditUserFragment.Companion.textUserName
+import ru.netology.papillon.adapter.OnUserInteractionListener
+import ru.netology.papillon.adapter.UsersAdapter
 import ru.netology.papillon.databinding.FragmentProfileBinding
+import ru.netology.papillon.dto.User
+import ru.netology.papillon.viewmodel.JobViewModel
+import ru.netology.papillon.viewmodel.PostViewModel
+import ru.netology.papillon.viewmodel.ProfileViewModel
 import ru.netology.papillon.viewmodel.UserViewModel
 
 class ProfileFragment : Fragment() {
 
     val viewModelUser: UserViewModel by viewModels(ownerProducer = ::requireParentFragment)
+    val viewModelJob: JobViewModel by viewModels(ownerProducer = ::requireParentFragment)
+    val viewModelPost: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
+    val viewModel: ProfileViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,7 +33,18 @@ class ProfileFragment : Fragment() {
         val binding = FragmentProfileBinding.inflate(inflater, container, false)
         binding.bnvProfile.selectedItemId = R.id.page_3
 
-
+        val usersAdapter = UsersAdapter(object : OnUserInteractionListener {
+            override fun onEditUser(user: User) {
+                viewModel.editName(user)
+                findNavController().navigate(R.id.action_profileFragment_to_addEditUserFragment,
+                Bundle().apply {
+                    textUserName = user.name
+                })
+            }
+            override fun oDeleteUser(user: User) {
+                viewModel.removedById(user.idUser)
+            }
+        })
 
         val userName = binding.tvUserName.text.toString().trim()
 
