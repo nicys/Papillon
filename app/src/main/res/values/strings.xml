@@ -36,4 +36,6 @@
     <string name="button_fill_a_profile">-FILL A PROFILE-</string>
     <string name="at_home">You are on the home page</string>
     <string name="enter_user_name">Name of name</string>
+    <string name="online" translatable="false">online</string>
+    <string name="offline" translatable="false">offline</string>
 </resources>
