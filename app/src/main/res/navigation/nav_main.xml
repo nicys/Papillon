@@ -52,9 +52,16 @@
         <action
             android:id="@+id/action_profileFragment_to_addEditUserFragment"
             app:destination="@id/addEditUserFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_addEditProfileFragment"
+            app:destination="@id/addEditProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/addEditUserFragment"
         android:name="ru.netology.papillon.AddEditUserFragment"
         android:label="AddEditUserFragment" />
+    <fragment
+        android:id="@+id/addEditProfileFragment"
+        android:name="ru.netology.papillon.AddEditProfileFragment"
+        android:label="AddEditProfileFragment" />
 </navigation>

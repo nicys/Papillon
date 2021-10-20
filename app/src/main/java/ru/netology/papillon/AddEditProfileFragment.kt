@@ -11,6 +11,7 @@ import ru.netology.papillon.databinding.FragmentAddEditProfileBinding
 import ru.netology.papillon.databinding.FragmentAddEditUserBinding
 import ru.netology.papillon.utils.AndroidUtils
 import ru.netology.papillon.utils.StringArg
+import ru.netology.papillon.viewmodel.ProfileViewModel
 import ru.netology.papillon.viewmodel.UserViewModel
 
 class AddEditProfileFragment : Fragment() {
@@ -19,7 +20,7 @@ class AddEditProfileFragment : Fragment() {
         var Bundle.textUserName: String? by StringArg
     }
 
-    private val viewModel: UserViewModel by viewModels(
+    private val viewModel: ProfileViewModel by viewModels(
         ownerProducer = ::requireParentFragment)
 
     override fun onCreateView(

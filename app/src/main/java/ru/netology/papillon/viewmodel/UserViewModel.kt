@@ -2,7 +2,9 @@ package ru.netology.papillon.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import ru.netology.papillon.db.AppDbUser
 import ru.netology.papillon.dto.User
 import ru.netology.papillon.repository.UserRepository
@@ -38,4 +40,10 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun removedById(idUser: Long) = repository.removedById(idUser)
+
+    fun getUserById(id: Long): LiveData<User?> = data.map { users ->
+        users.find {
+            it.idUser == id
+        }
+    }
 }
