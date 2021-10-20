@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
@@ -40,6 +41,8 @@ class ProfileFragment : Fragment() {
         val binding = FragmentProfileBinding.inflate(inflater, container, false)
         binding.bnvProfile.selectedItemId = R.id.page_3
 
+        profileViewModel.getUserById(id.toLong())
+
 //        val usersAdapter = UsersAdapter(object : OnUserInteractionListener {
 //            override fun onEditUser(user: User) {
 //                viewModel.editName(user)
@@ -52,7 +55,6 @@ class ProfileFragment : Fragment() {
 //                viewModel.removedById(user.idUser)
 //            }
 //        })
-
 
         val userName = binding.tvUserName.text.toString().trim()
 
@@ -76,7 +78,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding.btAddProfile.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_addEditProfileFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_addEditUserFragment)
         }
 
         binding.bnvProfile.setOnNavigationItemSelectedListener {
@@ -90,18 +92,11 @@ class ProfileFragment : Fragment() {
             return@setOnNavigationItemSelectedListener true
         }
 
-//        with(viewModel) {
-//            arguments?.userData?.let {
-//                getUserById(it.idUser).observe(viewLifecycleOwner, { user ->
-//                    user ?: return@observe
-//                }
-//            }
-//        }
-
-        profileViewModel.currentUser.observe(viewLifecycleOwner) { user->
-            binding.tvUserName.text = user.name
+        profileViewModel.data.observe(viewLifecycleOwner) {
+            it.map { user ->
+                binding.tvUserName.text = user.name
+            }
         }
-
 
         return binding.root
     }
