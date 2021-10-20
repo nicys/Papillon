@@ -17,6 +17,11 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     private val userRepository: UserRepository = UserRepositoryImpl(
         AppDbUser.getInstance(context = application).usersDao()
     )
+
+    private val _currentUser = MutableLiveData(User())
+    val currentUser: LiveData<User>
+        get() = _currentUser
+
     val data = userRepository.getAllUsers()
     val edited = MutableLiveData(empty)
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -27,10 +28,10 @@ class ProfileFragment : Fragment() {
         var Bundle.userData: User? by UserArg
     }
 
-    val viewModelUser: UserViewModel by viewModels(ownerProducer = ::requireParentFragment)
-    val viewModelJob: JobViewModel by viewModels(ownerProducer = ::requireParentFragment)
-    val viewModelPost: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
-    val viewModel: ProfileViewModel by viewModels(ownerProducer = ::requireParentFragment)
+    val userViewModel: UserViewModel by viewModels(ownerProducer = ::requireParentFragment)
+    val jobViewModel: JobViewModel by viewModels(ownerProducer = ::requireParentFragment)
+    val postViewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
+    val profileViewModel: ProfileViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +52,7 @@ class ProfileFragment : Fragment() {
 //                viewModel.removedById(user.idUser)
 //            }
 //        })
+
 
         val userName = binding.tvUserName.text.toString().trim()
 
@@ -95,6 +97,10 @@ class ProfileFragment : Fragment() {
 //                }
 //            }
 //        }
+
+        profileViewModel.currentUser.observe(viewLifecycleOwner) { user->
+            binding.tvUserName.text = user.name
+        }
 
 
         return binding.root
