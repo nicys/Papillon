@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.netology.papillon.R
 import ru.netology.papillon.databinding.CardPostBinding
 import ru.netology.papillon.dto.Post
-import ru.netology.papillon.utils.totalizerSmartFeed
+import ru.netology.papillon.utils.sumTotalFeed
 
 interface OnPostInteractionListener {
     fun onLikePost(post: Post) {}
@@ -60,12 +60,12 @@ class PostViewHolder(
             }
             btLike.text = if (post.likedByMe) "1" else "0"
 
-            btShare.text = totalizerSmartFeed(post.sharesCnt)
+            btShare.text = sumTotalFeed(post.sharesCnt)
             btShare.setOnClickListener {
                 onPostInteractionListener.onSharePost(post)
             }
 
-            btViews.text = totalizerSmartFeed((post.viewsCnt))
+            btViews.text = sumTotalFeed((post.viewsCnt))
 
             ivVideo.setOnClickListener {
                 onPostInteractionListener.onVideoPost(post)
