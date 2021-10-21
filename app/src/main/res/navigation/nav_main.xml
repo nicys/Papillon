@@ -70,5 +70,12 @@
     <fragment
         android:id="@+id/showPostFragment"
         android:name="ru.netology.papillon.ShowPostFragment"
-        android:label="ShowPostFragment" />
+        android:label="ShowPostFragment" >
+        <action
+            android:id="@+id/action_showPostFragment_to_postsFragment"
+            app:destination="@id/postsFragment" />
+        <action
+            android:id="@+id/action_showPostFragment_to_addEditPostFragment"
+            app:destination="@id/addEditPostFragment" />
+    </fragment>
 </navigation>
