@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_postsFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_postsFragment_to_showPostFragment"
+            app:destination="@id/showPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/addEditPostFragment"
@@ -64,4 +67,8 @@
         android:id="@+id/addEditProfileFragment"
         android:name="ru.netology.papillon.AddEditProfileFragment"
         android:label="AddEditProfileFragment" />
+    <fragment
+        android:id="@+id/showPostFragment"
+        android:name="ru.netology.papillon.ShowPostFragment"
+        android:label="ShowPostFragment" />
 </navigation>
