@@ -71,7 +71,7 @@ class PostViewHolder(
                 onPostInteractionListener.onVideoPost(post)
             }
 
-            postCard.setOnClickListener {
+            tvContent.setOnClickListener {
                 onPostInteractionListener.onShowPost(post)
             }
 
