@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.papillon.R
 import ru.netology.papillon.databinding.CardPostBinding
@@ -21,24 +22,15 @@ interface OnPostInteractionListener {
 
 class PostsAdapter(
     private val onPostInteractionListener: OnPostInteractionListener
-) : androidx.recyclerview.widget.ListAdapter<Post, PostViewHolder>(PostDiffCallback) {
-    object PostDiffCallback : DiffUtil.ItemCallback<Post>() {
-        override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
-            return oldItem == newItem
-        }
-    }
-
+) : ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PostViewHolder(binding, onPostInteractionListener)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.bind(getItem((position)))
+        val post = getItem(position)
+        holder.bind(post)
     }
 }
 
