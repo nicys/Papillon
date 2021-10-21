@@ -11,7 +11,7 @@
             android:padding="8dp">
 
                 <EditText
-                    android:id="@+id/et_company"
+                    android:id="@+id/et_set_company"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
@@ -20,7 +20,7 @@
                     android:inputType="textCapSentences|textAutoCorrect" />
 
                 <EditText
-                    android:id="@+id/et_position"
+                    android:id="@+id/et_set_position"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
@@ -29,7 +29,7 @@
                     android:inputType="textCapSentences|textAutoCorrect" />
 
                 <EditText
-                    android:id="@+id/et_start"
+                    android:id="@+id/et_set_start"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
@@ -39,7 +39,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/et_finish"
+                    android:id="@+id/et_set_finish"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
@@ -49,7 +49,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/et_link"
+                    android:id="@+id/et_set_link"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"

@@ -8,7 +8,7 @@ import ru.netology.papillon.dto.Job
 import ru.netology.papillon.repository.JobRepository
 import ru.netology.papillon.repository.JobRepositoryImpl
 
-private val empty = Job()
+private var empty = Job()
 
 class JobViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -29,44 +29,44 @@ class JobViewModel(application: Application) : AndroidViewModel(application) {
         edited.value = job
     }
 
+    fun changeData(company: String, position: String, start: String, finish: String, link: String) {
+        empty = empty.copy(
+            company = company,
+            position = position,
+            start = start,
+            finish = finish,
+            link = link
+        )
+    }
+
     fun changeCompany(company: String) {
-        val text = company.trim()
-        if (edited.value?.company == text) {
-            return
-        }
-        edited.value = edited.value?.copy(company = text)
+        empty = empty.copy(
+            company = company
+        )
     }
 
     fun changePosition(position: String) {
-        val text = position.trim()
-        if (edited.value?.position == text) {
-            return
-        }
-        edited.value = edited.value?.copy(position = text)
+        empty = empty.copy(
+            position = position
+        )
     }
 
     fun changeStart(start: String) {
-        val text = start.trim()
-        if (edited.value?.start == text) {
-            return
-        }
-        edited.value = edited.value?.copy(start = text)
+        empty = empty.copy(
+            start = start
+        )
     }
 
     fun changeFinish(finish: String) {
-        val text = finish.trim()
-        if (edited.value?.finish == text) {
-            return
-        }
-        edited.value = edited.value?.copy(finish = text)
+        empty = empty.copy(
+            finish = finish
+        )
     }
 
     fun changeLink(link: String) {
-        val text = link.trim()
-        if (edited.value?.link == text) {
-            return
-        }
-        edited.value = edited.value?.copy(link = text)
+        empty = empty.copy(
+            link = link
+        )
     }
 
     fun removedById(id: Long) = repository.removedById(id)

@@ -1,19 +1,13 @@
 package ru.netology.papillon
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import ru.netology.papillon.AddEditUserFragment.Companion.textUserName
-import ru.netology.papillon.adapter.OnUserInteractionListener
-import ru.netology.papillon.adapter.UsersAdapter
 import ru.netology.papillon.databinding.FragmentProfileBinding
 import ru.netology.papillon.dto.User
 import ru.netology.papillon.utils.StringArg
@@ -41,7 +35,11 @@ class ProfileFragment : Fragment() {
         val binding = FragmentProfileBinding.inflate(inflater, container, false)
         binding.bnvProfile.selectedItemId = R.id.page_3
 
-        profileViewModel.getUserById(id.toLong())
+        val profileAccess = profileViewModel.data.observe(viewLifecycleOwner) {
+            it.map { user ->
+                binding.tvUserName.text = user.name
+            }
+        }
 
 //        val usersAdapter = UsersAdapter(object : OnUserInteractionListener {
 //            override fun onEditUser(user: User) {
@@ -59,15 +57,16 @@ class ProfileFragment : Fragment() {
         val userName = binding.tvUserName.text.toString().trim()
 
         with(binding) {
-            with(userName.isNotEmpty()) {
-                if (this) { cvIsYou.isVisible }
-                if (this) { profileJobId.isVisible }
-                if (this) { profilePostId.isVisible }
-                if (this) { btAddJob.isVisible }
-                if (this) { btLike.isVisible }
-                if (this) { btParticipants.isVisible }
-                if (this) { ivOnline.isVisible }
-                if (this) { tvOnline.isVisible }
+            with(profileAccess.toString().isNotBlank() || profileAccess.toString().isNotEmpty()) {
+                if (this) { cvIsYou.visibility = View.VISIBLE }
+                if (this) { profileJobId.visibility = View.VISIBLE  }
+                if (this) { profileJob.visibility = View.VISIBLE  }
+                if (this) { profilePostId.visibility = View.VISIBLE  }
+                if (this) { btAddJob.visibility = View.VISIBLE  }
+                if (this) { btLike.visibility = View.VISIBLE  }
+                if (this) { btParticipants.visibility = View.VISIBLE  }
+                if (this) { ivOnline.visibility = View.VISIBLE  }
+                if (this) { tvOnline.visibility = View.VISIBLE  }
                 if (this) { btAddProfile.visibility = View.GONE }
                 if (this) { tvWarning.visibility = View.GONE }
             }
@@ -90,12 +89,6 @@ class ProfileFragment : Fragment() {
                 else -> findNavController().navigate(R.id.action_postsFragment_to_profileFragment)
             }
             return@setOnNavigationItemSelectedListener true
-        }
-
-        profileViewModel.data.observe(viewLifecycleOwner) {
-            it.map { user ->
-                binding.tvUserName.text = user.name
-            }
         }
 
         return binding.root

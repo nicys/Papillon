@@ -83,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:checkable="true"
+                android:visibility="gone"
                 app:icon="@drawable/ic_baseline_more_vert_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -186,6 +187,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:backgroundTint="@color/white"
+                android:visibility="visible"
                 android:text="@string/button_fill_a_profile"
                 android:textColor="@color/bottom_navigation_view_color"
                 app:layout_constraintStart_toStartOf="parent"
@@ -197,6 +199,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:gravity="center_horizontal"
+                android:visibility="visible"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/warning_profile"
@@ -215,14 +218,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileNameId">
 
-            <include
+            <LinearLayout
                 android:id="@+id/profileJob"
-                layout="@layout/fragment_jobs" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_list_of_jobs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bottom_navigation_view_color"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/card_job" />
+
+            </LinearLayout>
+
+<!--            <include-->
+<!--                android:id="@+id/profileJob"-->
+<!--                layout="@layout/fragment_jobs" />-->
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_add_job"
@@ -232,6 +257,7 @@
                 android:backgroundTint="@color/white"
                 android:text="@string/button_add_a_job"
                 android:textColor="@color/bottom_navigation_view_color"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/profileJob" />
 
@@ -241,14 +267,26 @@
             android:id="@+id/profilePostId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileJobId" >
 
-            <include
-                android:id="@+id/profilePost"
-                layout="@layout/fragment_posts" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list_of_posts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:listitem="@layout/card_post" />
+
+<!--            <include-->
+<!--                android:id="@+id/profilePost"-->
+<!--                layout="@layout/fragment_posts" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -14,13 +14,21 @@ import ru.netology.papillon.AddEditPostFragment.Companion.textDataContent
 import ru.netology.papillon.AddEditPostFragment.Companion.textDataVideo
 import ru.netology.papillon.adapter.OnPostInteractionListener
 import ru.netology.papillon.adapter.PostsAdapter
+import ru.netology.papillon.databinding.CardPostBinding
 import ru.netology.papillon.databinding.FragmentPostsBinding
 import ru.netology.papillon.dto.Post
+import ru.netology.papillon.dto.User
+import ru.netology.papillon.viewmodel.JobViewModel
 import ru.netology.papillon.viewmodel.PostViewModel
+import ru.netology.papillon.viewmodel.ProfileViewModel
+import ru.netology.papillon.viewmodel.UserViewModel
 
 class PostsFragment : Fragment() {
 
-    val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
+    val userViewModel: UserViewModel by viewModels(ownerProducer = ::requireParentFragment)
+    val jobViewModel: JobViewModel by viewModels(ownerProducer = ::requireParentFragment)
+    val postViewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
+    val profileViewModel: ProfileViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,19 +36,26 @@ class PostsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentPostsBinding.inflate(inflater, container, false)
+        val bindingPost = CardPostBinding.inflate(inflater, container, false)
+
+        val userName = postViewModel.data.observe(viewLifecycleOwner) {
+            it.map { post ->
+                bindingPost.tvUserName.text = post.author
+            }
+        }
 
         val adapter = PostsAdapter(object : OnPostInteractionListener {
             override fun onEditPost(post: Post) {
-                viewModel.editPost(post)
+                postViewModel.editPost(post)
                 findNavController().navigate(R.id.action_postsFragment_to_addEditPostFragment,
                 Bundle().apply{
                     textDataContent = post.content
                     textDataVideo = post.videoAttach })
             }
 
-            override fun onLikePost(post: Post) { viewModel.likedById(post.id) }
-            override fun onRemovePost(post: Post) { viewModel.removedById(post.id) }
-            override fun onSharePost(post: Post) { viewModel.sharedById(post.id) }
+            override fun onLikePost(post: Post) { postViewModel.likedById(post.id) }
+            override fun onRemovePost(post: Post) { postViewModel.removedById(post.id) }
+            override fun onSharePost(post: Post) { postViewModel.sharedById(post.id) }
             override fun onVideoPost(post: Post) {
                 post.videoAttach?.let {
                     val intent = Intent().apply {
@@ -57,7 +72,7 @@ class PostsFragment : Fragment() {
         })
 
         binding.rvListOfPosts.adapter = adapter
-        viewModel.data.observe(viewLifecycleOwner, { posts ->
+        postViewModel.data.observe(viewLifecycleOwner, { posts ->
             adapter.submitList(posts)
         })
 
