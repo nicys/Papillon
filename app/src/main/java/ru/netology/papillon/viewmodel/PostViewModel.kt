@@ -2,9 +2,12 @@ package ru.netology.papillon.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import ru.netology.papillon.db.AppDbPost
 import ru.netology.papillon.dto.Post
+import ru.netology.papillon.dto.User
 import ru.netology.papillon.repository.PostRepository
 import ru.netology.papillon.repository.PostRepositoryImpl
 
@@ -48,4 +51,10 @@ class PostViewModel(application: Application): AndroidViewModel(application) {
     fun likedById(id: Long) = repository.likedById(id)
     fun sharedById(id: Long) = repository.sharedById(id)
     fun removedById(id: Long) = repository.removedById(id)
+
+    fun getPostById(id: Long): LiveData<Post?> = data.map { posts ->
+        posts.find { post->
+            post.id == id
+        }
+    }
  }
