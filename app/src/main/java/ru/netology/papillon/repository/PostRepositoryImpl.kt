@@ -29,7 +29,7 @@ class PostRepositoryImpl(
     }
 
     override fun viewedById(id: Long) {
-        postDao.sharedById(id)
+        postDao.viewedById(id)
     }
 
     override fun removedById(id: Long) {

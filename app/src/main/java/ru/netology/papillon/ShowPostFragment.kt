@@ -22,7 +22,6 @@ class ShowPostFragment : Fragment() {
 
     companion object {
         var Bundle.postData: Post? by PostArg
-//        var Bundle.postId: Long? by LongArg
     }
 
     private val postViewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
@@ -65,7 +64,6 @@ class ShowPostFragment : Fragment() {
                         }
 
                         btViews.text = sumTotalFeed(post.viewsCnt)
-                        viewedById(post.id)
 
                         ivVideo.setOnClickListener {
                             post.videoAttach?.let {
@@ -97,7 +95,7 @@ class ShowPostFragment : Fragment() {
                                             findNavController().navigate(R.id.action_showPostFragment_to_addEditPostFragment,
                                                 Bundle().apply
                                                 {
-//                                                    textDataContent = post.content
+                                                    textDataContent = post.content
                                                 })
                                             true
                                         }
