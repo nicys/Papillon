@@ -32,6 +32,15 @@ interface PostDao {
     )
     fun sharedById(id: Long)
 
+    @Query(
+        """
+            UPDATE PostEntity SET
+            viewsCnt = viewsCnt + 1
+            WHERE id = :id
+            """
+    )
+    fun viewedById(id: Long)
+
     @Query("DELETE FROM PostEntity WHERE id = :id")
     fun removedById(id: Long)
 

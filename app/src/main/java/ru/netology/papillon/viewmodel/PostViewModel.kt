@@ -50,6 +50,7 @@ class PostViewModel(application: Application): AndroidViewModel(application) {
 
     fun likedById(id: Long) = repository.likedById(id)
     fun sharedById(id: Long) = repository.sharedById(id)
+    fun viewedById(id: Long) = repository.viewedById(id)
     fun removedById(id: Long) = repository.removedById(id)
 
     fun getPostById(id: Long): LiveData<Post?> = data.map { posts ->
