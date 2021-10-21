@@ -1,14 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/post_card"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ShowPostFragment">
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="8dp"
+    android:paddingHorizontal="@dimen/common_spacing">
 
-    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="@dimen/avatar_size"
+        android:layout_height="@dimen/avatar_size"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/tv_userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/dark_grey"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_published"
+        app:layout_constraintStart_toEndOf="@id/iv_avatar"
+        app:layout_constraintTop_toTopOf="@id/iv_avatar"
+        tools:text="@string/user_name" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv_published"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+        app:layout_constraintStart_toEndOf="@id/iv_avatar"
+        tools:text="@string/period" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/menu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:checkable="true"
+        app:icon="@drawable/ic_baseline_more_vert_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.AppTheme.MenuButton" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="iv_avatar,tv_published" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:lineSpacingExtra="2dp"
+        android:paddingTop="@dimen/common_spacing"
+        android:paddingBottom="@dimen/common_spacing"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        tools:text="Content" />
+
+
+    <ImageView
+        android:id="@+id/image_attachment"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="fitStart"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/footer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_content" />
+
+    <FrameLayout
+        android:id="@+id/video_container"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/footer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_content">
+
+        <ImageView
+            android:id="@+id/iv_video"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/iv_video_play_icon"
+            android:layout_width="82dp"
+            android:layout_height="82dp"
+            android:layout_gravity="center"
+            android:alpha="0.8"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_play_arrow_24" />
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/footer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="image_attachment" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:checkable="true"
+        app:icon="@drawable/ic_favorite_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/footer"
+        style="@style/Widget.AppTheme.LikesButton"
+        tools:text="300" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:checkable="true"
+        app:icon="@drawable/ic_shares_24"
+        app:layout_constraintStart_toEndOf="@+id/bt_like"
+        app:layout_constraintTop_toBottomOf="@+id/footer"
+        style="@style/Widget.AppTheme.SharesButton"
+        tools:text="300" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_views"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:checkable="true"
+        app:icon="@drawable/ic_views_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/footer"
+        style="@style/Widget.AppTheme.ViewsButton"
+        tools:text="300"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
