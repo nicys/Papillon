@@ -28,12 +28,15 @@ class PostRepositoryImpl(
         postDao.sharedById(id)
     }
 
+    override fun viewedById(id: Long) {
+        postDao.sharedById(id)
+    }
+
     override fun removedById(id: Long) {
         postDao.removedById(id)
     }
 
     override fun savePost(post: Post) {
-//        postDao.savePost(post.toEntityPost())
         postDao.savePost(PostEntity.fromDto(post))
     }
 }
