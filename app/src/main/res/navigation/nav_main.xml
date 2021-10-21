@@ -24,7 +24,11 @@
         android:id="@+id/addEditPostFragment"
         android:name="ru.netology.papillon.AddEditPostFragment"
         android:label="fragment_add_edit_post"
-        tools:layout="@layout/fragment_add_edit_post" />
+        tools:layout="@layout/fragment_add_edit_post" >
+        <action
+            android:id="@+id/action_addEditPostFragment_to_postsFragment"
+            app:destination="@id/postsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/jobsFragment"
         android:name="ru.netology.papillon.JobsFragment"
