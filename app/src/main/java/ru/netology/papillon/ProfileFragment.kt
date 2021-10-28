@@ -1,5 +1,7 @@
 package ru.netology.papillon
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +10,20 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import ru.netology.papillon.AddEditJobFragment.Companion.textDataCompany
+import ru.netology.papillon.AddEditJobFragment.Companion.textDataFinish
+import ru.netology.papillon.AddEditJobFragment.Companion.textDataLink
+import ru.netology.papillon.AddEditJobFragment.Companion.textDataPosition
+import ru.netology.papillon.AddEditJobFragment.Companion.textDataStart
+import ru.netology.papillon.AddEditPostFragment.Companion.textDataContent
+import ru.netology.papillon.ShowPostFragment.Companion.postData
+import ru.netology.papillon.adapter.JobsAdapter
+import ru.netology.papillon.adapter.OnJobInteractionListener
+import ru.netology.papillon.adapter.OnPostInteractionListener
+import ru.netology.papillon.adapter.PostsAdapter
 import ru.netology.papillon.databinding.FragmentProfileBinding
+import ru.netology.papillon.dto.Job
+import ru.netology.papillon.dto.Post
 import ru.netology.papillon.dto.User
 import ru.netology.papillon.utils.StringArg
 import ru.netology.papillon.utils.UserArg
@@ -41,18 +56,82 @@ class ProfileFragment : Fragment() {
             }
         }
 
-//        val usersAdapter = UsersAdapter(object : OnUserInteractionListener {
-//            override fun onEditUser(user: User) {
-//                viewModel.editName(user)
-//                findNavController().navigate(R.id.action_profileFragment_to_addEditUserFragment,
-//                Bundle().apply {
-//                    textUserName = user.name
-//                })
-//            }
-//            override fun oDeleteUser(user: User) {
-//                viewModel.removedById(user.idUser)
-//            }
-//        })
+        val jobAdapter = JobsAdapter(object : OnJobInteractionListener {
+            override fun onDeleteJob(job: Job) {
+                jobViewModel.removedById(job.id)
+            }
+            override fun onEdinJob(job: Job) {
+                jobViewModel.editJob(job)
+                findNavController().navigate(R.id.action_profileFragment_to_addEditJobFragment,
+                    Bundle().apply {
+                        textDataCompany = job.company
+                        textDataPosition = job.position
+                        textDataStart = job.start
+                        textDataFinish = job.finish
+                        textDataLink = job.link
+                    })
+            }
+        })
+
+        binding.rvListOfJobs.adapter = jobAdapter
+        jobViewModel.data.observe(viewLifecycleOwner, { jobs ->
+            jobAdapter.submitList(jobs)
+        })
+
+        val postAdapter = PostsAdapter(object : OnPostInteractionListener {
+            override fun onEditPost(post: Post) {
+                postViewModel.editPost(post)
+                findNavController().navigate(R.id.action_postsFragment_to_addEditPostFragment,
+                    Bundle().apply {
+                        textDataContent = post.content
+                    })
+            }
+
+            override fun onLikePost(post: Post) {
+                postViewModel.likedById(post.id)
+            }
+
+            override fun onRemovePost(post: Post) {
+                postViewModel.removedById(post.id)
+            }
+
+            override fun onSharePost(post: Post) {
+                val intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, post.content)
+                    type = "text/plain"
+                }
+                val shareIntent =
+                    Intent.createChooser(intent, getString(R.string.chooser_share_post))
+                startActivity(shareIntent)
+                postViewModel.sharedById(post.id)
+            }
+
+            override fun onVideoPost(post: Post) {
+                post.videoAttach?.let {
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_VIEW
+                        Intent(Intent.ACTION_VIEW, Uri.parse("url"))
+                        data = Uri.parse(post.videoAttach)
+                    }
+                    val videoIntent =
+                        Intent.createChooser(intent, getString(R.string.chooser_video_post))
+                    startActivity(videoIntent)
+                }
+            }
+
+            override fun onShowPost(post: Post) {
+                postViewModel.viewedById(post.id)
+                findNavController().navigate(R.id.action_postsFragment_to_showPostFragment,
+                    Bundle().apply { postData = post }
+                )
+            }
+        })
+
+        binding.rvListOfPosts.adapter = postAdapter
+        postViewModel.data.observe(viewLifecycleOwner, { posts ->
+            postAdapter.submitList(posts)
+        })
 
         val userName = binding.tvUserName.text.toString().trim()
 
