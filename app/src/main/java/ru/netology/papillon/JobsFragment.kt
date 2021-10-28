@@ -21,7 +21,7 @@ import ru.netology.papillon.viewmodel.JobViewModel
 
 class JobsFragment : Fragment() {
 
-    val viewModel: JobViewModel by viewModels(ownerProducer = ::requireParentFragment)
+    val jobViewModel: JobViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,10 +32,10 @@ class JobsFragment : Fragment() {
 
         val adapter = JobsAdapter(object : OnJobInteractionListener {
             override fun onDeleteJob(job: Job) {
-                viewModel.removedById(job.id)
+                jobViewModel.removedById(job.id)
             }
             override fun onEdinJob(job: Job) {
-                viewModel.editJob(job)
+                jobViewModel.editJob(job)
                 findNavController().navigate(R.id.action_jobsFragment_to_addEditJobFragment,
                 Bundle().apply {
                     textDataCompany = job.company
@@ -48,7 +48,7 @@ class JobsFragment : Fragment() {
         })
 
         binding.rvListOfJobs.adapter = adapter
-        viewModel.data.observe(viewLifecycleOwner, { jobs ->
+        jobViewModel.data.observe(viewLifecycleOwner, { jobs ->
             adapter.submitList(jobs)
         })
 
