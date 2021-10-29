@@ -34,7 +34,7 @@ class ProfileFragment : Fragment() {
     val userViewModel: UserViewModel by viewModels(ownerProducer = ::requireParentFragment)
     val jobViewModel: JobViewModel by viewModels(ownerProducer = ::requireParentFragment)
     val postViewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
-    val profileViewModel: ProfileViewModel by viewModels(ownerProducer = ::requireParentFragment)
+    private val profileViewModel: ProfileViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,29 +48,6 @@ class ProfileFragment : Fragment() {
                 binding.tvUserName.text = user.name
             }
         }
-
-        val jobAdapter = JobsAdapter(object : OnJobInteractionListener {
-            override fun onDeleteJob(job: Job) {
-                jobViewModel.removedById(job.id)
-            }
-
-            override fun onEdinJob(job: Job) {
-                jobViewModel.editJob(job)
-                findNavController().navigate(R.id.action_profileFragment_to_addEditJobFragment,
-                    Bundle().apply {
-                        textDataCompany = job.company
-                        textDataPosition = job.position
-                        textDataStart = job.start
-                        textDataFinish = job.finish
-                        textDataLink = job.link
-                    })
-            }
-        })
-
-        binding.rvListOfJobs.adapter = jobAdapter
-        jobViewModel.data.observe(viewLifecycleOwner, { jobs ->
-            jobAdapter.submitList(jobs)
-        })
 
         val postAdapter = PostsAdapter(object : OnPostInteractionListener {
             override fun onEditPost(post: Post) {
@@ -125,6 +102,29 @@ class ProfileFragment : Fragment() {
         binding.rvListOfPosts.adapter = postAdapter
         postViewModel.data.observe(viewLifecycleOwner, { posts ->
             postAdapter.submitList(posts)
+        })
+
+        val jobAdapter = JobsAdapter(object : OnJobInteractionListener {
+            override fun onDeleteJob(job: Job) {
+                jobViewModel.removedById(job.id)
+            }
+
+            override fun onEdinJob(job: Job) {
+                jobViewModel.editJob(job)
+                findNavController().navigate(R.id.action_profileFragment_to_addEditJobFragment,
+                    Bundle().apply {
+                        textDataCompany = job.company
+                        textDataPosition = job.position
+                        textDataStart = job.start
+                        textDataFinish = job.finish
+                        textDataLink = job.link
+                    })
+            }
+        })
+
+        binding.rvListOfJobs.adapter = jobAdapter
+        jobViewModel.data.observe(viewLifecycleOwner, { jobs ->
+            jobAdapter.submitList(jobs)
         })
 
         val userName = binding.tvUserName.text.toString().trim()
