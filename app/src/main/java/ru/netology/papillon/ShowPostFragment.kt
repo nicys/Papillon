@@ -14,7 +14,6 @@ import ru.netology.papillon.AddEditPostFragment.Companion.textDataContent
 import ru.netology.papillon.databinding.FragmentShowPostBinding
 import ru.netology.papillon.dto.Post
 import ru.netology.papillon.utils.PostArg
-import ru.netology.papillon.utils.StringArg
 import ru.netology.papillon.utils.sumTotalFeed
 import ru.netology.papillon.viewmodel.PostViewModel
 
