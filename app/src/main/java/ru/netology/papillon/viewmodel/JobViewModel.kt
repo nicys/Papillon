@@ -30,41 +30,11 @@ class JobViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun changeData(company: String, position: String, start: String, finish: String, link: String) {
-        empty = empty.copy(
+        edited.value = edited.value?.copy(
             company = company,
             position = position,
             start = start,
             finish = finish,
-            link = link
-        )
-    }
-
-    fun changeCompany(company: String) {
-        empty = empty.copy(
-            company = company
-        )
-    }
-
-    fun changePosition(position: String) {
-        empty = empty.copy(
-            position = position
-        )
-    }
-
-    fun changeStart(start: String) {
-        empty = empty.copy(
-            start = start
-        )
-    }
-
-    fun changeFinish(finish: String) {
-        empty = empty.copy(
-            finish = finish
-        )
-    }
-
-    fun changeLink(link: String) {
-        empty = empty.copy(
             link = link
         )
     }
