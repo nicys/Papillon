@@ -17,7 +17,6 @@ import ru.netology.papillon.viewmodel.JobViewModel
 class AddEditJobFragment : Fragment() {
 
     companion object {
-        var Bundle.dataJob: Job? by JobArg
         var Bundle.textDataCompany: String? by StringArg
         var Bundle.textDataPosition: String? by StringArg
         var Bundle.textDataStart: String? by StringArg
@@ -49,11 +48,13 @@ class AddEditJobFragment : Fragment() {
         with(binding) {
             btConfirm.setOnClickListener {
                 with(viewModel) {
-                    changeCompany(etSetCompany.text.toString())
-                    changePosition(etSetPosition.text.toString())
-                    changeStart(etSetStart.text.toString())
-                    changeFinish(etSetFinish.text.toString())
-                    changeLink(etSetLink.text.toString())
+                    changeData(
+                        etSetCompany.text.toString(),
+                        etSetPosition.text.toString(),
+                        etSetStart.text.toString(),
+                        etSetFinish.text.toString(),
+                        etSetLink.text.toString(),
+                    )
                     saveJob()
                 }
 
@@ -70,26 +71,3 @@ class AddEditJobFragment : Fragment() {
         return binding.root
     }
 }
-
-//        arguments?.dataJob?.let { job ->
-//            with(binding) {
-//                etSetCompany.setText(job.company)
-//                etSetPosition.setText(job.position)
-//                etSetStart.setText(job.start)
-//                etSetFinish.setText(job.finish)
-//                etSetLink.setText(job.link)
-//
-//                btConfirm.setOnClickListener {
-//                    viewModel.changeData(
-//                        etSetCompany.text.toString(),
-//                        etSetPosition.text.toString(),
-//                        etSetStart.text.toString(),
-//                        etSetFinish.text.toString(),
-//                        etSetLink.text.toString(),
-//                    )
-//                    viewModel.saveJob()
-//                    AndroidUtils.hideKeyboard(requireView())
-//                    findNavController().navigateUp()
-//                }
-//            }
-//        }
