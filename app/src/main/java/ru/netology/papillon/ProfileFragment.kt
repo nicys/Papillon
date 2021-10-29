@@ -10,11 +10,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import ru.netology.papillon.AddEditJobFragment.Companion.textDataCompany
-import ru.netology.papillon.AddEditJobFragment.Companion.textDataFinish
-import ru.netology.papillon.AddEditJobFragment.Companion.textDataLink
-import ru.netology.papillon.AddEditJobFragment.Companion.textDataPosition
-import ru.netology.papillon.AddEditJobFragment.Companion.textDataStart
 import ru.netology.papillon.AddEditPostFragment.Companion.textDataContent
 import ru.netology.papillon.ShowPostFragment.Companion.postData
 import ru.netology.papillon.adapter.JobsAdapter
@@ -25,6 +20,7 @@ import ru.netology.papillon.databinding.FragmentProfileBinding
 import ru.netology.papillon.dto.Job
 import ru.netology.papillon.dto.Post
 import ru.netology.papillon.dto.User
+import ru.netology.papillon.utils.JobArg
 import ru.netology.papillon.utils.StringArg
 import ru.netology.papillon.utils.UserArg
 import ru.netology.papillon.viewmodel.JobViewModel
@@ -36,6 +32,12 @@ class ProfileFragment : Fragment() {
     companion object {
         var Bundle.textUserName: String? by StringArg
         var Bundle.userData: User? by UserArg
+        var Bundle.textDataCompany: String? by StringArg
+        var Bundle.textDataPosition: String? by StringArg
+        var Bundle.textDataStart: String? by StringArg
+        var Bundle.textDataFinish: String? by StringArg
+        var Bundle.textDataLink: String? by StringArg
+        var Bundle.dataJob: Job? by JobArg
     }
 
     val userViewModel: UserViewModel by viewModels(ownerProducer = ::requireParentFragment)

@@ -19,9 +19,9 @@ fun User.toEntityUser() = UserEntity(idUser, avatar, entered, name, surname, isM
 fun List<UserEntity>.toDtoUser(): List<User> = map(UserEntity::toDtoUser)
 fun List<User>.toEntityUser(): List<UserEntity> = map(User::toEntityUser)
 
-fun Job.toEntityJob() = JobEntity(id, company, position, start, finish, link)
-fun List<JobEntity>.toDtoJob() = map(JobEntity::toDtoJob)
-fun List<Job>.toJobEntity() = map(Job::toEntityJob)
+//fun Job.toEntityJob() = JobEntity(id, company, position, start, finish, link)
+//fun List<JobEntity>.toDtoJob() = map(JobEntity::toDtoJob)
+//fun List<Job>.toJobEntity() = map(Job::toEntityJob)
 
 //fun Post.toEntityPost() = PostEntity(id, authorId, author, authorAvatar,
 //    published, content, likedByMe, likesCnt, shares, sharesCnt, views,

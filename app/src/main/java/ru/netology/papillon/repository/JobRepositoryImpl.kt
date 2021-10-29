@@ -3,7 +3,7 @@ package ru.netology.papillon.repository
 import androidx.lifecycle.Transformations
 import ru.netology.papillon.dao.JobDao
 import ru.netology.papillon.dto.Job
-import ru.netology.papillon.extensions.toEntityJob
+import ru.netology.papillon.entity.JobEntity
 
 class JobRepositoryImpl(
     private val jobDao: JobDao
@@ -19,6 +19,6 @@ class JobRepositoryImpl(
     }
 
     override fun saveJob(job: Job) {
-        jobDao.saveJob(job.toEntityJob())
+        jobDao.saveJob(JobEntity.fromDtoJob(job))
     }
 }

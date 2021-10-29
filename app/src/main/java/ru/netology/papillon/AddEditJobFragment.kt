@@ -7,6 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import ru.netology.papillon.ProfileFragment.Companion.textDataCompany
+import ru.netology.papillon.ProfileFragment.Companion.textDataFinish
+import ru.netology.papillon.ProfileFragment.Companion.textDataLink
+import ru.netology.papillon.ProfileFragment.Companion.textDataPosition
+import ru.netology.papillon.ProfileFragment.Companion.textDataStart
 import ru.netology.papillon.ProfileFragment.Companion.userData
 import ru.netology.papillon.databinding.FragmentAddEditJobBinding
 import ru.netology.papillon.databinding.FragmentAddEditPostBinding
@@ -21,11 +26,11 @@ class AddEditJobFragment : Fragment() {
 
     companion object {
         var Bundle.dataJob: Job? by JobArg
-        var Bundle.textDataCompany: String? by StringArg
-        var Bundle.textDataPosition: String? by StringArg
-        var Bundle.textDataStart: String? by StringArg
-        var Bundle.textDataFinish: String? by StringArg
-        var Bundle.textDataLink: String? by StringArg
+//        var Bundle.textDataCompany: String? by StringArg
+//        var Bundle.textDataPosition: String? by StringArg
+//        var Bundle.textDataStart: String? by StringArg
+//        var Bundle.textDataFinish: String? by StringArg
+//        var Bundle.textDataLink: String? by StringArg
     }
 
     private val viewModel: JobViewModel by viewModels(
@@ -64,22 +69,28 @@ class AddEditJobFragment : Fragment() {
 //            }
 //        }
 
-
-        arguments?.textDataCompany?.let { binding.etSetCompany.setText(it) }
-        arguments?.textDataPosition?.let { binding.etSetPosition.setText(it) }
-        arguments?.textDataStart?.let { binding.etSetStart.setText(it) }
-        arguments?.textDataFinish?.let { binding.etSetFinish.setText(it) }
-        arguments?.textDataLink?.let { binding.etSetLink.setText(it) }
+        with(binding) {
+            arguments?.textDataCompany?.let { etSetCompany.setText(it) }
+            arguments?.textDataPosition?.let { etSetPosition.setText(it) }
+            arguments?.textDataStart?.let { etSetStart.setText(it) }
+            arguments?.textDataFinish?.let { etSetFinish.setText(it) }
+            arguments?.textDataLink?.let { etSetLink.setText(it) }
+        }
 
         binding.btConfirm.setOnClickListener {
-            viewModel.changeCompany(binding.etSetCompany.text.toString())
-            viewModel.changePosition(binding.etSetPosition.text.toString())
-            viewModel.changeStart(binding.etSetStart.text.toString())
-            viewModel.changeFinish(binding.etSetFinish.text.toString())
-            viewModel.changeLink(binding.etSetLink.text.toString())
-            viewModel.saveJob()
-            AndroidUtils.hideKeyboard(requireView())
-            findNavController().navigateUp()
+            with(binding) {
+                with(viewModel) {
+                    changeCompany(etSetCompany.text.toString())
+                    changePosition(etSetPosition.text.toString())
+                    changeStart(etSetStart.text.toString())
+                    changeFinish(etSetFinish.text.toString())
+                    changeLink(etSetLink.text.toString())
+                    saveJob()
+                }
+
+                AndroidUtils.hideKeyboard(requireView())
+                findNavController().navigateUp()
+            }
         }
 
         binding.btCancel.setOnClickListener {
@@ -90,3 +101,17 @@ class AddEditJobFragment : Fragment() {
         return binding.root
     }
 }
+
+//            viewModel.changeCompany(binding.etSetCompany.text.toString())
+//            viewModel.changePosition(binding.etSetPosition.text.toString())
+//            viewModel.changeStart(binding.etSetStart.text.toString())
+//            viewModel.changeFinish(binding.etSetFinish.text.toString())
+//            viewModel.changeLink(binding.etSetLink.text.toString())
+
+//viewModel.changeData(
+//etSetCompany.text.toString(),
+//etSetPosition.text.toString(),
+//etSetStart.text.toString(),
+//etSetFinish.text.toString(),
+//etSetLink.text.toString()
+//)

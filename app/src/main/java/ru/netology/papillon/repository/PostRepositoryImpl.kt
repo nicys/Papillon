@@ -37,6 +37,6 @@ class PostRepositoryImpl(
     }
 
     override fun savePost(post: Post) {
-        postDao.savePost(PostEntity.fromDto(post))
+        postDao.savePost(PostEntity.fromDtoPost(post))
     }
 }
