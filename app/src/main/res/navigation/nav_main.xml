@@ -62,6 +62,9 @@
         <action
             android:id="@+id/action_profileFragment_to_addEditProfileFragment"
             app:destination="@id/addEditProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_showPostFragment"
+            app:destination="@id/showPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/addEditUserFragment"
