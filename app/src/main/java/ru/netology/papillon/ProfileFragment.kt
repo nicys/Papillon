@@ -10,6 +10,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import ru.netology.papillon.AddEditJobFragment.Companion.textDataCompany
+import ru.netology.papillon.AddEditJobFragment.Companion.textDataFinish
+import ru.netology.papillon.AddEditJobFragment.Companion.textDataLink
+import ru.netology.papillon.AddEditJobFragment.Companion.textDataPosition
+import ru.netology.papillon.AddEditJobFragment.Companion.textDataStart
 import ru.netology.papillon.AddEditPostFragment.Companion.textDataContent
 import ru.netology.papillon.ShowPostFragment.Companion.postData
 import ru.netology.papillon.adapter.JobsAdapter
@@ -19,26 +24,12 @@ import ru.netology.papillon.adapter.PostsAdapter
 import ru.netology.papillon.databinding.FragmentProfileBinding
 import ru.netology.papillon.dto.Job
 import ru.netology.papillon.dto.Post
-import ru.netology.papillon.dto.User
-import ru.netology.papillon.utils.JobArg
-import ru.netology.papillon.utils.StringArg
-import ru.netology.papillon.utils.UserArg
 import ru.netology.papillon.viewmodel.JobViewModel
 import ru.netology.papillon.viewmodel.PostViewModel
 import ru.netology.papillon.viewmodel.ProfileViewModel
 import ru.netology.papillon.viewmodel.UserViewModel
 
 class ProfileFragment : Fragment() {
-    companion object {
-        var Bundle.textUserName: String? by StringArg
-        var Bundle.userData: User? by UserArg
-        var Bundle.textDataCompany: String? by StringArg
-        var Bundle.textDataPosition: String? by StringArg
-        var Bundle.textDataStart: String? by StringArg
-        var Bundle.textDataFinish: String? by StringArg
-        var Bundle.textDataLink: String? by StringArg
-        var Bundle.dataJob: Job? by JobArg
-    }
 
     val userViewModel: UserViewModel by viewModels(ownerProducer = ::requireParentFragment)
     val jobViewModel: JobViewModel by viewModels(ownerProducer = ::requireParentFragment)
@@ -62,6 +53,7 @@ class ProfileFragment : Fragment() {
             override fun onDeleteJob(job: Job) {
                 jobViewModel.removedById(job.id)
             }
+
             override fun onEdinJob(job: Job) {
                 jobViewModel.editJob(job)
                 findNavController().navigate(R.id.action_profileFragment_to_addEditJobFragment,
@@ -83,7 +75,7 @@ class ProfileFragment : Fragment() {
         val postAdapter = PostsAdapter(object : OnPostInteractionListener {
             override fun onEditPost(post: Post) {
                 postViewModel.editPost(post)
-                findNavController().navigate(R.id.action_postsFragment_to_addEditPostFragment,
+                findNavController().navigate(R.id.action_profileFragment_to_addEditPostFragment,
                     Bundle().apply {
                         textDataContent = post.content
                     })
@@ -137,22 +129,6 @@ class ProfileFragment : Fragment() {
 
         val userName = binding.tvUserName.text.toString().trim()
 
-        with(binding) {
-            with(profileAccess.toString().isNotBlank() && profileAccess.toString().isNotEmpty()) {
-                if (this) { cvIsYou.visibility = View.VISIBLE }
-                if (this) { profileJobId.visibility = View.VISIBLE  }
-                if (this) { profileJob.visibility = View.VISIBLE  }
-                if (this) { profilePostId.visibility = View.VISIBLE  }
-                if (this) { btAddJob.visibility = View.VISIBLE  }
-                if (this) { btLike.visibility = View.VISIBLE  }
-                if (this) { btParticipants.visibility = View.VISIBLE  }
-                if (this) { ivOnline.visibility = View.VISIBLE  }
-                if (this) { tvOnline.visibility = View.VISIBLE  }
-                if (this) { btAddProfile.visibility = View.GONE }
-                if (this) { tvWarning.visibility = View.GONE }
-            }
-        }
-
         binding.btAddJob.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_addEditJobFragment)
         }
@@ -162,7 +138,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding.bnvProfile.setOnNavigationItemSelectedListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.page_1 -> Toast.makeText(context, R.string.at_home, Toast.LENGTH_SHORT).show()
 //                R.id.page_2 -> findNavController().navigate(R.id.action_postsFragment_to_profileFragment)
                 R.id.page_3 -> findNavController().navigate(R.id.action_profileFragment_to_addEditPostFragment)
@@ -170,6 +146,44 @@ class ProfileFragment : Fragment() {
                 else -> findNavController().navigate(R.id.action_postsFragment_to_profileFragment)
             }
             return@setOnNavigationItemSelectedListener true
+        }
+
+        with(binding) {
+            with(profileAccess.toString().isNotBlank() && profileAccess.toString().isNotEmpty()) {
+                if (this) {
+                    cvIsYou.visibility = View.VISIBLE
+                }
+                if (this) {
+                    profileJobId.visibility = View.VISIBLE
+                }
+                if (this) {
+                    profileJob.visibility = View.VISIBLE
+                }
+                if (this) {
+                    profilePostId.visibility = View.VISIBLE
+                }
+                if (this) {
+                    btAddJob.visibility = View.VISIBLE
+                }
+                if (this) {
+                    btLike.visibility = View.VISIBLE
+                }
+                if (this) {
+                    btParticipants.visibility = View.VISIBLE
+                }
+                if (this) {
+                    ivOnline.visibility = View.VISIBLE
+                }
+                if (this) {
+                    tvOnline.visibility = View.VISIBLE
+                }
+                if (this) {
+                    btAddProfile.visibility = View.GONE
+                }
+                if (this) {
+                    tvWarning.visibility = View.GONE
+                }
+            }
         }
 
         return binding.root

@@ -8,11 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import ru.netology.papillon.ProfileFragment.Companion.textDataCompany
-import ru.netology.papillon.ProfileFragment.Companion.textDataFinish
-import ru.netology.papillon.ProfileFragment.Companion.textDataLink
-import ru.netology.papillon.ProfileFragment.Companion.textDataPosition
-import ru.netology.papillon.ProfileFragment.Companion.textDataStart
+import ru.netology.papillon.AddEditJobFragment.Companion.textDataCompany
+import ru.netology.papillon.AddEditJobFragment.Companion.textDataFinish
+import ru.netology.papillon.AddEditJobFragment.Companion.textDataLink
+import ru.netology.papillon.AddEditJobFragment.Companion.textDataPosition
+import ru.netology.papillon.AddEditJobFragment.Companion.textDataStart
 import ru.netology.papillon.adapter.JobsAdapter
 import ru.netology.papillon.adapter.OnJobInteractionListener
 import ru.netology.papillon.databinding.FragmentJobsBinding
