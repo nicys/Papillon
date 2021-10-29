@@ -122,7 +122,7 @@ class ProfileFragment : Fragment() {
 
             override fun onShowPost(post: Post) {
                 postViewModel.viewedById(post.id)
-                findNavController().navigate(R.id.action_postsFragment_to_showPostFragment,
+                findNavController().navigate(R.id.action_profileFragment_to_showPostFragment,
                     Bundle().apply { postData = post }
                 )
             }
@@ -136,7 +136,7 @@ class ProfileFragment : Fragment() {
         val userName = binding.tvUserName.text.toString().trim()
 
         with(binding) {
-            with(profileAccess.toString().isNotBlank() || profileAccess.toString().isNotEmpty()) {
+            with(profileAccess.toString().isNotBlank() && profileAccess.toString().isNotEmpty()) {
                 if (this) { cvIsYou.visibility = View.VISIBLE }
                 if (this) { profileJobId.visibility = View.VISIBLE  }
                 if (this) { profileJob.visibility = View.VISIBLE  }
