@@ -33,10 +33,10 @@ class ShowPostFragment : Fragment() {
         val binding = FragmentShowPostBinding.inflate(inflater, container, false)
 
         with(postViewModel) {
-            arguments?.postData?.let { post ->
+            arguments?.postData?.let { showPost ->
 
-//                getPostById(showPost.id).observe(viewLifecycleOwner, { post ->
-//                    post ?: return@observe
+                getPostById(showPost.id).observe(viewLifecycleOwner, { post ->
+                    post ?: return@observe
 
                     binding.apply {
                         tvUserName.text = post.author
@@ -105,7 +105,7 @@ class ShowPostFragment : Fragment() {
                             }.show()
                         }
                     }
-//                })
+                })
             }
         }
 
