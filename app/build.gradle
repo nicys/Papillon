@@ -45,8 +45,7 @@ android {
         }
         debug {
             manifestPlaceholders.usesCleartextTraffic = true
-            buildConfigField "String", "BASE_URL", '"\n' +
-                    'https://git.heroku.com/papillonapp.git"'
+            buildConfigField "String", "BASE_URL", '"https://git.heroku.com/papillonapp.git"'
         }
     }
 }
@@ -55,15 +54,15 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     def core_version = "1.6.0"
     def appcompat_version = "1.3.1"
-    def constraintlayout_version = "2.1.1"
-    def recyclerview_version = "1.2.1"
+    def constraintlayout_version = "2.0.4"
+    def recyclerview_version = "1.2.0"
     def junit_version = "4.13.2"
     def ext_junit_version = "1.1.2"
     def espresso_core_version = "3.3.0"
-    def activity_version = "1.4.0"
-    def lifecycle_version = "2.4.0"
-    def mdc_version = "1.4.0"
-    def fragment_version = "1.3.6"
+    def activity_version = "1.2.2"
+    def lifecycle_version = "2.3.1"
+    def mdc_version = "1.3.0"
+    def fragment_version = "1.3.2"
     def gson_version = "2.8.6"
     def navigation_version = "2.3.5"
     def room_version = "2.3.0"
