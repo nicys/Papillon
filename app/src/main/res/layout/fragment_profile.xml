@@ -73,8 +73,8 @@
             </androidx.cardview.widget.CardView>
 
             <!--            <include-->
-<!--                android:id="@+id/profileUser"-->
-<!--                layout="@layout/card_user" />-->
+            <!--                android:id="@+id/profileUser"-->
+            <!--                layout="@layout/card_user" />-->
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/mb_popup_menu"
@@ -97,6 +97,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_like"
+                style="@style/Widget.AppTheme.LikesButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -105,7 +106,6 @@
                 app:icon="@drawable/ic_favorite_24"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/footer_1"
-                style="@style/Widget.AppTheme.LikesButton"
                 tools:text="300" />
 
             <com.google.android.material.button.MaterialButton
@@ -155,8 +155,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:visibility="gone"
                 android:contentDescription="@string/online"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/bt_add_profile"
                 app:layout_constraintEnd_toStartOf="@+id/tv_online"
                 app:layout_constraintTop_toBottomOf="@id/footer_1"
@@ -167,8 +167,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:visibility="gone"
                 android:contentDescription="@string/offline"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/bt_add_profile"
                 app:layout_constraintEnd_toStartOf="@+id/tv_online"
                 app:layout_constraintTop_toBottomOf="@id/footer_1"
@@ -187,9 +187,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:backgroundTint="@color/white"
-                android:visibility="visible"
                 android:text="@string/button_fill_a_profile"
                 android:textColor="@color/bottom_navigation_view_color"
+                android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/footer_2" />
 
@@ -198,13 +198,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:gravity="center_horizontal"
-                android:visibility="visible"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:gravity="center_horizontal"
                 android:text="@string/warning_profile"
                 android:textColor="@color/red"
                 android:textSize="18sp"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bt_add_profile">
@@ -245,9 +245,9 @@
 
             </LinearLayout>
 
-<!--            <include-->
-<!--                android:id="@+id/profileJob"-->
-<!--                layout="@layout/fragment_jobs" />-->
+            <!--            <include-->
+            <!--                android:id="@+id/profileJob"-->
+            <!--                layout="@layout/fragment_jobs" />-->
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_add_job"
@@ -257,6 +257,7 @@
                 android:backgroundTint="@color/white"
                 android:text="@string/button_add_a_job"
                 android:textColor="@color/bottom_navigation_view_color"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/profileJob" />
@@ -270,23 +271,30 @@
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileJobId" >
+            app:layout_constraintTop_toBottomOf="@+id/profileJobId">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_list_of_posts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                tools:listitem="@layout/card_post" />
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-<!--            <include-->
-<!--                android:id="@+id/profilePost"-->
-<!--                layout="@layout/fragment_posts" />-->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_list_of_posts"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:orientation="vertical"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:listitem="@layout/card_post" />
+
+                </androidx.core.widget.NestedScrollView>
+
+            <!--            <include-->
+            <!--                android:id="@+id/profilePost"-->
+            <!--                layout="@layout/fragment_posts" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -296,8 +304,8 @@
             android:layout_height="48dp"
             android:background="@color/bottom_navigation_view_color2"
             android:elevation="4dp"
-            app:itemTextColor="@color/black"
             app:itemIconTint="@color/bnv_buttons_selector"
+            app:itemTextColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
