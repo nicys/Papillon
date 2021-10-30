@@ -34,18 +34,18 @@ class AddEditJobFragment : Fragment() {
     ): View? {
         val binding = FragmentAddEditJobBinding.inflate(inflater, container, false)
 
-        binding.etSetCompany.requestFocus()
-        AndroidUtils.showKeyboard(binding.root)
-
         with(binding) {
-            arguments?.textDataCompany?.let { etSetCompany.setText(it) }
-            arguments?.textDataPosition?.let { etSetPosition.setText(it) }
-            arguments?.textDataStart?.let { etSetStart.setText(it) }
-            arguments?.textDataFinish?.let { etSetFinish.setText(it) }
-            arguments?.textDataLink?.let { etSetLink.setText(it) }
-        }
+            etSetCompany.requestFocus()
+            AndroidUtils.showKeyboard(root)
 
-        with(binding) {
+            arguments?.apply {
+                textDataCompany?.let { etSetCompany.setText(it) }
+                textDataPosition?.let { etSetPosition.setText(it) }
+                textDataStart?.let { etSetStart.setText(it) }
+                textDataFinish?.let { etSetFinish.setText(it) }
+                textDataLink?.let { etSetLink.setText(it) }
+            }
+
             btConfirm.setOnClickListener {
                 with(viewModel) {
                     changeData(
@@ -61,13 +61,13 @@ class AddEditJobFragment : Fragment() {
                 AndroidUtils.hideKeyboard(requireView())
                 findNavController().navigateUp()
             }
-        }
 
-        binding.btCancel.setOnClickListener {
-            AndroidUtils.hideKeyboard(requireView())
-            findNavController().navigateUp()
-        }
+            btCancel.setOnClickListener {
+                AndroidUtils.hideKeyboard(requireView())
+                findNavController().navigateUp()
+            }
 
-        return binding.root
+            return root
+        }
     }
 }
