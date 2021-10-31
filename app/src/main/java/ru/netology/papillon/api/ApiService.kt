@@ -80,7 +80,7 @@ interface ApiService {
 }
 
 object Api {
-    val service: ApiService by lazy {
+    val service by lazy {
         retrofit.create(ApiService::class.java)
     }
 }
