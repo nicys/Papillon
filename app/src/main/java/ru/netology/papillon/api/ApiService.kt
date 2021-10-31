@@ -14,6 +14,7 @@ import ru.netology.papillon.dto.User
 
 private const val BASE_URL = "${BuildConfig.BASE_URL}/api"
 
+//remove on release
 private val logging = HttpLoggingInterceptor().apply {
     if (BuildConfig.DEBUG) {
         level = HttpLoggingInterceptor.Level.BODY
@@ -21,7 +22,7 @@ private val logging = HttpLoggingInterceptor().apply {
 }
 
 private val okhttp = OkHttpClient.Builder()
-    .addInterceptor(logging)
+    .addInterceptor(logging) //remove on release
     .build()
 
 private val retrofit = Retrofit.Builder()
