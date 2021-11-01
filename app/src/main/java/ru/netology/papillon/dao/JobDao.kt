@@ -16,5 +16,8 @@ interface JobDao {
     suspend fun removedById(id: Long)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveJob(job: JobEntity): Long
+    suspend fun insert(job: JobEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(jobs: List<JobEntity>)
 }

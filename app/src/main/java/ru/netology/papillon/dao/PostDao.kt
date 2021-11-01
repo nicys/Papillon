@@ -45,5 +45,8 @@ interface PostDao {
     fun removedById(id: Long)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun savePost(post: PostEntity)
+    suspend fun insert(post: PostEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(posts: List<PostEntity>)
 }

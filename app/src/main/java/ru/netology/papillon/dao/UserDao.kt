@@ -16,5 +16,8 @@ interface UserDao {
     suspend fun removedById(idUser: Long)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveUser(user: UserEntity): Long
+    suspend fun insert(user: UserEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(users: List<UserEntity>)
 }
