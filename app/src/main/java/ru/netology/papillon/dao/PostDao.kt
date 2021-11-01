@@ -21,7 +21,7 @@ interface PostDao {
             WHERE id = :id
             """
     )
-    fun likedById(id: Long)
+    suspend fun likedById(id: Long)
 
     @Query(
         """
@@ -30,7 +30,7 @@ interface PostDao {
             WHERE id = :id
             """
     )
-    fun sharedById(id: Long)
+    suspend fun sharedById(id: Long)
 
     @Query(
         """
@@ -39,11 +39,11 @@ interface PostDao {
             WHERE id = :id
             """
     )
-    fun viewedById(id: Long)
+    suspend fun viewedById(id: Long)
 
     @Query("DELETE FROM PostEntity WHERE id = :id")
     fun removedById(id: Long)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun savePost(post: PostEntity)
+    suspend fun savePost(post: PostEntity)
 }

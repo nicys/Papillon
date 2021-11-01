@@ -13,8 +13,8 @@ interface JobDao {
     fun getAll(): LiveData<List<JobEntity>>
 
     @Query("DELETE FROM JobEntity WHERE id = :id")
-    fun removedById(id: Long)
+    suspend fun removedById(id: Long)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveJob(job: JobEntity): Long
+    suspend fun saveJob(job: JobEntity): Long
 }

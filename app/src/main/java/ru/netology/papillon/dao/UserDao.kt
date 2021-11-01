@@ -13,8 +13,8 @@ interface UserDao {
     fun getAll(): LiveData<List<UserEntity>>
 
     @Query("DELETE FROM UserEntity WHERE idUser = :idUser")
-    fun removedById(idUser: Long)
+    suspend fun removedById(idUser: Long)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveUser(user: UserEntity): Long
+    suspend fun saveUser(user: UserEntity): Long
 }
