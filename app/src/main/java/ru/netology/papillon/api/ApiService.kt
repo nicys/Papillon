@@ -14,7 +14,7 @@ import ru.netology.papillon.dto.User
 
 private const val BASE_URL = "${BuildConfig.BASE_URL}/api"
 
-//remove on release
+//remove on release this block of HttpLoggingInterceptor()
 private val logging = HttpLoggingInterceptor().apply {
     if (BuildConfig.DEBUG) {
         level = HttpLoggingInterceptor.Level.BODY
@@ -32,8 +32,8 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface ApiService {
-// integration with posts
 
+// integration with posts
     @GET("posts")
     suspend fun getAllPosts(): Response<List<Post>>
 
@@ -59,7 +59,6 @@ interface ApiService {
     suspend fun viewedByIdPost(@Path("id") id: Long): Response<Post>
 
 // integration with jobs
-
     @GET("jobs")
     suspend fun getAllJobs(): Response<List<Job>>
 
@@ -70,7 +69,6 @@ interface ApiService {
     suspend fun removedByIdJob(@Path("id") id: Long): Response<Unit>
 
     // integration with users
-
     @GET("users")
     suspend fun getAllUsers(): Response<List<User>>
 
