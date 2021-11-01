@@ -6,22 +6,24 @@ import ru.netology.papillon.dto.Post
 import ru.netology.papillon.dto.User
 
 interface PostRepository {
-    fun getAllPosts(): LiveData<List<Post>>
+    val data: LiveData<List<Post>>
+    fun getAll()
     fun likedById(id: Long)
     fun sharedById(id: Long)
     fun viewedById(id: Long)
     fun removedById(id: Long)
-    fun savePost(post: Post)
+    fun save(post: Post)
 }
 
-interface JobRepository {
-    fun getAllJobs(): LiveData<List<Job>>
+interface Repository<T> {
+    val data: LiveData<List<T>>
+    fun getAll(): LiveData<List<T>>
     fun removedById(id: Long)
-    fun saveJob(job: Job)
+    fun save(t: T)
 }
 
-interface UserRepository {
-    fun getAllUsers(): LiveData<List<User>>
-    fun removedById(id: Long)
-    fun saveUser(user: User)
-}
+//interface UserRepository {
+//    fun getAllUsers(): LiveData<List<User>>
+//    fun removedById(id: Long)
+//    fun saveUser(user: User)
+//}
