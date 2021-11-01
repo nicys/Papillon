@@ -15,16 +15,11 @@ fun getCurrentDateTime(): Date {
     return Calendar.getInstance().time
 }
 
-fun User.toEntityUser() = UserEntity(idUser, avatar, entered, name, surname, isMe)
+fun List<PostEntity>.toDtoPost(): List<Post> = map(PostEntity::toDtoPost)
+fun List<Post>.toEntityPost(): List<PostEntity> = map(PostEntity::fromDtoPost)
+
+fun List<JobEntity>.toDtoJob(): List<Job> = map(JobEntity::toDtoJob)
+fun List<Job>.toEntityJob(): List<JobEntity> = map(JobEntity::fromDtoJob)
+
 fun List<UserEntity>.toDtoUser(): List<User> = map(UserEntity::toDtoUser)
-fun List<User>.toEntityUser(): List<UserEntity> = map(User::toEntityUser)
-
-//fun Job.toEntityJob() = JobEntity(id, company, position, start, finish, link)
-//fun List<JobEntity>.toDtoJob() = map(JobEntity::toDtoJob)
-//fun List<Job>.toJobEntity() = map(Job::toEntityJob)
-
-//fun Post.toEntityPost() = PostEntity(id, authorId, author, authorAvatar,
-//    published, content, likedByMe, likesCnt, shares, sharesCnt, views,
-//    viewsCnt, videoAttach, audioAttach, imageAttach)
-//fun List<PostEntity>.toDtoPost() = map(PostEntity::toDtoPost)
-//fun List<Post>.toEntityPost() = map(Post::toEntityPost)
+fun List<User>.toEntityUser(): List<UserEntity> = map(UserEntity::fromDtoUser)

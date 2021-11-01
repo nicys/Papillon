@@ -3,7 +3,6 @@ package ru.netology.papillon.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ru.netology.papillon.dto.Job
-import ru.netology.papillon.dto.Post
 
 @Entity
 data class JobEntity(
@@ -15,7 +14,7 @@ data class JobEntity(
     val finish: String,
     val link: String,
 ) {
-//    fun toDtoJob() = Job(id, company, position, start, finish, link)
+    fun toDtoJob() = Job(id, company, position, start, finish, link)
 
     companion object {
         fun fromDtoJob(dto: Job) =
