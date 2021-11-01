@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.android.material.snackbar.Snackbar
 import ru.netology.papillon.AddEditPostFragment.Companion.textDataContent
 import ru.netology.papillon.ShowPostFragment.Companion.postData
 import ru.netology.papillon.adapter.OnPostInteractionListener
@@ -88,6 +89,11 @@ class PostsFragment : Fragment() {
         binding.rvListOfPosts.adapter = adapter
         postViewModel.data.observe(viewLifecycleOwner, { posts ->
             adapter.submitList(posts)
+        })
+
+        postViewModel.networkError.observe(viewLifecycleOwner, {
+            Snackbar.make(requireView(), getString(R.string.error_network), Snackbar.LENGTH_LONG)
+                .show()
         })
 
         binding.bnvListOfPosts.setOnNavigationItemSelectedListener {
