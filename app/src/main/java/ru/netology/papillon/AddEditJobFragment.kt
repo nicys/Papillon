@@ -67,6 +67,11 @@ class AddEditJobFragment : Fragment() {
                 findNavController().navigateUp()
             }
 
+            viewModel.jobCreated.observe(viewLifecycleOwner) {
+                viewModel.loadJobs()
+                findNavController().navigateUp()
+            }
+
             return root
         }
     }

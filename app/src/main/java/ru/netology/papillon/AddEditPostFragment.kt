@@ -37,6 +37,10 @@ class AddEditPostFragment : Fragment() {
             viewModel.changeContent(binding.etEditContent.text.toString())
             viewModel.savePost()
             hideKeyboard(requireView())
+        }
+
+        viewModel.postCreated.observe(viewLifecycleOwner) {
+            viewModel.loadPosts()
             findNavController().navigateUp()
         }
 

@@ -18,7 +18,7 @@ class AddEditUserFragment : Fragment() {
         var Bundle.textUserName: String? by StringArg
     }
 
-    private val viewModel: UserViewModel by viewModels(
+    private val userViewModel: UserViewModel by viewModels(
         ownerProducer = ::requireParentFragment)
 
     override fun onCreateView(
@@ -28,23 +28,30 @@ class AddEditUserFragment : Fragment() {
 
         val binding = FragmentAddEditUserBinding.inflate(inflater, container, false)
 
-        binding.etUserName.requestFocus()
-        AndroidUtils.showKeyboard(binding.root)
+        with(binding) {
+            etUserName.requestFocus()
+            AndroidUtils.showKeyboard(binding.root)
 
-        arguments?.textUserName?.let { binding.etUserName.setText(it) }
+            arguments?.textUserName?.let { binding.etUserName.setText(it) }
 
-        binding.btConfirm.setOnClickListener {
-            viewModel.changeData(binding.etUserName.text.toString())
-            viewModel.saveUser()
-            AndroidUtils.hideKeyboard(requireView())
-            findNavController().navigateUp()
+            btConfirm.setOnClickListener {
+                userViewModel.changeData(binding.etUserName.text.toString())
+                userViewModel.saveUser()
+                AndroidUtils.hideKeyboard(requireView())
+                findNavController().navigateUp()
+            }
+
+            btCancel.setOnClickListener {
+                AndroidUtils.hideKeyboard(requireView())
+                findNavController().navigateUp()
+            }
         }
 
-        binding.btCancel.setOnClickListener {
-            AndroidUtils.hideKeyboard(requireView())
-            findNavController().navigateUp()
-        }
+        userViewModel.userCreated.observe(viewLifecycleOwner) {
+            userViewModel.loadUsers()
+                findNavController().navigateUp()
+            }
 
-        return binding.root
+            return binding.root
     }
 }
