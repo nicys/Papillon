@@ -36,7 +36,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         loadUsers()
     }
 
-    private fun loadUsers() = viewModelScope.launch {
+    fun loadUsers() = viewModelScope.launch {
         try {
             _dataState.value = FeedModelState(loading = true)
             repository.getAll()
