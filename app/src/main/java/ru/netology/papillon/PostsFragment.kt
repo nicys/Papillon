@@ -25,10 +25,7 @@ import ru.netology.papillon.viewmodel.UserViewModel
 
 class PostsFragment : Fragment() {
 
-    val userViewModel: UserViewModel by viewModels(ownerProducer = ::requireParentFragment)
-    val jobViewModel: JobViewModel by viewModels(ownerProducer = ::requireParentFragment)
     val postViewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
-    val profileViewModel: ProfileViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
     override fun onCreateView(
         inflater: LayoutInflater,
