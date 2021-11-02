@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.android.material.snackbar.Snackbar
 import ru.netology.papillon.AddEditJobFragment.Companion.textDataCompany
 import ru.netology.papillon.AddEditJobFragment.Companion.textDataFinish
 import ru.netology.papillon.AddEditJobFragment.Companion.textDataLink
@@ -48,9 +50,35 @@ class JobsFragment : Fragment() {
         })
 
         binding.rvListOfJobs.adapter = adapter
-        jobViewModel.data.observe(viewLifecycleOwner, { jobs ->
-            adapter.submitList(jobs)
+        jobViewModel.data.observe(viewLifecycleOwner, { state ->
+            adapter.submitList(state.jobs)
+            binding.tvEmptyText.isVisible = state.empty
         })
+
+        binding.rvListOfJobs.adapter = adapter
+        jobViewModel.dataState.observe(viewLifecycleOwner, { state ->
+            binding.pbProgress.isVisible = state.loading
+            binding.swiperefresh.isRefreshing = state.refreshing
+            binding.errorGroup.isVisible = state.error
+            if (state.error) {
+                Snackbar.make(binding.root, R.string.error_loading, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.retry_loading) { jobViewModel.loadJobs() }
+                    .show()
+            }
+        })
+
+        jobViewModel.networkError.observe(viewLifecycleOwner, {
+            Snackbar.make(requireView(), getString(R.string.error_network), Snackbar.LENGTH_LONG)
+                .show()
+        })
+
+        binding.btRetryButton.setOnClickListener {
+            jobViewModel.loadJobs()
+        }
+
+        binding.swiperefresh.setOnRefreshListener {
+            jobViewModel.refreshJobs()
+        }
 
         binding.rvListOfJobs.addItemDecoration(
             DividerItemDecoration(
