@@ -24,7 +24,7 @@ class AddEditJobFragment : Fragment() {
         var Bundle.textDataLink: String? by StringArg
     }
 
-    private val viewModel: JobViewModel by viewModels(
+    private val jobViewModel: JobViewModel by viewModels(
         ownerProducer = ::requireParentFragment
     )
 
@@ -47,7 +47,7 @@ class AddEditJobFragment : Fragment() {
             }
 
             btConfirm.setOnClickListener {
-                with(viewModel) {
+                with(jobViewModel) {
                     changeData(
                         etSetCompany.text.toString(),
                         etSetPosition.text.toString(),
@@ -67,8 +67,8 @@ class AddEditJobFragment : Fragment() {
                 findNavController().navigateUp()
             }
 
-            viewModel.jobCreated.observe(viewLifecycleOwner) {
-                viewModel.loadJobs()
+            jobViewModel.jobCreated.observe(viewLifecycleOwner) {
+                jobViewModel.loadJobs()
                 findNavController().navigateUp()
             }
 
