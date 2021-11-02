@@ -25,7 +25,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     private val edited = MutableLiveData(empty)
     private val _userCreated = SingleLiveEvent<Unit>()
-    val postCreated: LiveData<Unit>
+    val userCreated: LiveData<Unit>
         get() = _userCreated
 
     private val _networkError = SingleLiveEvent<String>()

@@ -25,7 +25,7 @@ class JobViewModel(application: Application) : AndroidViewModel(application) {
 
     private val edited = MutableLiveData(empty)
     private val _jobCreated = SingleLiveEvent<Unit>()
-    val postCreated: LiveData<Unit>
+    val jobCreated: LiveData<Unit>
         get() = _jobCreated
 
     private val _networkError = SingleLiveEvent<String>()
