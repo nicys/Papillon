@@ -5,7 +5,7 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import ru.netology.papillon.db.AppDbPost
 import ru.netology.papillon.dto.Post
-import ru.netology.papillon.model.FeedModel
+import ru.netology.papillon.model.FeedModelPosts
 import ru.netology.papillon.model.FeedModelState
 import ru.netology.papillon.repository.PostRepository
 import ru.netology.papillon.repository.PostRepositoryImpl
@@ -19,7 +19,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: PostRepository =
         PostRepositoryImpl(AppDbPost.getInstance(context = application).postsDao())
 
-    val data: LiveData<FeedModel> = repository.data.map(::FeedModel)
+    val data: LiveData<FeedModelPosts> = repository.data.map(::FeedModelPosts)
     val dataPosts = repository.data
 
     private val _dataState = MutableLiveData<FeedModelState>()
@@ -30,8 +30,8 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     val postCreated: LiveData<Unit>
         get() = _postCreated
 
-    private val _networkError = SingleLiveEvent<Unit>()
-    val networkError: LiveData<Unit>
+    private val _networkError = SingleLiveEvent<String>()
+    val networkError: LiveData<String>
         get() = _networkError
 
     val edited = MutableLiveData(empty)
@@ -100,7 +100,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
             try {
                 repository.likedById(id)
                 data.map {
-                    FeedModel(posts = data.value?.posts.orEmpty().map { post ->
+                    FeedModelPosts(posts = data.value?.posts.orEmpty().map { post ->
                         if (post.id != id) post else post.copy(
                             likedByMe = !post.likedByMe,
                             likesCnt = post.likesCnt + 1
@@ -108,7 +108,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                     })
                 }
             } catch (e: Exception) {
-                _networkError.value = e.printStackTrace()
+                _networkError.value = e.message
             }
         }
     }
@@ -118,7 +118,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
             try {
                 repository.sharedById(id)
                 data.map {
-                    FeedModel(posts = data.value?.posts.orEmpty().map { post ->
+                    FeedModelPosts(posts = data.value?.posts.orEmpty().map { post ->
                         if (post.id != id) post else post.copy(
                             sharesCnt = post.sharesCnt + 1,
                             shares = sumTotalFeed(post.sharesCnt + 1)
@@ -126,7 +126,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                     })
                 }
             } catch (e: Exception) {
-                _networkError.value = e.printStackTrace()
+                _networkError.value = e.message
             }
         }
     }
@@ -136,7 +136,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
             try {
                 repository.viewedById(id)
                 data.map {
-                    FeedModel(posts = data.value?.posts.orEmpty().map { post ->
+                    FeedModelPosts(posts = data.value?.posts.orEmpty().map { post ->
                         if (post.id != id) post else post.copy(
                             viewsCnt = post.viewsCnt + 1,
                             views = sumTotalFeed(post.viewsCnt + 1)
@@ -144,7 +144,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                     })
                 }
             } catch (e: Exception) {
-                _networkError.value = e.printStackTrace()
+                _networkError.value = e.message
             }
         }
     }
@@ -156,7 +156,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                 val posts = data.value?.posts.orEmpty().filter { post -> post.id != id }
                 data.value?.copy(posts = posts.orEmpty())
             } catch (e: Exception) {
-                _networkError.value = e.printStackTrace()
+                _networkError.value = e.message
             }
         }
     }
