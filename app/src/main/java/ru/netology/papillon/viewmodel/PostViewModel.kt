@@ -40,7 +40,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         loadPosts()
     }
 
-    private fun loadPosts() = viewModelScope.launch {
+    fun loadPosts() = viewModelScope.launch {
         try {
             _dataState.value = FeedModelState(loading = true)
             repository.getAll()
