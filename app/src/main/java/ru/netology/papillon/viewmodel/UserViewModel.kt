@@ -1,49 +1,95 @@
 package ru.netology.papillon.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.map
+import androidx.lifecycle.*
+import kotlinx.coroutines.launch
 import ru.netology.papillon.db.AppDbUser
 import ru.netology.papillon.dto.User
-import ru.netology.papillon.repository.UserRepository
+import ru.netology.papillon.model.FeedModelState
+import ru.netology.papillon.model.FeedModelUsers
+import ru.netology.papillon.repository.Repository
 import ru.netology.papillon.repository.UserRepositoryImpl
+import ru.netology.papillon.utils.SingleLiveEvent
 
 private val empty = User()
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository: UserRepository = UserRepositoryImpl(
-        AppDbUser.getInstance(context = application).usersDao()
-    )
-    val data = repository.getAllUsers()
-    val edited = MutableLiveData(empty)
+    private val repository: Repository<User> =
+        UserRepositoryImpl(AppDbUser.getInstance(context = application).usersDao())
+
+    val data: LiveData<FeedModelUsers> = repository.data.map(::FeedModelUsers)
+    private val _dataState = MutableLiveData<FeedModelState>()
+    val dataState: LiveData<FeedModelState>
+        get() = _dataState
+
+    private val edited = MutableLiveData(empty)
+    private val _userCreated = SingleLiveEvent<Unit>()
+    val postCreated: LiveData<Unit>
+        get() = _userCreated
+
+    private val _networkError = SingleLiveEvent<String>()
+    val networkError: LiveData<String>
+        get() = _networkError
+
+    init {
+        loadUsers()
+    }
+
+    private fun loadUsers() = viewModelScope.launch {
+        try {
+            _dataState.value = FeedModelState(loading = true)
+            repository.getAll()
+            _dataState.value = FeedModelState()
+        } catch (e: Exception) {
+            _dataState.value = FeedModelState(error = true)
+        }
+    }
+
+    fun refreshUsers() = viewModelScope.launch {
+        try {
+            _dataState.value = FeedModelState(refreshing = true)
+            repository.getAll()
+            _dataState.value = FeedModelState()
+        } catch (e: Exception) {
+            _dataState.value = FeedModelState(error = true)
+        }
+    }
 
     fun saveUser() {
         edited.value?.let {
-            repository.saveUser(it)
+            _userCreated.value = Unit
+            viewModelScope.launch {
+                try {
+                    repository.save(it)
+                    _dataState.value = FeedModelState()
+                } catch (e: Exception) {
+                    _dataState.value = FeedModelState(error = true)
+                }
+            }
         }
         edited.value = empty
     }
 
-    fun editName(user: User) {
+    fun editUser(user: User) {
         edited.value = user
     }
 
-    fun changeName(name: String) {
-        val text = name.trim()
-        if (edited.value?.name == text) {
-            return
-        }
-        edited.value = edited.value?.copy(name = text)
+    fun changeData(name: String) {
+        edited.value = edited.value?.copy(
+            name = name,
+        )
     }
 
-    fun removedById(idUser: Long) = repository.removedById(idUser)
-
-    fun getUserById(id: Long): LiveData<User?> = data.map { users ->
-        users.find {
-            it.idUser == id
+    fun removedById(id: Long) {
+        viewModelScope.launch {
+            try {
+                repository.removedById(id)
+                val users = data.value?.users.orEmpty().filter { user -> user.idUser != id }
+                data.value?.copy(users = users.orEmpty())
+            } catch (e: Exception) {
+                _networkError.value = e.message
+            }
         }
     }
 }
