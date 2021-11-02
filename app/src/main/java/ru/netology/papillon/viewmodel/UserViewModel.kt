@@ -19,6 +19,8 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         UserRepositoryImpl(AppDbUser.getInstance(context = application).usersDao())
 
     val data: LiveData<FeedModelUsers> = repository.data.map(::FeedModelUsers)
+    val dataUsers = repository.data
+
     private val _dataState = MutableLiveData<FeedModelState>()
     val dataState: LiveData<FeedModelState>
         get() = _dataState
