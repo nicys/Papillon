@@ -12,7 +12,7 @@ import ru.netology.papillon.dto.Job
 import ru.netology.papillon.dto.Post
 import ru.netology.papillon.dto.User
 
-private const val BASE_URL = "${BuildConfig.BASE_URL}/api"
+private const val BASE_URL = "${BuildConfig.BASE_URL}/api/"
 
 //remove on release this block of HttpLoggingInterceptor()
 private val logging = HttpLoggingInterceptor().apply {
