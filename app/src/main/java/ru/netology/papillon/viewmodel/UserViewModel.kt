@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import ru.netology.papillon.db.AppDbUser
+import ru.netology.papillon.dto.Post
 import ru.netology.papillon.dto.User
 import ru.netology.papillon.model.FeedModelState
 import ru.netology.papillon.model.FeedModelUsers
@@ -92,6 +93,12 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
             } catch (e: Exception) {
                 _networkError.value = e.message
             }
+        }
+    }
+
+    fun getUserById(id: Long): LiveData<User?> = dataUsers.map { users ->
+        users.find { user ->
+            user.idUser == id
         }
     }
 }
