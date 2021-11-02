@@ -2,17 +2,15 @@ package ru.netology.papillon.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
-import ru.netology.papillon.R
 import ru.netology.papillon.db.AppDbPost
 import ru.netology.papillon.dto.Post
-import ru.netology.papillon.dto.User
 import ru.netology.papillon.model.FeedModel
 import ru.netology.papillon.model.FeedModelState
 import ru.netology.papillon.repository.PostRepository
 import ru.netology.papillon.repository.PostRepositoryImpl
 import ru.netology.papillon.utils.SingleLiveEvent
+import ru.netology.papillon.utils.sumTotalFeed
 
 private val empty = Post()
 
@@ -102,7 +100,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
             try {
                 repository.likedById(id)
                 data.map {
-                    FeedModel(posts = data.value?.posts.orEmpty().map { post->
+                    FeedModel(posts = data.value?.posts.orEmpty().map { post ->
                         if (post.id != id) post else post.copy(
                             likedByMe = !post.likedByMe,
                             likesCnt = post.likesCnt + 1
@@ -110,14 +108,58 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                     })
                 }
             } catch (e: Exception) {
-                _networkError.value = e.message ?: "Network error. Try again later" is
+                _networkError.value = e.printStackTrace()
             }
         }
     }
 
-    fun sharedById(id: Long) = repository.sharedById(id)
-    fun viewedById(id: Long) = repository.viewedById(id)
-    fun removedById(id: Long) = repository.removedById(id)
+    fun sharedById(id: Long) {
+        viewModelScope.launch {
+            try {
+                repository.sharedById(id)
+                data.map {
+                    FeedModel(posts = data.value?.posts.orEmpty().map { post ->
+                        if (post.id != id) post else post.copy(
+                            sharesCnt = post.sharesCnt + 1,
+                            shares = sumTotalFeed(post.sharesCnt + 1)
+                        )
+                    })
+                }
+            } catch (e: Exception) {
+                _networkError.value = e.printStackTrace()
+            }
+        }
+    }
+
+    fun viewedById(id: Long) {
+        viewModelScope.launch {
+            try {
+                repository.viewedById(id)
+                data.map {
+                    FeedModel(posts = data.value?.posts.orEmpty().map { post ->
+                        if (post.id != id) post else post.copy(
+                            viewsCnt = post.viewsCnt + 1,
+                            views = sumTotalFeed(post.viewsCnt + 1)
+                        )
+                    })
+                }
+            } catch (e: Exception) {
+                _networkError.value = e.printStackTrace()
+            }
+        }
+    }
+
+    fun removedById(id: Long) {
+        viewModelScope.launch {
+            try {
+                repository.removedById(id)
+                val posts = data.value?.posts.orEmpty().filter { post -> post.id != id }
+                data.value?.copy(posts = posts.orEmpty())
+            } catch (e: Exception) {
+                _networkError.value = e.printStackTrace()
+            }
+        }
+    }
 
     fun getPostById(id: Long): LiveData<Post?> = dataPosts.map { posts ->
         posts.find { post ->
