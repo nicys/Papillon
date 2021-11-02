@@ -36,7 +36,7 @@ class JobViewModel(application: Application) : AndroidViewModel(application) {
         loadJobs()
     }
 
-    private fun loadJobs() = viewModelScope.launch {
+    fun loadJobs() = viewModelScope.launch {
         try {
             _dataState.value = FeedModelState(loading = true)
             repository.getAll()
