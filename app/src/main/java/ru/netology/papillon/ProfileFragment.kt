@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -43,11 +44,13 @@ class ProfileFragment : Fragment() {
         val binding = FragmentProfileBinding.inflate(inflater, container, false)
         binding.bnvProfile.selectedItemId = R.id.page_3
 
-        val profileAccess = profileViewModel.data.observe(viewLifecycleOwner) {
-            it.map { user ->
-                binding.tvUserName.text = user.name
-            }
-        }
+//        val profileAccess = profileViewModel.dataUser.observe(viewLifecycleOwner) { users->
+//            users.find { user->
+//                    user.idUser == idUser
+//                }
+//                binding.tvUserName.text = user.name
+//            }
+
 
         val postAdapter = PostsAdapter(object : OnPostInteractionListener {
             override fun onEditPost(post: Post) {
@@ -100,8 +103,9 @@ class ProfileFragment : Fragment() {
         })
 
         binding.rvListOfPosts.adapter = postAdapter
-        postViewModel.data.observe(viewLifecycleOwner, { posts ->
-            postAdapter.submitList(posts)
+        postViewModel.data.observe(viewLifecycleOwner, { state ->
+            postAdapter.submitList(state.posts)
+//            binding.tvEmptyText.isVisible = state.empty
         })
 
         val jobAdapter = JobsAdapter(object : OnJobInteractionListener {
@@ -123,8 +127,9 @@ class ProfileFragment : Fragment() {
         })
 
         binding.rvListOfJobs.adapter = jobAdapter
-        jobViewModel.data.observe(viewLifecycleOwner, { jobs ->
-            jobAdapter.submitList(jobs)
+        jobViewModel.data.observe(viewLifecycleOwner, { state ->
+            jobAdapter.submitList(state.jobs)
+//            binding.tvEmptyText.isVisible = state.empty
         })
 
         val userName = binding.tvUserName.text.toString().trim()
@@ -149,7 +154,7 @@ class ProfileFragment : Fragment() {
         }
 
         with(binding) {
-            with(profileAccess.toString().isNotBlank() && profileAccess.toString().isNotEmpty()) {
+            with(userName.toString().isNotBlank() && userName.toString().isNotEmpty()) {
                 if (this) {
                     cvIsYou.visibility = View.VISIBLE
                 }
