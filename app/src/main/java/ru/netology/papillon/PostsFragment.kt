@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -87,14 +88,35 @@ class PostsFragment : Fragment() {
         })
 
         binding.rvListOfPosts.adapter = adapter
-        postViewModel.data.observe(viewLifecycleOwner, { posts ->
-            adapter.submitList(posts)
+        postViewModel.data.observe(viewLifecycleOwner, { state ->
+            adapter.submitList(state.posts)
+            binding.tvEmptyText.isVisible = state.empty
+        })
+
+        binding.rvListOfPosts.adapter = adapter
+        postViewModel.dataState.observe(viewLifecycleOwner, { state ->
+            binding.pbProgress.isVisible = state.loading
+            binding.swiperefresh.isRefreshing = state.refreshing
+            binding.errorGroup.isVisible = state.error
+            if (state.error) {
+                Snackbar.make(binding.root, R.string.error_loading, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.retry_loading) { postViewModel.loadPosts() }
+                    .show()
+            }
         })
 
         postViewModel.networkError.observe(viewLifecycleOwner, {
             Snackbar.make(requireView(), getString(R.string.error_network), Snackbar.LENGTH_LONG)
                 .show()
         })
+
+        binding.btRetryButton.setOnClickListener {
+            postViewModel.loadPosts()
+        }
+
+        binding.swiperefresh.setOnRefreshListener {
+            postViewModel.refreshPosts()
+        }
 
         binding.bnvListOfPosts.setOnNavigationItemSelectedListener {
             when (it.itemId) {
