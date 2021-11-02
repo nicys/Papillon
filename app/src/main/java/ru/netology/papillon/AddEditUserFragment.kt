@@ -34,7 +34,7 @@ class AddEditUserFragment : Fragment() {
         arguments?.textUserName?.let { binding.etUserName.setText(it) }
 
         binding.btConfirm.setOnClickListener {
-            viewModel.changeName(binding.etUserName.text.toString())
+            viewModel.changeData(binding.etUserName.text.toString())
             viewModel.saveUser()
             AndroidUtils.hideKeyboard(requireView())
             findNavController().navigateUp()
