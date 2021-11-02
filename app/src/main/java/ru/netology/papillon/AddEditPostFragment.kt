@@ -19,7 +19,7 @@ class AddEditPostFragment : Fragment() {
         var Bundle.textDataContent: String? by StringArg
     }
 
-    private val viewModel: PostViewModel by viewModels(
+    private val postViewModel: PostViewModel by viewModels(
         ownerProducer = ::requireParentFragment)
 
     override fun onCreateView(
@@ -34,13 +34,13 @@ class AddEditPostFragment : Fragment() {
         arguments?.textDataContent?.let { binding.etEditContent.setText(it) }
 
         binding.ok.setOnClickListener {
-            viewModel.changeContent(binding.etEditContent.text.toString())
-            viewModel.savePost()
+            postViewModel.changeContent(binding.etEditContent.text.toString())
+            postViewModel.savePost()
             hideKeyboard(requireView())
         }
 
-        viewModel.postCreated.observe(viewLifecycleOwner) {
-            viewModel.loadPosts()
+        postViewModel.postCreated.observe(viewLifecycleOwner) {
+            postViewModel.loadPosts()
             findNavController().navigateUp()
         }
 
