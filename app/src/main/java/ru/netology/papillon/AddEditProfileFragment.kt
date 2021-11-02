@@ -23,30 +23,30 @@ class AddEditProfileFragment : Fragment() {
     private val viewModel: ProfileViewModel by viewModels(
         ownerProducer = ::requireParentFragment)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
 
-        val binding = FragmentAddEditProfileBinding.inflate(inflater, container, false)
-
-        binding.etUserName.requestFocus()
-        AndroidUtils.showKeyboard(binding.root)
-
-        arguments?.textUserName?.let { binding.etUserName.setText(it) }
-
-        binding.btConfirm.setOnClickListener {
-            viewModel.changeName(binding.etUserName.text.toString())
-            viewModel.saveUser()
-            AndroidUtils.hideKeyboard(requireView())
-            findNavController().navigateUp()
-        }
-
-        binding.btCancel.setOnClickListener {
-            AndroidUtils.hideKeyboard(requireView())
-            findNavController().navigateUp()
-        }
-
-        return binding.root
-    }
+//        val binding = FragmentAddEditProfileBinding.inflate(inflater, container, false)
+//
+//        binding.etUserName.requestFocus()
+//        AndroidUtils.showKeyboard(binding.root)
+//
+//        arguments?.textUserName?.let { binding.etUserName.setText(it) }
+//
+//        binding.btConfirm.setOnClickListener {
+//            viewModel.changeName(binding.etUserName.text.toString())
+//            viewModel.saveUser()
+//            AndroidUtils.hideKeyboard(requireView())
+//            findNavController().navigateUp()
+//        }
+//
+//        binding.btCancel.setOnClickListener {
+//            AndroidUtils.hideKeyboard(requireView())
+//            findNavController().navigateUp()
+//        }
+//
+//        return binding.root
+//    }
 }
