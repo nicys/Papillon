@@ -1,10 +1,10 @@
 package ru.netology.papillon.repository
 
-import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 import ru.netology.papillon.dto.Post
 
 interface PostRepository {
-    val data: LiveData<List<Post>>
+    val data: Flow<List<Post>>
     suspend fun getAll()
     suspend fun likedById(id: Long)
     suspend fun sharedById(id: Long)
@@ -14,7 +14,7 @@ interface PostRepository {
 }
 
 interface Repository<T> {
-    val data: LiveData<List<T>>
+    val data: Flow<List<T>>
     suspend fun getAll()
     suspend fun removedById(id: Long)
     suspend fun save(t: T)
