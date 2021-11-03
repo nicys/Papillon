@@ -172,9 +172,9 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun getPostById(id: Long): LiveData<FeedModelPosts> = data.map { FeedModelPosts(posts = data.value?.posts
-        .orEmpty().map {
-            if (it.id == id) it else empty
-        })
+    fun getPostById(id: Long): LiveData<Post?> = repository.dataPosts.map { posts ->
+        posts.find { post ->
+            post.id == id
+        }
     }
 }
