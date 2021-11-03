@@ -34,7 +34,7 @@ class ShowPostFragment : Fragment() {
         with(postViewModel) {
             arguments?.postData?.let { showPost ->
 
-                getPostById(showPost.id).observe(viewLifecycleOwner, {
+                getPostById(showPost.id).observe(viewLifecycleOwner, { post->
                     post ?: return@observe
 
                     binding.apply {
