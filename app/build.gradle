@@ -41,11 +41,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             manifestPlaceholders.usesCleartextTraffic = false
-            buildConfigField "String", "BASE_URL", '"https://git.heroku.com/papillonapp.git"'
+            buildConfigField "String", "BASE_URL", '"https://papillonapp.herokuapp.com"'
         }
         debug {
             manifestPlaceholders.usesCleartextTraffic = true
-            buildConfigField "String", "BASE_URL", '"https://git.heroku.com/papillonapp.git"'
+            buildConfigField "String", "BASE_URL", '"https://papillonapp.herokuapp.com"'
         }
     }
 }
