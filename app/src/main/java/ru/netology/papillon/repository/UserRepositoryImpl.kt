@@ -1,6 +1,8 @@
 package ru.netology.papillon.repository
 
-import androidx.lifecycle.map
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import ru.netology.papillon.api.Api
 import ru.netology.papillon.dao.UserDao
 import ru.netology.papillon.dto.User
@@ -14,7 +16,9 @@ import java.io.IOException
 
 class UserRepositoryImpl(private val userDao: UserDao) : Repository<User> {
 
-    override val data = userDao.getAll().map(List<UserEntity>::toDtoUser)
+    override val data = userDao.getAll()
+        .map(List<UserEntity>::toDtoUser)
+        .flowOn(Dispatchers.Default)
 
     override suspend fun getAll() {
         try {
