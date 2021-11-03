@@ -1,5 +1,7 @@
 package ru.netology.papillon.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -19,6 +21,9 @@ class PostRepositoryImpl(private val postDao: PostDao) : PostRepository {
     override val data = postDao.getAll()
         .map(List<PostEntity>::toDtoPost)
         .flowOn(Dispatchers.Default)
+
+    override val dataPosts: LiveData<List<Post>> =
+        postDao.getAllPosts().map(List<PostEntity>::toDtoPost)
 
     override suspend fun getAll() {
         try {
