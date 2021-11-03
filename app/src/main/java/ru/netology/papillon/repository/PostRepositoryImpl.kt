@@ -1,13 +1,14 @@
 package ru.netology.papillon.repository
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import ru.netology.papillon.api.Api
 import ru.netology.papillon.dao.PostDao
 import ru.netology.papillon.dto.Post
 import ru.netology.papillon.entity.PostEntity
 import ru.netology.papillon.error.ApiError
+import ru.netology.papillon.error.AppError
 import ru.netology.papillon.error.NetworkError
 import ru.netology.papillon.error.UnknownError
 import ru.netology.papillon.extensions.toDtoPost
@@ -33,6 +34,26 @@ class PostRepositoryImpl(private val postDao: PostDao) : PostRepository {
             throw UnknownError
         }
     }
+
+    override fun getNewerCount(id: Long): Flow<Int> = flow {
+        while (true) {
+            try {
+                delay(10_000L)
+                val response = Api.service.getNewerPost(id)
+                if (!response.isSuccessful) {
+                    throw ApiError(response.code(), response.message())
+                }
+                val body = response.body() ?: throw ApiError(response.code(), response.message())
+                postDao.insert(body.toEntityPost())
+                emit(body.size)
+            } catch (e: IOException) {
+                throw NetworkError
+            } catch (e: Exception) {
+                throw UnknownError
+            }
+        }
+    }
+        .flowOn(Dispatchers.Default)
 
     override suspend fun save(post: Post) {
         try {
