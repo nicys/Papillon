@@ -1,5 +1,6 @@
 package ru.netology.papillon.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -11,6 +12,9 @@ import ru.netology.papillon.entity.PostEntity
 interface PostDao {
     @Query("SELECT * FROM PostEntity ORDER BY id")
     fun getAll(): Flow<List<PostEntity>>
+
+    @Query("SELECT * FROM PostEntity ORDER BY id")
+    fun getAllPosts(): LiveData<List<PostEntity>>
 
     @Query(
         """
