@@ -1,6 +1,8 @@
 package ru.netology.papillon.repository
 
-import androidx.lifecycle.map
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import ru.netology.papillon.api.Api
 import ru.netology.papillon.dao.PostDao
 import ru.netology.papillon.dto.Post
@@ -13,7 +15,9 @@ import ru.netology.papillon.extensions.toEntityPost
 import java.io.IOException
 
 class PostRepositoryImpl(private val postDao: PostDao) : PostRepository {
-    override val data = postDao.getAll().map(List<PostEntity>::toDtoPost)
+    override val data = postDao.getAll()
+        .map(List<PostEntity>::toDtoPost)
+        .flowOn(Dispatchers.Default)
 
     override suspend fun getAll() {
         try {
