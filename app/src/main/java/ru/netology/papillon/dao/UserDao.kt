@@ -1,16 +1,16 @@
 package ru.netology.papillon.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 import ru.netology.papillon.entity.UserEntity
 
 @Dao
 interface UserDao {
     @Query("SELECT * FROM UserEntity ORDER BY idUser")
-    fun getAll(): LiveData<List<UserEntity>>
+    fun getAll(): Flow<List<UserEntity>>
 
     @Query("DELETE FROM UserEntity WHERE idUser = :idUser")
     suspend fun removedById(idUser: Long)
