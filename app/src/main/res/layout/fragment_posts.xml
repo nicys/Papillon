@@ -77,6 +77,21 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/upTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="48dp"
+        android:backgroundTint="@color/colorPrimary2"
+        android:visibility="gone"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/bnv_list_of_posts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_arrow_circle_up_48">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnv_list_of_posts"
         android:layout_width="match_parent"
