@@ -1,5 +1,6 @@
 package ru.netology.papillon
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.snackbar.Snackbar
 import ru.netology.papillon.AddEditPostFragment.Companion.textDataContent
 import ru.netology.papillon.ShowPostFragment.Companion.postData
@@ -27,6 +30,7 @@ class PostsFragment : Fragment() {
 
     val postViewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
+    @SuppressLint("UnsafeOptInUsageError")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -113,6 +117,20 @@ class PostsFragment : Fragment() {
 
         binding.swiperefresh.setOnRefreshListener {
             postViewModel.refreshPosts()
+        }
+
+        postViewModel.newerCount.observe(viewLifecycleOwner) { isNewerPosts ->
+            if (isNewerPosts > 0) {
+                binding.upTab.isVisible = true
+                val badge = context?.let { BadgeDrawable.create(it) }
+                badge?.isVisible = true
+                badge?.let { BadgeUtils.attachBadgeDrawable(it, binding.upTab) }
+            }
+        }
+
+        binding.upTab.setOnClickListener {
+            binding.rvListOfPosts.smoothScrollToPosition(0)
+            binding.upTab.isVisible = false
         }
 
         binding.bnvListOfPosts.setOnNavigationItemSelectedListener {
