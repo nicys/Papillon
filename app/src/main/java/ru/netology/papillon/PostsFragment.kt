@@ -119,6 +119,8 @@ class PostsFragment : Fragment() {
             postViewModel.refreshPosts()
         }
 
+        //
+
         postViewModel.newerCount.observe(viewLifecycleOwner) { isNewerPosts ->
             if (isNewerPosts > 0) {
                 binding.upTab.isVisible = true
