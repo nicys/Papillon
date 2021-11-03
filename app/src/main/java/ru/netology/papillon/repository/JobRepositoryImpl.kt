@@ -1,6 +1,8 @@
 package ru.netology.papillon.repository
 
-import androidx.lifecycle.map
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import ru.netology.papillon.api.Api
 import ru.netology.papillon.dao.JobDao
 import ru.netology.papillon.dto.Job
@@ -14,7 +16,9 @@ import java.io.IOException
 
 class JobRepositoryImpl(private val jobDao: JobDao): Repository<Job> {
 
-    override val data = jobDao.getAll().map(List<JobEntity>::toDtoJob)
+    override val data = jobDao.getAll()
+        .map(List<JobEntity>::toDtoJob)
+        .flowOn(Dispatchers.Default)
 
     override suspend fun getAll() {
         try {
