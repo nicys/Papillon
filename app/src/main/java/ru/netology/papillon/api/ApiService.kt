@@ -40,6 +40,9 @@ interface ApiService {
     @GET("posts/{id}")
     suspend fun getByIdPost(@Path("id") id: Long): Response<Post>
 
+    @GET("posts/{id}/newer")
+    suspend fun getNewerPost(@Path("id") id: Long): Response<List<Post>>
+
     @POST("posts")
     suspend fun savePost(@Body post: Post): Response<Post>
 
