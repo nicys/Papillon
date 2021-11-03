@@ -2,6 +2,9 @@ package ru.netology.papillon.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.netology.papillon.db.AppDbPost
 import ru.netology.papillon.dto.Post
@@ -19,8 +22,10 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: PostRepository =
         PostRepositoryImpl(AppDbPost.getInstance(context = application).postsDao())
 
-    val data: LiveData<FeedModelPosts> = repository.data.map(::FeedModelPosts)
-    val dataPosts = repository.data
+    val data: LiveData<FeedModelPosts> = repository.data
+        .map(::FeedModelPosts)
+        .catch { e -> e.printStackTrace() }
+        .asLiveData(Dispatchers.Default)
 
     private val _dataState = MutableLiveData<FeedModelState>()
     val dataState: LiveData<FeedModelState>
@@ -161,9 +166,9 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun getPostById(id: Long): LiveData<Post?> = dataPosts.map { posts ->
-        posts.find { post ->
-            post.id == id
-        }
+    fun getPostById(id: Long): LiveData<FeedModelPosts> = data.map { FeedModelPosts(posts = data.value?.posts
+        .orEmpty().map {
+            if (it.id == id) it else empty
+        })
     }
 }

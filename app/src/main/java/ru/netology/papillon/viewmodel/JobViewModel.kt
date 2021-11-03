@@ -2,6 +2,9 @@ package ru.netology.papillon.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.netology.papillon.db.AppDbJob
 import ru.netology.papillon.dto.Job
@@ -18,7 +21,11 @@ class JobViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: Repository<Job> =
         JobRepositoryImpl(AppDbJob.getInstance(context = application).jobsDao())
 
-    val data: LiveData<FeedModelJobs> = repository.data.map(::FeedModelJobs)
+    val data: LiveData<FeedModelJobs> = repository.data
+        .map(::FeedModelJobs)
+        .catch { e -> e.printStackTrace() }
+        .asLiveData(Dispatchers.Default)
+
     private val _dataState = MutableLiveData<FeedModelState>()
     val dataState: LiveData<FeedModelState>
         get() = _dataState
