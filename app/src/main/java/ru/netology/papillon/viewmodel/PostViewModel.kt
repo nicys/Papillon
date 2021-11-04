@@ -1,11 +1,13 @@
 package ru.netology.papillon.viewmodel
 
 import android.app.Application
+import android.net.Uri
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import ru.netology.papillon.model.PhotoModel
 import ru.netology.papillon.db.AppDbPost
 import ru.netology.papillon.dto.Post
 import ru.netology.papillon.model.FeedModelPosts
@@ -14,8 +16,10 @@ import ru.netology.papillon.repository.PostRepository
 import ru.netology.papillon.repository.PostRepositoryImpl
 import ru.netology.papillon.utils.SingleLiveEvent
 import ru.netology.papillon.utils.sumTotalFeed
+import java.io.File
 
 private val empty = Post()
+private val noPhoto = PhotoModel()
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -44,6 +48,10 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     private val _networkError = SingleLiveEvent<String>()
     val networkError: LiveData<String>
         get() = _networkError
+
+    private val _photo = MutableLiveData(noPhoto)
+    val photo: LiveData<PhotoModel>
+        get() = _photo
 
     val edited = MutableLiveData(empty)
 
@@ -96,6 +104,10 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
             return
         }
         edited.value = edited.value?.copy(content = text)
+    }
+
+    fun changePhoto(uri: Uri?, file: File?) {
+        _photo.value = PhotoModel(uri, file)
     }
 
     fun changeVideoURL(videoURL: String) {
