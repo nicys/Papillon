@@ -5,5 +5,5 @@
         android:id="@+id/save"
         android:icon="@drawable/ic_ok_24"
         android:title="@string/save"
-        app:showAsAction="always" />
+        app:showAsAction="always|withText" />
 </menu>
