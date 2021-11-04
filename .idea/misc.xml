@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/Papillon/app/src/main/res/drawable-v24/ic_audiotrack_24.xml" value="0.2222222222222222" />
+        <entry key="..\:/AndroidStudioProjects/Papillon/app/src/main/res/drawable-v24/ic_video_24.xml" value="0.2222222222222222" />
         <entry key="..\:/AndroidStudioProjects/Papillon/app/src/main/res/drawable/ic_add_24.xml" value="0.29259259259259257" />
         <entry key="..\:/AndroidStudioProjects/Papillon/app/src/main/res/drawable/ic_baseline_arrow_circle_up_24.xml" value="0.2574074074074074" />
         <entry key="..\:/AndroidStudioProjects/Papillon/app/src/main/res/drawable/ic_camera_24dp.xml" value="0.2712962962962963" />

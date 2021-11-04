@@ -26,7 +26,8 @@ class AddEditPostFragment : Fragment() {
     }
 
     private val postViewModel: PostViewModel by viewModels(
-        ownerProducer = ::requireParentFragment)
+        ownerProducer = ::requireParentFragment
+    )
 
     private var fragmentBinding: FragmentAddEditPostBinding? = null
 
@@ -61,8 +62,7 @@ class AddEditPostFragment : Fragment() {
 
         fragmentBinding = binding
 
-        arguments?.textDataContent
-            ?.let(binding.etEdit::setText)
+        arguments?.textDataContent?.let(binding.etEdit::setText)
 
         binding.etEdit.requestFocus()
 
@@ -118,7 +118,6 @@ class AddEditPostFragment : Fragment() {
                 binding.photoContainer.visibility = View.GONE
                 return@observe
             }
-
             binding.photoContainer.visibility = View.VISIBLE
             binding.photo.setImageURI(it.uri)
         }
