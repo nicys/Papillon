@@ -25,6 +25,7 @@ interface OnPostInteractionListener {
     fun onSharePost(post: Post) {}
     fun onVideoPost(post: Post) {}
     fun onShowPost(post: Post) {}
+    fun onAvatarClicked(post: Post) {}
 }
 
 class PostsAdapter(
