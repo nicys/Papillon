@@ -86,6 +86,10 @@ class PostsFragment : Fragment() {
                     Bundle().apply { postData = post }
                 )
             }
+
+            override fun onAvatarClicked(post: Post) {
+                // TODO
+            }
         })
 
         binding.rvListOfPosts.adapter = adapter
