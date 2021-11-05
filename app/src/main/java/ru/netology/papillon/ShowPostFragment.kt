@@ -65,19 +65,19 @@ class ShowPostFragment : Fragment() {
                         btViews.text = sumTotalFeed(post.viewsCnt)
 
                         ivVideo.setOnClickListener {
-                            post.videoAttach?.let {
-                                val intent = Intent().apply {
-                                    action = Intent.ACTION_VIEW
-                                    Intent(Intent.ACTION_VIEW, Uri.parse("url"))
-                                    data = Uri.parse(post.videoAttach)
-                                }
-                                val videoIntent =
-                                    Intent.createChooser(
-                                        intent,
-                                        getString(R.string.chooser_video_post)
-                                    )
-                                startActivity(videoIntent)
-                            }
+//                            post.videoAttach?.let {
+//                                val intent = Intent().apply {
+//                                    action = Intent.ACTION_VIEW
+//                                    Intent(Intent.ACTION_VIEW, Uri.parse("url"))
+//                                    data = Uri.parse(post.videoAttach)
+//                                }
+//                                val videoIntent =
+//                                    Intent.createChooser(
+//                                        intent,
+//                                        getString(R.string.chooser_video_post)
+//                                    )
+//                                startActivity(videoIntent)
+//                            }
                         }
 
                         menu.setOnClickListener {

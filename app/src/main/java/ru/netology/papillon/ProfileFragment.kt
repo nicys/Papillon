@@ -82,16 +82,16 @@ class ProfileFragment : Fragment() {
             }
 
             override fun onVideoPost(post: Post) {
-                post.videoAttach?.let {
-                    val intent = Intent().apply {
-                        action = Intent.ACTION_VIEW
-                        Intent(Intent.ACTION_VIEW, Uri.parse("url"))
-                        data = Uri.parse(post.videoAttach)
-                    }
-                    val videoIntent =
-                        Intent.createChooser(intent, getString(R.string.chooser_video_post))
-                    startActivity(videoIntent)
-                }
+//                post.videoAttach?.let {
+//                    val intent = Intent().apply {
+//                        action = Intent.ACTION_VIEW
+//                        Intent(Intent.ACTION_VIEW, Uri.parse("url"))
+//                        data = Uri.parse(post.videoAttach)
+//                    }
+//                    val videoIntent =
+//                        Intent.createChooser(intent, getString(R.string.chooser_video_post))
+//                    startActivity(videoIntent)
+//                }
             }
 
             override fun onShowPost(post: Post) {
