@@ -2,14 +2,16 @@ package ru.netology.papillon.adapter
 
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.netology.papillon.BuildConfig
 import ru.netology.papillon.R
 import ru.netology.papillon.databinding.CardPostBinding
 import ru.netology.papillon.dto.AttachmentType
@@ -54,7 +56,7 @@ class PostViewHolder(
             tvContent.text = post.content
 
             post.authorAvatar?.let {
-                ivAvatar.loadCircleCrop(it)
+                ivAvatar.loadCircleCrop("${BuildConfig.BASE_URL}/avatars/${post.authorAvatar}")
             } ?: ivAvatar.setImageResource(R.drawable.ic_no_avatar_user)
 
             btLike.isChecked = post.likedByMe
@@ -78,9 +80,9 @@ class PostViewHolder(
                 onPostInteractionListener.onShowPost(post)
             }
 
-            if (!post.ownedByMe) menu.visibility = View.GONE
+            if (!post.ownedByMe) menu.visibility = GONE
             else {
-                menu.visibility = View.VISIBLE
+                menu.visibility = VISIBLE
                 menu.setOnClickListener {
                     PopupMenu(it.context, it).apply {
                         inflate(R.menu.post_options_menu)
@@ -102,24 +104,23 @@ class PostViewHolder(
             }
 
             if (post.attachment == null) {
-                imageAttachment.visibility = View.GONE
-
-                videoContainer.visibility = View.GONE
+                imageAttachment.visibility = GONE
+                videoContainer.visibility = GONE
             } else {
                 when (post.attachment!!.type) {
                     AttachmentType.IMAGE -> {
-                        imageAttachment.visibility = View.VISIBLE
-                        videoContainer.visibility = View.GONE
-                        imageAttachment.loadImage(post.attachment!!.url)
+                        imageAttachment.visibility = VISIBLE
+                        videoContainer.visibility = GONE
+                        imageAttachment.loadImage("${BuildConfig.BASE_URL}/media/${post.attachment!!.url}")
                     }
                     AttachmentType.VIDEO -> {
-                        imageAttachment.visibility = View.GONE
-                        videoContainer.visibility = View.VISIBLE
+                        imageAttachment.visibility = GONE
+                        videoContainer.visibility = VISIBLE
                         Glide.with(binding.root).load(post.attachment!!.url).into(ivVideo)
                     }
                     AttachmentType.AUDIO -> {
-                        imageAttachment.visibility = View.GONE
-                        videoContainer.visibility = View.VISIBLE
+                        imageAttachment.visibility = GONE
+                        videoContainer.visibility = VISIBLE
                         ivVideo.setImageDrawable(
                             AppCompatResources.getDrawable(
                                 itemView.context,
