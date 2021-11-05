@@ -1,5 +1,6 @@
 package ru.netology.papillon.api
 
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
@@ -9,6 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 import ru.netology.papillon.BuildConfig
 import ru.netology.papillon.dto.Job
+import ru.netology.papillon.dto.Media
 import ru.netology.papillon.dto.Post
 import ru.netology.papillon.dto.User
 
@@ -60,6 +62,10 @@ interface ApiService {
 
     @POST("posts/{id}/views")
     suspend fun viewedByIdPost(@Path("id") id: Long): Response<Post>
+
+    @Multipart
+    @POST("media")
+    suspend fun upload(@Part media: MultipartBody.Part): Response<Media>
 
 // integration with jobs
     @GET("jobs")
