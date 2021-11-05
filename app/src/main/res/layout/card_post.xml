@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/iv_avatar"
-        android:layout_width="@dimen/avatar_size"
-        android:layout_height="@dimen/avatar_size"
+        android:layout_width="@dimen/avatar_size_max"
+        android:layout_height="@dimen/avatar_size_max"
         android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,8 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textColor="@color/dark_grey"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/tv_published"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@id/iv_avatar"
         app:layout_constraintTop_toTopOf="@id/iv_avatar"
         tools:text="@string/user_name" />
