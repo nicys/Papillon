@@ -5,6 +5,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -156,37 +158,17 @@ class ProfileFragment : Fragment() {
         with(binding) {
             with(userName.toString().isNotBlank() && userName.toString().isNotEmpty()) {
                 if (this) {
-                    cvIsYou.visibility = View.VISIBLE
-                }
-                if (this) {
-                    profileJobId.visibility = View.VISIBLE
-                }
-                if (this) {
-                    profileJob.visibility = View.VISIBLE
-                }
-                if (this) {
-                    profilePostId.visibility = View.VISIBLE
-                }
-                if (this) {
-                    btAddJob.visibility = View.VISIBLE
-                }
-                if (this) {
-                    btLike.visibility = View.VISIBLE
-                }
-                if (this) {
-                    btParticipants.visibility = View.VISIBLE
-                }
-                if (this) {
-                    ivOnline.visibility = View.VISIBLE
-                }
-                if (this) {
-                    tvOnline.visibility = View.VISIBLE
-                }
-                if (this) {
-                    btAddProfile.visibility = View.GONE
-                }
-                if (this) {
-                    tvWarning.visibility = View.GONE
+                    cvIsYou.visibility = VISIBLE
+                    profileJobId.visibility = VISIBLE
+                    profileJob.visibility = VISIBLE
+                    profilePostId.visibility = VISIBLE
+                    btAddJob.visibility = VISIBLE
+                    btLike.visibility = VISIBLE
+                    btParticipants.visibility = VISIBLE
+                    ivOnline.visibility = VISIBLE
+                    tvOnline.visibility = VISIBLE
+                    btAddProfile.visibility = GONE
+                    tvWarning.visibility = GONE
                 }
             }
         }
