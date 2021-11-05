@@ -1,11 +1,9 @@
 package ru.netology.papillon.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
+import ru.netology.papillon.dto.AttachmentType
 import ru.netology.papillon.entity.PostEntity
 
 @Dao
@@ -52,4 +50,11 @@ interface PostDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(posts: List<PostEntity>)
+}
+
+class Converters {
+    @TypeConverter
+    fun toAttachmentType(value: String) = enumValueOf<AttachmentType>(value)
+    @TypeConverter
+    fun fromAttachmentType(value: AttachmentType) = value.name
 }
