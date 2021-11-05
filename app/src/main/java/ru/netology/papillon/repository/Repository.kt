@@ -2,6 +2,8 @@ package ru.netology.papillon.repository
 
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.Flow
+import ru.netology.papillon.dto.Media
+import ru.netology.papillon.dto.MediaUpload
 import ru.netology.papillon.dto.Post
 
 interface PostRepository {
@@ -14,6 +16,8 @@ interface PostRepository {
     suspend fun viewedById(id: Long)
     suspend fun removedById(id: Long)
     suspend fun save(post: Post)
+    suspend fun saveWithAttachment(post: Post, upload: MediaUpload)
+    suspend fun upload(upload: MediaUpload): Media
 }
 
 interface Repository<T> {
