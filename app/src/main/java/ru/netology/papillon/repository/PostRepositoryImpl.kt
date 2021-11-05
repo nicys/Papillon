@@ -5,9 +5,11 @@ import androidx.lifecycle.map
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import ru.netology.papillon.api.Api
 import ru.netology.papillon.dao.PostDao
-import ru.netology.papillon.dto.Post
+import ru.netology.papillon.dto.*
 import ru.netology.papillon.entity.PostEntity
 import ru.netology.papillon.error.ApiError
 import ru.netology.papillon.error.AppError
@@ -69,6 +71,40 @@ class PostRepositoryImpl(private val postDao: PostDao) : PostRepository {
             val body = response.body() ?: throw ApiError(response.code(), response.message())
             postDao.insert(PostEntity.fromDtoPost(body))
         } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError
+        }
+    }
+
+    override suspend fun saveWithAttachment(post: Post, upload: MediaUpload) {
+        try {
+            val media = upload(upload)
+            // TODO: add support for other types
+            val postWithAttachment = post.copy(attachment = Attachment(media.id, AttachmentType.IMAGE))
+            save(postWithAttachment)
+        } catch (e: AppError) {
+            throw e
+        } catch (e: java.io.IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError
+        }
+    }
+
+    override suspend fun upload(upload: MediaUpload): Media {
+        try {
+            val media = MultipartBody.Part.createFormData(
+                "file", upload.file.name, upload.file.asRequestBody()
+            )
+
+            val response = Api.service.upload(media)
+            if (!response.isSuccessful) {
+                throw ApiError(response.code(), response.message())
+            }
+
+            return response.body() ?: throw ApiError(response.code(), response.message())
+        } catch (e: java.io.IOException) {
             throw NetworkError
         } catch (e: Exception) {
             throw UnknownError

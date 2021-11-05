@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.netology.papillon.model.PhotoModel
 import ru.netology.papillon.db.AppDbPost
+import ru.netology.papillon.dto.MediaUpload
 import ru.netology.papillon.dto.Post
 import ru.netology.papillon.model.FeedModelPosts
 import ru.netology.papillon.model.FeedModelState
@@ -84,14 +85,20 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
             _postCreated.value = Unit
             viewModelScope.launch {
                 try {
-                    repository.save(it)
+                    when (_photo.value) {
+                        noPhoto -> repository.save(it)
+                        else -> _photo.value?.file?.let { file ->
+                            repository.saveWithAttachment(it, MediaUpload(file))
+                        }
+                    }
                     _dataState.value = FeedModelState()
+                    edited.value = empty
+                    _photo.value = noPhoto
                 } catch (e: Exception) {
                     _dataState.value = FeedModelState(error = true)
                 }
             }
         }
-        edited.value = empty
     }
 
     fun editPost(post: Post) {
@@ -110,13 +117,13 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         _photo.value = PhotoModel(uri, file)
     }
 
-    fun changeVideoURL(videoURL: String) {
-        val text = videoURL
-        if (edited.value?.videoAttach == text) {
-            return
-        }
-        edited.value = edited.value?.copy(videoAttach = text)
-    }
+//    fun changeVideoURL(videoURL: String) {
+//        val text = videoURL
+//        if (edited.value?.videoAttach == text) {
+//            return
+//        }
+//        edited.value = edited.value?.copy(videoAttach = text)
+//    }
 
     fun likedById(id: Long) {
         viewModelScope.launch {
