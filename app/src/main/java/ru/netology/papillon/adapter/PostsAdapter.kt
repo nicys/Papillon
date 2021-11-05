@@ -1,14 +1,21 @@
 package ru.netology.papillon.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ru.netology.papillon.R
 import ru.netology.papillon.databinding.CardPostBinding
+import ru.netology.papillon.dto.AttachmentType
 import ru.netology.papillon.dto.Post
+import ru.netology.papillon.extensions.loadCircleCrop
+import ru.netology.papillon.extensions.loadImage
 import ru.netology.papillon.utils.sumTotalFeed
 
 interface OnPostInteractionListener {
@@ -44,7 +51,10 @@ class PostViewHolder(
             tvUserName.text = post.author
             tvPublished.text = post.published
             tvContent.text = post.content
-            ivAvatar.setImageResource(R.drawable.ic_no_avatar_user)
+
+            post.authorAvatar?.let {
+                ivAvatar.loadCircleCrop(it)
+            } ?: ivAvatar.setImageResource(R.drawable.ic_no_avatar_user)
 
             btLike.isChecked = post.likedByMe
             btLike.setOnClickListener {
@@ -67,25 +77,58 @@ class PostViewHolder(
                 onPostInteractionListener.onShowPost(post)
             }
 
-            menu.setOnClickListener {
-                PopupMenu(it.context, it).apply {
-                    inflate(R.menu.post_options_menu)
-                    setOnMenuItemClickListener { item ->
-                        when (item.itemId) {
-                            R.id.delete -> {
-                                onPostInteractionListener.onRemovePost(post)
-                                true
+            if (!post.ownedByMe) menu.visibility = View.GONE
+            else {
+                menu.visibility = View.VISIBLE
+                menu.setOnClickListener {
+                    PopupMenu(it.context, it).apply {
+                        inflate(R.menu.post_options_menu)
+                        setOnMenuItemClickListener { item ->
+                            when (item.itemId) {
+                                R.id.delete -> {
+                                    onPostInteractionListener.onRemovePost(post)
+                                    true
+                                }
+                                R.id.edit -> {
+                                    onPostInteractionListener.onEditPost(post)
+                                    true
+                                }
+                                else -> false
                             }
-                            R.id.edit -> {
-                                onPostInteractionListener.onEditPost(post)
-                                true
-                            }
-
-                            else -> false
                         }
-                    }
-                }.show()
+                    }.show()
+                }
             }
+
+            if (post.attachment == null) {
+                imageAttachment.visibility = View.GONE
+
+                videoContainer.visibility = View.GONE
+            } else {
+                when (post.attachment!!.type) {
+                    AttachmentType.IMAGE -> {
+                        imageAttachment.visibility = View.VISIBLE
+                        videoContainer.visibility = View.GONE
+                        imageAttachment.loadImage(post.attachment!!.url)
+                    }
+                    AttachmentType.VIDEO -> {
+                        imageAttachment.visibility = View.GONE
+                        videoContainer.visibility = View.VISIBLE
+                        Glide.with(binding.root).load(post.attachment!!.url).into(ivVideo)
+                    }
+                    AttachmentType.AUDIO -> {
+                        imageAttachment.visibility = View.GONE
+                        videoContainer.visibility = View.VISIBLE
+                        ivVideo.setImageDrawable(
+                            AppCompatResources.getDrawable(
+                                itemView.context,
+                                R.drawable.ic_audio_24
+                            )
+                        )
+                    }
+                }
+            }
+
         }
     }
 }
