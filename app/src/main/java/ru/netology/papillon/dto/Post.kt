@@ -19,7 +19,7 @@ data class Post(
     val sharesCnt: Int = 0,
     val views: String = "",
     val viewsCnt: Int = 0,
-    val coords: @RawValue Coords? = null,
+    var coords: @RawValue Coords? = null,
     var attachment: @RawValue Attachment? = null,
     val ownedByMe: Boolean = false,
 ) : Parcelable
