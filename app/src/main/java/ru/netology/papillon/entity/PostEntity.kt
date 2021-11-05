@@ -1,8 +1,12 @@
 package ru.netology.papillon.entity
 
 import androidx.annotation.Nullable
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import ru.netology.papillon.dto.Attachment
+import ru.netology.papillon.dto.AttachmentType
+import ru.netology.papillon.dto.Coords
 import ru.netology.papillon.dto.Post
 
 @Entity
@@ -20,9 +24,11 @@ data class PostEntity(
     val sharesCnt: Int,
     val views: String,
     val viewsCnt: Int,
-    @Nullable val videoAttach: String?,
-    @Nullable val audioAttach: String?,
-    @Nullable val imageAttach: String?,
+    @Embedded
+    var coords: CoordsEmbeddable?,
+    @Embedded
+    var attachment: AttachmentEmbeddable?,
+    val ownedByMe: Boolean
 ) {
 
     fun toDtoPost() = Post(
@@ -38,9 +44,9 @@ data class PostEntity(
         sharesCnt,
         views,
         viewsCnt,
-        videoAttach,
-        audioAttach,
-        imageAttach
+        coords?.toDto(),
+        attachment?.toDto(),
+        ownedByMe
     )
 
     companion object {
@@ -58,9 +64,35 @@ data class PostEntity(
                 dto.sharesCnt,
                 dto.views,
                 dto.viewsCnt,
-                dto.videoAttach,
-                dto.audioAttach,
-                dto.imageAttach
+                CoordsEmbeddable.fromDto(dto.coords),
+                AttachmentEmbeddable.fromDto(dto.attachment),
+                dto.ownedByMe
             )
+    }
+}
+
+data class AttachmentEmbeddable(
+    var url: String,
+    var type: AttachmentType,
+) {
+    fun toDto() = Attachment(url, type)
+
+    companion object {
+        fun fromDto(dto: Attachment?) = dto?.let {
+            AttachmentEmbeddable(it.url, it.type)
+        }
+    }
+}
+
+data class CoordsEmbeddable(
+    val lat: Double = 0.0,
+    val lng: Double = 0.0,
+) {
+    fun toDto() = Coords(lat, lng)
+
+    companion object {
+        fun fromDto(dto: Coords?) = dto?.let {
+            CoordsEmbeddable(it.lat, it.lng)
+        }
     }
 }
