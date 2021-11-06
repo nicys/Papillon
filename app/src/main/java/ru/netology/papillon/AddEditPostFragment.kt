@@ -65,6 +65,7 @@ class AddEditPostFragment : Fragment() {
         arguments?.textDataContent?.let(binding.etEdit::setText)
 
         binding.etEdit.requestFocus()
+        showKeyboard(binding.root)
 
         val pickPhotoLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -103,6 +104,12 @@ class AddEditPostFragment : Fragment() {
                 .compress(2048)
                 .provider(ImageProvider.CAMERA)
                 .createIntent(pickPhotoLauncher::launch)
+        }
+
+        binding.ok.setOnClickListener {
+            postViewModel.changeContent(binding.etEdit.text.toString())
+            postViewModel.savePost()
+            hideKeyboard(requireView())
         }
 
         binding.removePhoto.setOnClickListener {
