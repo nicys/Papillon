@@ -19,6 +19,15 @@
         <action
             android:id="@+id/action_postsFragment_to_showPostFragment"
             app:destination="@id/showPostFragment" />
+        <action
+            android:id="@+id/action_postsFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_postsFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_postsFragment_to_exitFragment"
+            app:destination="@id/exitFragment" />
     </fragment>
     <fragment
         android:id="@+id/addEditPostFragment"
@@ -85,4 +94,27 @@
             android:id="@+id/action_showPostFragment_to_addEditPostFragment"
             app:destination="@id/addEditPostFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="ru.netology.papillon.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="ru.netology.papillon.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exitFragment"
+        android:name="ru.netology.papillon.ExitFragment"
+        android:label="fragment_exit"
+        tools:layout="@layout/fragment_exit" />
 </navigation>
