@@ -86,6 +86,7 @@ class PostViewHolder(
                 menu.setOnClickListener {
                     PopupMenu(it.context, it).apply {
                         inflate(R.menu.post_options_menu)
+                        menu.setGroupVisible(R.id.owned, post.ownedByMe)
                         setOnMenuItemClickListener { item ->
                             when (item.itemId) {
                                 R.id.delete -> {
