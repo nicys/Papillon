@@ -48,4 +48,18 @@
     <string name="description_photo">Photo</string>
     <string name="remove">Remove</string>
     <string name="showPhotoImage">Show photo and image</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="annotationSignIn">To log in, enter your username and password or register:</string>
+    <string name="annotationSignUp">To log in, you need to register:</string>
+    <string name="hasSignIp">I already have a username and password...</string>
+    <string name="dontFilled">Not all fields are filled in.</string>
+    <string name="channel_remote_name">Server notifications</string>
+    <string name="channel_remote_description">Notifications from remote server</string>
+    <string name="notification_user_liked">User %1$s liked %2$s\'s post</string>
+    <string name="exit_annotation">Log out of your account?</string>
+    <string name="yes">YES</string>
+    <string name="not">NOT</string>
+
 </resources>
