@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import ru.netology.papillon.api.Api
+import ru.netology.papillon.auth.AppAuth
 import ru.netology.papillon.dao.PostDao
 import ru.netology.papillon.dto.*
 import ru.netology.papillon.entity.PostEntity
@@ -169,6 +170,38 @@ class PostRepositoryImpl(private val postDao: PostDao) : PostRepository {
             NetworkError
         } catch (e: Exception) {
             UnknownError
+        }
+    }
+
+    override suspend fun authentication(login: String, password: String) {
+        try {
+            val response = Api.service.updateUser(login, password)
+            if (!response.isSuccessful) {
+                throw ApiError(response.code(), response.message())
+            }
+            val authState = response.body() ?: throw ApiError(response.code(), response.message())
+            authState.token?.let { AppAuth.getInstance().setAuth(authState.id, it) }
+
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError
+        }
+    }
+
+    override suspend fun registration(nameUser: String, login: String, password: String) {
+        try {
+            val response = Api.service.registrationUser(nameUser, login, password)
+            if (!response.isSuccessful) {
+                throw ApiError(response.code(), response.message())
+            }
+            val authState = response.body() ?: throw ApiError(response.code(), response.message())
+            authState.token?.let { AppAuth.getInstance().setAuth(authState.id, it) }
+
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError
         }
     }
 }
