@@ -21,4 +21,6 @@
     <color name="colorPrimary3">#017D8C</color>
     <color name="light_blue">#C2F8FF</color>
     <color name="red">#FF0000</color>
+    <color name="lightWhiteGreen">#FFD3FAD4</color>
+    <color name="lightBlueGrey">#FFDFF1FF</color>
 </resources>
