@@ -2,6 +2,7 @@ package ru.netology.papillon.auth
 
 import android.content.Context
 import kotlinx.coroutines.flow.*
+import ru.netology.papillon.dto.AuthState
 
 class AppAuth private constructor(context: Context) {
     private val prefs = context.getSharedPreferences("auth", Context.MODE_PRIVATE)
@@ -63,5 +64,3 @@ class AppAuth private constructor(context: Context) {
         private fun buildAuth(context: Context): AppAuth = AppAuth(context)
     }
 }
-
-data class AuthState(val id: Long = 0, val token: String? = null)

@@ -4,16 +4,12 @@ import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
-import retrofit2.create
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import retrofit2.http.*
 import ru.netology.papillon.BuildConfig
-import ru.netology.papillon.auth.AuthState
-import ru.netology.papillon.dto.Job
-import ru.netology.papillon.dto.Media
-import ru.netology.papillon.dto.Post
-import ru.netology.papillon.dto.User
+import ru.netology.papillon.dto.*
 
 private const val BASE_URL = "${BuildConfig.BASE_URL}/api/"
 
