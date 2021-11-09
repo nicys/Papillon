@@ -4,9 +4,12 @@ import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import ru.netology.papillon.auth.AppAuth
 import ru.netology.papillon.model.PhotoModel
 import ru.netology.papillon.db.AppDbPost
 import ru.netology.papillon.dto.MediaUpload
@@ -27,11 +30,20 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: PostRepository =
         PostRepositoryImpl(AppDbPost.getInstance(context = application).postsDao())
 
-    val data: LiveData<FeedModelPosts> = repository.data
-        .map(::FeedModelPosts)
-        .catch { e -> e.printStackTrace() }
-        .asLiveData(Dispatchers.Default)
+    @ExperimentalCoroutinesApi
+    val data: LiveData<FeedModelPosts> = AppAuth.getInstance()
+        .authStateFlow
+        .flatMapLatest { (myId, _) ->
+            repository.data
+                .map { posts ->
+                    FeedModelPosts(
+                        posts.map { it.copy(ownedByMe = it.authorId == myId) },
+                        posts.isEmpty()
+                    )
+                }
+        }.asLiveData(Dispatchers.Default)
 
+    @ExperimentalCoroutinesApi
     val newerCount: LiveData<Int> = data.switchMap {
         repository.getNewerCount(it.posts.firstOrNull()?.id ?: 0L)
             .catch { e -> e.printStackTrace() }
@@ -125,6 +137,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 //        edited.value = edited.value?.copy(videoAttach = text)
 //    }
 
+    @ExperimentalCoroutinesApi
     fun likedById(id: Long) {
         viewModelScope.launch {
             try {
@@ -143,6 +156,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    @ExperimentalCoroutinesApi
     fun sharedById(id: Long) {
         viewModelScope.launch {
             try {
@@ -161,6 +175,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    @ExperimentalCoroutinesApi
     fun viewedById(id: Long) {
         viewModelScope.launch {
             try {
@@ -179,6 +194,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    @ExperimentalCoroutinesApi
     fun removedById(id: Long) {
         viewModelScope.launch {
             try {
