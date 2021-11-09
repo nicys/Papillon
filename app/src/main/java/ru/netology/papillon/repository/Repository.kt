@@ -18,6 +18,8 @@ interface PostRepository {
     suspend fun save(post: Post)
     suspend fun saveWithAttachment(post: Post, upload: MediaUpload)
     suspend fun upload(upload: MediaUpload): Media
+    suspend fun authentication(login: String, password: String)
+    suspend fun registration(nameUser: String, login: String, password: String)
 }
 
 interface Repository<T> {
