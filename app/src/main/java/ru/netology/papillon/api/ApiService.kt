@@ -9,6 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 import ru.netology.papillon.BuildConfig
+import ru.netology.papillon.auth.AuthState
 import ru.netology.papillon.dto.Job
 import ru.netology.papillon.dto.Media
 import ru.netology.papillon.dto.Post
@@ -35,7 +36,7 @@ private val retrofit = Retrofit.Builder()
 
 interface ApiService {
 
-// integration with posts
+    // integration with posts
     @GET("posts")
     suspend fun getAllPosts(): Response<List<Post>>
 
@@ -67,7 +68,23 @@ interface ApiService {
     @POST("media")
     suspend fun upload(@Part media: MultipartBody.Part): Response<Media>
 
-// integration with jobs
+    @FormUrlEncoded
+    @POST("users/authentication")
+    suspend fun updateUser(
+        @Field("login") login: String,
+        @Field("pass") pass: String
+    ): Response<AuthState>
+
+    @FormUrlEncoded
+    @POST("users/registration")
+    suspend fun registrationUser(
+        @Field("name") name: String,
+        @Field("login") login: String,
+        @Field("pass") pass: String
+    ): Response<AuthState>
+
+
+    // integration with jobs
     @GET("jobs")
     suspend fun getAllJobs(): Response<List<Job>>
 
