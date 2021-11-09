@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.papillon.AddEditPostFragment.Companion.textDataContent
 import ru.netology.papillon.ShowPostFragment.Companion.postData
 import ru.netology.papillon.adapter.OnPostInteractionListener
@@ -30,6 +31,7 @@ class PostsFragment : Fragment() {
 
     val postViewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
+    @ExperimentalCoroutinesApi
     @SuppressLint("UnsafeOptInUsageError")
     override fun onCreateView(
         inflater: LayoutInflater,
