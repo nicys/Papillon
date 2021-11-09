@@ -9,6 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import retrofit2.http.*
 import ru.netology.papillon.BuildConfig
+import ru.netology.papillon.auth.AppAuth
 import ru.netology.papillon.dto.*
 
 private const val BASE_URL = "${BuildConfig.BASE_URL}/api/"
@@ -21,7 +22,16 @@ private val logging = HttpLoggingInterceptor().apply {
 }
 
 private val okhttp = OkHttpClient.Builder()
-    .addInterceptor(logging) //remove on release
+    .addInterceptor(logging)
+    .addInterceptor { chain ->
+        AppAuth.getInstance().authStateFlow.value.token?.let { token ->
+            val newRequest = chain.request().newBuilder()
+                .addHeader("Authorization", token)
+                .build()
+            return@addInterceptor chain.proceed(newRequest)
+        }
+        chain.proceed(chain.request())
+    }
     .build()
 
 private val retrofit = Retrofit.Builder()
