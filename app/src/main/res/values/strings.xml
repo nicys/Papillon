@@ -51,6 +51,10 @@
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="sign_out">Sign Out</string>
+    <string name="userName">Enter your name:</string>
+    <string name="login">Enter login:</string>
+    <string name="password">Enter password:</string>
+    <string name="enter">Enter</string>
     <string name="annotationSignIn">To log in, enter your username and password or register:</string>
     <string name="annotationSignUp">To log in, you need to register:</string>
     <string name="hasSignIp">I already have a username and password...</string>
