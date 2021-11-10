@@ -111,14 +111,14 @@
             android:layout_height="1dp"
             android:layout_weight="1" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/ok"
-            style="@style/Widget.AppTheme.IconButtonOk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/save"
-            android:padding="@dimen/common_spacing"
-            app:icon="@drawable/ic_ok_24" />
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:id="@+id/ok"-->
+<!--            style="@style/Widget.AppTheme.IconButtonOk"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:contentDescription="@string/save"-->
+<!--            android:padding="@dimen/common_spacing"-->
+<!--            app:icon="@drawable/ic_ok_24" />-->
     </LinearLayout>
 
 

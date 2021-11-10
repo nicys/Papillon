@@ -89,12 +89,7 @@ class AddEditPostFragment : Fragment() {
                 .crop()
                 .compress(2048)
                 .provider(ImageProvider.GALLERY)
-                .galleryMimeTypes(
-                    arrayOf(
-                        "image/png",
-                        "image/jpeg",
-                    )
-                )
+                .galleryMimeTypes(arrayOf("image/png", "image/jpeg"))
                 .createIntent(pickPhotoLauncher::launch)
         }
 
@@ -104,12 +99,6 @@ class AddEditPostFragment : Fragment() {
                 .compress(2048)
                 .provider(ImageProvider.CAMERA)
                 .createIntent(pickPhotoLauncher::launch)
-        }
-
-        binding.ok.setOnClickListener {
-            postViewModel.changeContent(binding.etEdit.text.toString())
-            postViewModel.savePost()
-            hideKeyboard(requireView())
         }
 
         binding.removePhoto.setOnClickListener {

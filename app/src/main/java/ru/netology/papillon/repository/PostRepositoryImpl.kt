@@ -86,7 +86,7 @@ class PostRepositoryImpl(private val postDao: PostDao) : PostRepository {
             save(postWithAttachment)
         } catch (e: AppError) {
             throw e
-        } catch (e: java.io.IOException) {
+        } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {
             throw UnknownError
@@ -105,7 +105,7 @@ class PostRepositoryImpl(private val postDao: PostDao) : PostRepository {
             }
 
             return response.body() ?: throw ApiError(response.code(), response.message())
-        } catch (e: java.io.IOException) {
+        } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {
             throw UnknownError

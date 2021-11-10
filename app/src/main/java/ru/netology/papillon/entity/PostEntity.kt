@@ -85,8 +85,8 @@ data class AttachmentEmbeddable(
 }
 
 data class CoordsEmbeddable(
-    val lat: Double = 0.0,
-    val lng: Double = 0.0,
+    var lat: Double = 0.0,
+    var lng: Double = 0.0,
 ) {
     fun toDto() = Coords(lat, lng)
 
