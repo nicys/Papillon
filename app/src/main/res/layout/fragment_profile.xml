@@ -213,90 +213,103 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/profileJobId"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toTopOf="@+id/bnv_profile"
             app:layout_constraintTop_toBottomOf="@+id/profileNameId">
 
-            <LinearLayout
-                android:id="@+id/profileJob"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_list_of_jobs"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/bottom_navigation_view_color"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:listitem="@layout/card_job" />
-
-            </LinearLayout>
-
-            <!--            <include-->
-            <!--                android:id="@+id/profileJob"-->
-            <!--                layout="@layout/fragment_jobs" />-->
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/bt_add_job"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/profileJobId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:backgroundTint="@color/white"
-                android:text="@string/button_add_a_job"
-                android:textColor="@color/bottom_navigation_view_color"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profileJob" />
+                app:layout_constraintTop_toBottomOf="@+id/profileNameId">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/profilePostId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileJobId">
-
-                <androidx.core.widget.NestedScrollView
+                <LinearLayout
+                    android:id="@+id/profileJob"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_list_of_posts"
-                        android:layout_width="match_parent"
+                        android:id="@+id/rv_list_of_jobs"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@color/bottom_navigation_view_color"
+                        android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:orientation="vertical"
-                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0"
-                        tools:listitem="@layout/card_post" />
+                        tools:listitem="@layout/card_job" />
 
-                </androidx.core.widget.NestedScrollView>
+                </LinearLayout>
 
-            <!--            <include-->
-            <!--                android:id="@+id/profilePost"-->
-            <!--                layout="@layout/fragment_posts" />-->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/bt_add_job"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/white"
+                    android:text="@string/button_add_a_job"
+                    android:textColor="@color/bottom_navigation_view_color"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/profileJob" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/footer_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="bt_add_profile,tv_warning,profileJobId"
+                tools:ignore="NotSibling" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/profilePostId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileJobId">
+
+                <!--                <ScrollView-->
+                <!--                    android:id="@+id/scrollView"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="0dp"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toTopOf="parent">-->
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_list_of_posts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:listitem="@layout/card_post" />
+
+                <!--                </ScrollView>-->
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bnv_profile"
