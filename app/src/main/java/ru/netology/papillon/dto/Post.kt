@@ -4,6 +4,10 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 import ru.netology.papillon.extensions.getCurrentDateTime
+import ru.netology.papillon.extensions.toString
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.util.*
 
 @Parcelize
 data class Post(
@@ -11,7 +15,7 @@ data class Post(
     val authorId: Long = 0L,
     val author: String = "",
     val authorAvatar: String? = null,
-    val published: String = getCurrentDateTime().toString(),
+    val published: String = "2021-08-17T16:46:58.887547Z",
     val content: String = "",
     val likedByMe: Boolean = false,
     val likesCnt: Int = 0,

@@ -19,6 +19,15 @@ object AndroidUtils {
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
     }
 
+    fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = SimpleDateFormat(format, locale)
+        return formatter.format(this)
+    }
+
+    fun getCurrentDateTime(): Date {
+        return Calendar.getInstance().time
+    }
+
 
     fun formatMillisToDateTimeString(millis: Long?): String {
         return SimpleDateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.SHORT)
