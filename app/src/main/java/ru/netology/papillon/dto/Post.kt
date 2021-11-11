@@ -3,11 +3,7 @@ package ru.netology.papillon.dto
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
-import ru.netology.papillon.extensions.getCurrentDateTime
-import ru.netology.papillon.extensions.toString
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.util.*
+import ru.netology.papillon.enumeration.AttachmentType
 
 @Parcelize
 data class Post(
