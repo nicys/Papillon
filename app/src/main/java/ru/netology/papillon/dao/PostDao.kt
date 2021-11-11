@@ -50,6 +50,9 @@ interface PostDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(posts: List<PostEntity>)
+
+    @Query("SELECT * FROM PostEntity WHERE id = :id ")
+    suspend fun getPostById(id: Long) : PostEntity
 }
 
 class Converters {
