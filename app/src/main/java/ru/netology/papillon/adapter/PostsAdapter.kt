@@ -1,7 +1,6 @@
 package ru.netology.papillon.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
@@ -16,8 +15,8 @@ import ru.netology.papillon.R
 import ru.netology.papillon.databinding.CardPostBinding
 import ru.netology.papillon.dto.AttachmentType
 import ru.netology.papillon.dto.Post
+import ru.netology.papillon.extensions.load
 import ru.netology.papillon.extensions.loadCircleCrop
-import ru.netology.papillon.extensions.loadImage
 import ru.netology.papillon.utils.sumTotalFeed
 
 interface OnPostInteractionListener {
@@ -25,9 +24,9 @@ interface OnPostInteractionListener {
     fun onEditPost(post: Post) {}
     fun onRemovePost(post: Post) {}
     fun onSharePost(post: Post) {}
-    fun onVideoPost(post: Post) {}
     fun onShowPost(post: Post) {}
     fun onAvatarClicked(post: Post) {}
+    fun onPhotoImage(post: Post) {}
 }
 
 class PostsAdapter(
@@ -59,6 +58,11 @@ class PostViewHolder(
                 ivAvatar.loadCircleCrop("${BuildConfig.BASE_URL}/avatars/${post.authorAvatar}")
             } ?: ivAvatar.setImageResource(R.drawable.ic_no_avatar_user)
 
+//            if (post.attachment != null) {
+//                imageAttachment.visibility = VISIBLE
+//                imageAttachment.load("${BuildConfig.BASE_URL}/media/${post.attachment!!.url}")
+//            } else imageAttachment.visibility = GONE
+
             btLike.isChecked = post.likedByMe
             btLike.setOnClickListener {
                 onPostInteractionListener.onLikePost(post)
@@ -72,12 +76,12 @@ class PostViewHolder(
 
             btViews.text = sumTotalFeed((post.viewsCnt))
 
-            ivVideo.setOnClickListener {
-                onPostInteractionListener.onVideoPost(post)
-            }
-
             tvContent.setOnClickListener {
                 onPostInteractionListener.onShowPost(post)
+            }
+
+            imageAttachment.setOnClickListener {
+                onPostInteractionListener.onPhotoImage(post)
             }
 
             if (!post.ownedByMe) menu.visibility = GONE
@@ -112,7 +116,7 @@ class PostViewHolder(
                     AttachmentType.IMAGE -> {
                         imageAttachment.visibility = VISIBLE
                         videoContainer.visibility = GONE
-                        imageAttachment.loadImage("${BuildConfig.BASE_URL}/media/${post.attachment!!.url}")
+                        imageAttachment.load("${BuildConfig.BASE_URL}/media/${post.attachment!!.url}")
                     }
                     AttachmentType.VIDEO -> {
                         imageAttachment.visibility = GONE

@@ -83,19 +83,6 @@ class ProfileFragment : Fragment() {
                 postViewModel.sharedById(post.id)
             }
 
-            override fun onVideoPost(post: Post) {
-//                post.videoAttach?.let {
-//                    val intent = Intent().apply {
-//                        action = Intent.ACTION_VIEW
-//                        Intent(Intent.ACTION_VIEW, Uri.parse("url"))
-//                        data = Uri.parse(post.videoAttach)
-//                    }
-//                    val videoIntent =
-//                        Intent.createChooser(intent, getString(R.string.chooser_video_post))
-//                    startActivity(videoIntent)
-//                }
-            }
-
             override fun onShowPost(post: Post) {
                 postViewModel.viewedById(post.id)
                 findNavController().navigate(R.id.action_profileFragment_to_showPostFragment,

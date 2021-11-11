@@ -17,6 +17,7 @@ import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.papillon.AddEditPostFragment.Companion.textDataContent
+import ru.netology.papillon.PhotoImageFragment.Companion.postPhoto
 import ru.netology.papillon.ShowPostFragment.Companion.postData
 import ru.netology.papillon.adapter.OnPostInteractionListener
 import ru.netology.papillon.adapter.PostsAdapter
@@ -69,19 +70,6 @@ class PostsFragment : Fragment() {
                 postViewModel.sharedById(post.id)
             }
 
-            override fun onVideoPost(post: Post) {
-//                post.videoAttach?.let {
-//                    val intent = Intent().apply {
-//                        action = Intent.ACTION_VIEW
-//                        Intent(Intent.ACTION_VIEW, Uri.parse("url"))
-//                        data = Uri.parse(post.videoAttach)
-//                    }
-//                    val videoIntent =
-//                        Intent.createChooser(intent, getString(R.string.chooser_video_post))
-//                    startActivity(videoIntent)
-//                }
-            }
-
             override fun onShowPost(post: Post) {
                 postViewModel.viewedById(post.id)
                 findNavController().navigate(R.id.action_postsFragment_to_showPostFragment,
@@ -91,6 +79,15 @@ class PostsFragment : Fragment() {
 
             override fun onAvatarClicked(post: Post) {
                 // TODO
+            }
+
+            override fun onPhotoImage(post: Post) {
+                findNavController().navigate(R.id.action_postsFragment_to_photoImageFragment,
+                    Bundle().apply
+                    {
+                        postData = post
+                        postPhoto = post.attachment?.url
+                    })
             }
         })
 
