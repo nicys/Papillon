@@ -172,6 +172,22 @@ class PostRepositoryImpl(private val postDao: PostDao) : PostRepository {
         }
     }
 
+//    override suspend fun removedById(id: Long) {
+//        try {
+//            val response = Api.service.removedByIdPost(id)
+//            if (!response.isSuccessful) {
+//                throw ApiError(response.code(), response.message())
+//            }
+//
+//            response.body() ?: throw ApiError(response.code(), response.message())
+//            postDao.removedById(id)
+//        } catch (e: IOException) {
+//            throw NetworkError
+//        } catch (e: Exception) {
+//            throw UnknownError
+//        }
+//    }
+
     override suspend fun authentication(login: String, password: String) {
         try {
             val response = Api.service.updateUser(login, password)

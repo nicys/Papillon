@@ -94,9 +94,9 @@ class PostsFragment : Fragment() {
             }
         })
 
-        binding.rvListOfPosts.adapter = adapter
         postViewModel.data.observe(viewLifecycleOwner, { state ->
             adapter.submitList(state.posts)
+            binding.rvListOfPosts.smoothScrollToPosition(state.posts.size)
             binding.tvEmptyText.isVisible = state.empty
         })
 

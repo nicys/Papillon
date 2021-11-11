@@ -194,17 +194,30 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+//    @ExperimentalCoroutinesApi
+//    fun removedById(id: Long) {
+//        val posts = data.value?.posts.orEmpty()
+//            .filter { it.id != id }
+//        data.value?.copy(posts = posts, empty = posts.isEmpty())
+//
+//        viewModelScope.launch {
+//            try {
+//                repository.removedById(id)
+//            } catch (e: Exception) {
+//                _dataState.value = FeedModelState(error = true)
+//            }
+//        }
+//    }
+
     @ExperimentalCoroutinesApi
     fun removedById(id: Long) {
-        val posts = data.value?.posts.orEmpty()
-            .filter { it.id != id }
-        data.value?.copy(posts = posts, empty = posts.isEmpty())
-
         viewModelScope.launch {
             try {
                 repository.removedById(id)
+                val posts = data.value?.posts?.filter { post -> post.id != id }
+                data.value?.copy(posts = posts.orEmpty())
             } catch (e: Exception) {
-                _dataState.value = FeedModelState(error = true)
+                _networkError.value = e.message
             }
         }
     }
