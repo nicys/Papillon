@@ -5,9 +5,9 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ru.netology.papillon.dto.Attachment
-import ru.netology.papillon.dto.AttachmentType
 import ru.netology.papillon.dto.Coords
 import ru.netology.papillon.dto.Post
+import ru.netology.papillon.enumeration.AttachmentType
 
 @Entity
 data class PostEntity(

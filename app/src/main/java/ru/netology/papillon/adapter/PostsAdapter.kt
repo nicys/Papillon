@@ -13,8 +13,8 @@ import com.bumptech.glide.Glide
 import ru.netology.papillon.BuildConfig
 import ru.netology.papillon.R
 import ru.netology.papillon.databinding.CardPostBinding
-import ru.netology.papillon.dto.AttachmentType
 import ru.netology.papillon.dto.Post
+import ru.netology.papillon.enumeration.AttachmentType
 import ru.netology.papillon.extensions.load
 import ru.netology.papillon.extensions.loadCircleCrop
 import ru.netology.papillon.utils.sumTotalFeed

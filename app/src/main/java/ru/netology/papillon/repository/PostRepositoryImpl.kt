@@ -12,6 +12,7 @@ import ru.netology.papillon.auth.AppAuth
 import ru.netology.papillon.dao.PostDao
 import ru.netology.papillon.dto.*
 import ru.netology.papillon.entity.PostEntity
+import ru.netology.papillon.enumeration.AttachmentType
 import ru.netology.papillon.error.ApiError
 import ru.netology.papillon.error.AppError
 import ru.netology.papillon.error.NetworkError
@@ -158,35 +159,35 @@ class PostRepositoryImpl(private val postDao: PostDao) : PostRepository {
         }
     }
 
-    override suspend fun removedById(id: Long) {
-            postDao.removedById(id)
-            try {
-                val response = Api.service.removedByIdPost(id)
-                if (!response.isSuccessful) {
-                    throw ApiError(response.code(), response.message())
-                }
-        } catch (e: IOException) {
-            throw NetworkError
-        } catch (e: Exception) {
-            throw UnknownError
-        }
-    }
-
 //    override suspend fun removedById(id: Long) {
-//        try {
-//            val response = Api.service.removedByIdPost(id)
-//            if (!response.isSuccessful) {
-//                throw ApiError(response.code(), response.message())
-//            }
-//
-//            response.body() ?: throw ApiError(response.code(), response.message())
 //            postDao.removedById(id)
+//            try {
+//                val response = Api.service.removedByIdPost(id)
+//                if (!response.isSuccessful) {
+//                    throw ApiError(response.code(), response.message())
+//                }
 //        } catch (e: IOException) {
 //            throw NetworkError
 //        } catch (e: Exception) {
 //            throw UnknownError
 //        }
 //    }
+
+    override suspend fun removedById(id: Long) {
+        try {
+            val response = Api.service.removedByIdPost(id)
+            if (!response.isSuccessful) {
+                throw ApiError(response.code(), response.message())
+            }
+
+            response.body() ?: throw ApiError(response.code(), response.message())
+            postDao.removedById(id)
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError
+        }
+    }
 
     override suspend fun authentication(login: String, password: String) {
         try {

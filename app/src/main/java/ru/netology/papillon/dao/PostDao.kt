@@ -3,8 +3,8 @@ package ru.netology.papillon.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
-import ru.netology.papillon.dto.AttachmentType
 import ru.netology.papillon.entity.PostEntity
+import ru.netology.papillon.enumeration.AttachmentType
 
 @Dao
 interface PostDao {
