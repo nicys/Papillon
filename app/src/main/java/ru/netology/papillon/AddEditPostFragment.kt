@@ -89,7 +89,7 @@ class AddEditPostFragment : Fragment() {
                 .crop()
                 .compress(2048)
                 .provider(ImageProvider.GALLERY)
-                .galleryMimeTypes(arrayOf("image/png", "image/jpeg"))
+                .galleryMimeTypes(arrayOf("image/*"))
                 .createIntent(pickPhotoLauncher::launch)
         }
 

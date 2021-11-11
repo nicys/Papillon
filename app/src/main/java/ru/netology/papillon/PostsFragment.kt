@@ -127,19 +127,19 @@ class PostsFragment : Fragment() {
 
         //
 
-        postViewModel.newerCount.observe(viewLifecycleOwner) { isNewerPosts ->
-            if (isNewerPosts > 0) {
-                binding.upTab.isVisible = true
-                val badge = context?.let { BadgeDrawable.create(it) }
-                badge?.isVisible = true
-                badge?.let { BadgeUtils.attachBadgeDrawable(it, binding.upTab) }
-            }
-        }
+//        postViewModel.newerCount.observe(viewLifecycleOwner) { isNewerPosts ->
+//            if (isNewerPosts > 0) {
+//                binding.upTab.isVisible = true
+//                val badge = context?.let { BadgeDrawable.create(it) }
+//                badge?.isVisible = true
+//                badge?.let { BadgeUtils.attachBadgeDrawable(it, binding.upTab) }
+//            }
+//        }
 
-        binding.upTab.setOnClickListener {
-            binding.rvListOfPosts.smoothScrollToPosition(0)
-            binding.upTab.isVisible = false
-        }
+//        binding.upTab.setOnClickListener {
+//            binding.rvListOfPosts.smoothScrollToPosition()
+//            binding.upTab.isVisible = false
+//        }
 
         binding.bnvListOfPosts.setOnNavigationItemSelectedListener {
             when (it.itemId) {
