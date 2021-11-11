@@ -46,10 +46,10 @@ interface PostDao {
     fun removedById(id: Long)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(post: PostEntity)
+    suspend fun insertPost(post: PostEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(posts: List<PostEntity>)
+    suspend fun insertPosts(posts: List<PostEntity>)
 
     @Query("SELECT * FROM PostEntity WHERE id = :id ")
     suspend fun getPostById(id: Long) : PostEntity

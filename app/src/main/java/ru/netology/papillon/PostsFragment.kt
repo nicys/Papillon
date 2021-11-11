@@ -104,7 +104,6 @@ class PostsFragment : Fragment() {
         postViewModel.dataState.observe(viewLifecycleOwner, { state ->
             binding.pbProgress.isVisible = state.loading
             binding.swiperefresh.isRefreshing = state.refreshing
-            binding.errorGroup.isVisible = state.error
             if (state.error) {
                 Snackbar.make(binding.root, R.string.error_loading, Snackbar.LENGTH_LONG)
                     .setAction(R.string.retry_loading) { postViewModel.loadPosts() }
@@ -117,29 +116,9 @@ class PostsFragment : Fragment() {
                 .show()
         })
 
-        binding.btRetryButton.setOnClickListener {
-            postViewModel.loadPosts()
-        }
-
         binding.swiperefresh.setOnRefreshListener {
             postViewModel.refreshPosts()
         }
-
-        //
-
-//        postViewModel.newerCount.observe(viewLifecycleOwner) { isNewerPosts ->
-//            if (isNewerPosts > 0) {
-//                binding.upTab.isVisible = true
-//                val badge = context?.let { BadgeDrawable.create(it) }
-//                badge?.isVisible = true
-//                badge?.let { BadgeUtils.attachBadgeDrawable(it, binding.upTab) }
-//            }
-//        }
-
-//        binding.upTab.setOnClickListener {
-//            binding.rvListOfPosts.smoothScrollToPosition()
-//            binding.upTab.isVisible = false
-//        }
 
         binding.bnvListOfPosts.setOnNavigationItemSelectedListener {
             when (it.itemId) {

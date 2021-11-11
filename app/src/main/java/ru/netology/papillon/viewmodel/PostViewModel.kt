@@ -196,14 +196,15 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     @ExperimentalCoroutinesApi
     fun removedById(id: Long) {
+        val posts = data.value?.posts.orEmpty()
+            .filter { it.id != id }
+        data.value?.copy(posts = posts, empty = posts.isEmpty())
+
         viewModelScope.launch {
             try {
                 repository.removedById(id)
-                val posts = data.value?.posts.orEmpty()
-                    .filter { it.id != id }
-                data.value?.copy(posts = posts, empty = posts.isEmpty())
             } catch (e: Exception) {
-                _networkError.value = e.message
+                _dataState.value = FeedModelState(error = true)
             }
         }
     }
