@@ -1,14 +1,14 @@
 package ru.netology.papillon
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import ru.netology.papillon.databinding.FragmentPhotoImageBinding
 import ru.netology.papillon.dto.Post
-import ru.netology.papillon.extensions.loadImage
+import ru.netology.papillon.extensions.load
 import ru.netology.papillon.utils.PostArg
 import ru.netology.papillon.utils.StringArg
 import ru.netology.papillon.viewmodel.PostViewModel
@@ -38,7 +38,7 @@ class PhotoImageFragment : Fragment() {
                     post ?: return@observe
                 })
                 arguments?.postPhoto?.let {
-                    binding.fullScreenPhoto.loadImage("${BuildConfig.BASE_URL}/media/${postWithPhoto.attachment?.url}")
+                    binding.fullScreenPhoto.load("${BuildConfig.BASE_URL}/media/${postWithPhoto.attachment?.url}")
                 }
             }
             return binding.root

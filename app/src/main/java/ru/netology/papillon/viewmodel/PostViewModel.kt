@@ -194,33 +194,34 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-//    @ExperimentalCoroutinesApi
-//    fun removedById(id: Long) {
-//        val posts = data.value?.posts.orEmpty()
-//            .filter { it.id != id }
-//        data.value?.copy(posts = posts, empty = posts.isEmpty())
-//
-//        viewModelScope.launch {
-//            try {
-//                repository.removedById(id)
-//            } catch (e: Exception) {
-//                _dataState.value = FeedModelState(error = true)
-//            }
-//        }
-//    }
-
     @ExperimentalCoroutinesApi
     fun removedById(id: Long) {
+        val posts = data.value?.posts?.filter { it.id != id }
+        if (posts != null) {
+            data.value?.copy(posts = posts, empty = posts.isEmpty())
+        }
+
         viewModelScope.launch {
             try {
                 repository.removedById(id)
-                val posts = data.value?.posts?.filter { post -> post.id != id }
-                data.value?.copy(posts = posts.orEmpty())
             } catch (e: Exception) {
-                _networkError.value = e.message
+                _dataState.value = FeedModelState(error = true)
             }
         }
     }
+
+//    @ExperimentalCoroutinesApi
+//    fun removedById(id: Long) {
+//        viewModelScope.launch {
+//            try {
+//                repository.removedById(id)
+//                val posts = data.value?.posts?.filter { post -> post.id != id }
+//                data.value?.copy(posts = posts.orEmpty())
+//            } catch (e: Exception) {
+//                _networkError.value = e.message
+//            }
+//        }
+//    }
 
     fun getPostById(id: Long): LiveData<Post?> = repository.dataPosts.map { posts ->
         posts.find { post ->
