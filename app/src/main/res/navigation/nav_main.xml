@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_postsFragment_to_exitFragment"
             app:destination="@id/exitFragment" />
+        <action
+            android:id="@+id/action_postsFragment_to_photoImageFragment"
+            app:destination="@id/photoImageFragment" />
     </fragment>
     <fragment
         android:id="@+id/addEditPostFragment"
@@ -117,4 +120,9 @@
         android:name="ru.netology.papillon.ExitFragment"
         android:label="fragment_exit"
         tools:layout="@layout/fragment_exit" />
+    <fragment
+        android:id="@+id/photoImageFragment"
+        android:name="ru.netology.papillon.PhotoImageFragment"
+        android:label="fragment_photo_image"
+        tools:layout="@layout/fragment_photo_image" />
 </navigation>
