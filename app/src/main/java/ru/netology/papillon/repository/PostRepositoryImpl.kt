@@ -164,12 +164,13 @@ class PostRepositoryImpl(private val postDao: PostDao) : PostRepository {
             if (!response.isSuccessful) {
                 throw ApiError(response.code(), response.message())
             }
+
             response.body() ?: throw ApiError(response.code(), response.message())
             postDao.removedById(id)
         } catch (e: IOException) {
-            NetworkError
+            throw NetworkError
         } catch (e: Exception) {
-            UnknownError
+            throw UnknownError
         }
     }
 
