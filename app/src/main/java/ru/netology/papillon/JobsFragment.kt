@@ -49,7 +49,6 @@ class JobsFragment : Fragment() {
             }
         })
 
-        binding.rvListOfJobs.adapter = adapter
         jobViewModel.data.observe(viewLifecycleOwner, { state ->
             adapter.submitList(state.jobs)
             binding.tvEmptyText.isVisible = state.empty

@@ -24,9 +24,7 @@ class AddEditJobFragment : Fragment() {
         var Bundle.textDataLink: String? by StringArg
     }
 
-    private val jobViewModel: JobViewModel by viewModels(
-        ownerProducer = ::requireParentFragment
-    )
+    private val jobViewModel: JobViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
