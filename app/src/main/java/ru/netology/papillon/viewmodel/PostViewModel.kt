@@ -10,10 +10,11 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.netology.papillon.auth.AppAuth
-import ru.netology.papillon.model.PhotoModel
+import ru.netology.papillon.model.MediaModel
 import ru.netology.papillon.db.AppDbPost
 import ru.netology.papillon.dto.MediaUpload
 import ru.netology.papillon.dto.Post
+import ru.netology.papillon.enumeration.AttachmentType
 import ru.netology.papillon.model.FeedModelPosts
 import ru.netology.papillon.model.FeedModelState
 import ru.netology.papillon.repository.PostRepository
@@ -23,7 +24,7 @@ import ru.netology.papillon.utils.sumTotalFeed
 import java.io.File
 
 private val empty = Post()
-private val noPhoto = PhotoModel()
+private val noMedia = MediaModel()
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -62,9 +63,9 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     val networkError: LiveData<String>
         get() = _networkError
 
-    private val _photo = MutableLiveData(noPhoto)
-    val photo: LiveData<PhotoModel>
-        get() = _photo
+    private val _media = MutableLiveData(noMedia)
+    val media: LiveData<MediaModel>
+        get() = _media
 
     val edited = MutableLiveData(empty)
 
@@ -93,19 +94,48 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun savePost() {
-        edited.value?.let {
+        edited.value?.let { post ->
             _postCreated.value = Unit
             viewModelScope.launch {
                 try {
-                    when (_photo.value) {
-                        noPhoto -> repository.save(it)
-                        else -> _photo.value?.file?.let { file ->
-                            repository.saveWithAttachment(it, MediaUpload(file))
+                    when (_media.value) {
+                        noMedia -> repository.save(post)
+                        else -> {
+                            when (_media.value?.type) {
+                                AttachmentType.IMAGE -> {
+                                    _media.value?.file?.let { file ->
+                                        repository.saveWithAttachment(
+                                            post,
+                                            MediaUpload(file),
+                                            AttachmentType.IMAGE
+                                        )
+                                    }
+                                }
+                                AttachmentType.VIDEO -> {
+                                    _media.value?.file?.let { file ->
+                                        repository.saveWithAttachment(
+                                            post,
+                                            MediaUpload(file),
+                                            AttachmentType.VIDEO
+                                        )
+                                    }
+                                }
+                                AttachmentType.AUDIO -> {
+                                    _media.value?.file?.let { file ->
+                                        repository.saveWithAttachment(
+                                            post,
+                                            MediaUpload(file),
+                                            AttachmentType.AUDIO
+                                        )
+                                    }
+                                }
+                                null -> repository.save(post)
+                            }
                         }
                     }
                     _dataState.value = FeedModelState()
                     edited.value = empty
-                    _photo.value = noPhoto
+                    _media.value = noMedia
                 } catch (e: Exception) {
                     _dataState.value = FeedModelState(error = true)
                 }
@@ -125,8 +155,8 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         edited.value = edited.value?.copy(content = text)
     }
 
-    fun changePhoto(uri: Uri?, file: File?) {
-        _photo.value = PhotoModel(uri, file)
+    fun changeMedia(uri: Uri?, file: File?, type: AttachmentType?) {
+        _media.value = MediaModel(uri, file, type)
     }
 
 //    fun changeVideoURL(videoURL: String) {
