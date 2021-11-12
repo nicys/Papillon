@@ -25,7 +25,15 @@ interface PostRepository {
 
 interface Repository<T> {
     val data: Flow<List<T>>
+    val dataS: LiveData<List<T>>
     suspend fun getAll()
     suspend fun removedById(id: Long)
     suspend fun save(t: T)
+}
+
+interface ProfileRepository {
+    val dataPostsFlow: Flow<List<Post>>
+    val dataPosts: LiveData<List<Post>>
+    suspend fun getAllPosts()
+    suspend fun getAllJobs()
 }

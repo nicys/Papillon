@@ -1,15 +1,20 @@
 package ru.netology.papillon.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import ru.netology.papillon.api.Api
 import ru.netology.papillon.dao.UserDao
+import ru.netology.papillon.dto.Job
 import ru.netology.papillon.dto.User
+import ru.netology.papillon.entity.JobEntity
 import ru.netology.papillon.entity.UserEntity
 import ru.netology.papillon.error.ApiError
 import ru.netology.papillon.error.NetworkError
 import ru.netology.papillon.error.UnknownError
+import ru.netology.papillon.extensions.toDtoJob
 import ru.netology.papillon.extensions.toDtoUser
 import ru.netology.papillon.extensions.toEntityUser
 import java.io.IOException
@@ -19,6 +24,9 @@ class UserRepositoryImpl(private val userDao: UserDao) : Repository<User> {
     override val data = userDao.getAll()
         .map(List<UserEntity>::toDtoUser)
         .flowOn(Dispatchers.Default)
+
+    override val dataS: LiveData<List<User>> =
+        userDao.getAllUsers().map(List<UserEntity>::toDtoUser)
 
     override suspend fun getAll() {
         try {

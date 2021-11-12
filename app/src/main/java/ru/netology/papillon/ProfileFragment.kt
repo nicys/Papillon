@@ -13,12 +13,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import ru.netology.papillon.AddEditJobFragment.Companion.textDataCompany
 import ru.netology.papillon.AddEditJobFragment.Companion.textDataFinish
 import ru.netology.papillon.AddEditJobFragment.Companion.textDataLink
 import ru.netology.papillon.AddEditJobFragment.Companion.textDataPosition
 import ru.netology.papillon.AddEditJobFragment.Companion.textDataStart
 import ru.netology.papillon.AddEditPostFragment.Companion.textDataContent
+import ru.netology.papillon.PhotoImageFragment.Companion.postPhoto
 import ru.netology.papillon.ShowPostFragment.Companion.postData
 import ru.netology.papillon.adapter.JobsAdapter
 import ru.netology.papillon.adapter.OnJobInteractionListener
@@ -27,36 +29,25 @@ import ru.netology.papillon.adapter.PostsAdapter
 import ru.netology.papillon.databinding.FragmentProfileBinding
 import ru.netology.papillon.dto.Job
 import ru.netology.papillon.dto.Post
-import ru.netology.papillon.viewmodel.JobViewModel
-import ru.netology.papillon.viewmodel.PostViewModel
-import ru.netology.papillon.viewmodel.ProfileViewModel
-import ru.netology.papillon.viewmodel.UserViewModel
+import ru.netology.papillon.viewmodel.*
 
 class ProfileFragment : Fragment() {
 
-    val userViewModel: UserViewModel by viewModels(ownerProducer = ::requireParentFragment)
-    val jobViewModel: JobViewModel by viewModels(ownerProducer = ::requireParentFragment)
-    val postViewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
-    private val profileViewModel: ProfileViewModel by viewModels(ownerProducer = ::requireParentFragment)
+    val profileViewModel: ProfileViewModel by viewModels(ownerProducer = ::requireParentFragment)
+    val authViewModel: AuthViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val binding = FragmentProfileBinding.inflate(inflater, container, false)
-        binding.bnvProfile.selectedItemId = R.id.page_3
 
-//        val profileAccess = profileViewModel.dataUser.observe(viewLifecycleOwner) { users->
-//            users.find { user->
-//                    user.idUser == idUser
-//                }
-//                binding.tvUserName.text = user.name
-//            }
-
-
+        // Create postAdapter
         val postAdapter = PostsAdapter(object : OnPostInteractionListener {
             override fun onEditPost(post: Post) {
-                postViewModel.editPost(post)
+                profileViewModel.editPost(post)
                 findNavController().navigate(R.id.action_profileFragment_to_addEditPostFragment,
                     Bundle().apply {
                         textDataContent = post.content
@@ -64,11 +55,11 @@ class ProfileFragment : Fragment() {
             }
 
             override fun onLikePost(post: Post) {
-                postViewModel.likedById(post.id)
+                profileViewModel.likedById(post.id)
             }
 
             override fun onRemovePost(post: Post) {
-                postViewModel.removedById(post.id)
+                profileViewModel.removedById(post.id)
             }
 
             override fun onSharePost(post: Post) {
@@ -80,30 +71,45 @@ class ProfileFragment : Fragment() {
                 val shareIntent =
                     Intent.createChooser(intent, getString(R.string.chooser_share_post))
                 startActivity(shareIntent)
-                postViewModel.sharedById(post.id)
+                profileViewModel.sharedById(post.id)
             }
 
             override fun onShowPost(post: Post) {
-                postViewModel.viewedById(post.id)
-                findNavController().navigate(R.id.action_profileFragment_to_showPostFragment,
+                profileViewModel.viewedById(post.id)
+                findNavController().navigate(R.id.action_profileFragment_to_showPostFragment2,
                     Bundle().apply { postData = post }
                 )
+            }
+
+            override fun onAvatarClicked(post: Post) {
+                // TODO
+            }
+
+            override fun onPhotoImage(post: Post) {
+                findNavController().navigate(R.id.action_profileFragment_to_photoImageFragment,
+                    Bundle().apply
+                    {
+                        postData = post
+                        postPhoto = post.attachment?.url
+                    })
             }
         })
 
         binding.rvListOfPosts.adapter = postAdapter
-        postViewModel.data.observe(viewLifecycleOwner, { state ->
-            postAdapter.submitList(state.posts)
-//            binding.tvEmptyText.isVisible = state.empty
-        })
+        binding.rvListOfPosts.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
 
+        // Create jobAdapter
         val jobAdapter = JobsAdapter(object : OnJobInteractionListener {
             override fun onDeleteJob(job: Job) {
-                jobViewModel.removedById(job.id)
+                profileViewModel.removedById(job.id)
             }
-
             override fun onEdinJob(job: Job) {
-                jobViewModel.editJob(job)
+                profileViewModel.editJob(job)
                 findNavController().navigate(R.id.action_profileFragment_to_addEditJobFragment,
                     Bundle().apply {
                         textDataCompany = job.company
@@ -116,50 +122,143 @@ class ProfileFragment : Fragment() {
         })
 
         binding.rvListOfJobs.adapter = jobAdapter
-        jobViewModel.data.observe(viewLifecycleOwner, { state ->
-            jobAdapter.submitList(state.jobs)
-//            binding.tvEmptyText.isVisible = state.empty
-        })
 
-        val userName = binding.tvUserName.text.toString().trim()
 
-        binding.btAddJob.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_addEditJobFragment)
-        }
-
-        binding.btAddProfile.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_addEditUserFragment)
-        }
-
-        binding.bnvProfile.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.page_1 -> Toast.makeText(context, R.string.at_home, Toast.LENGTH_SHORT).show()
-//                R.id.page_2 -> findNavController().navigate(R.id.action_postsFragment_to_profileFragment)
-                R.id.page_3 -> findNavController().navigate(R.id.action_profileFragment_to_addEditPostFragment)
-//                R.id.page_4 -> findNavController().navigate(R.id.action_postsFragment_to_profileFragment)
-                else -> findNavController().navigate(R.id.action_postsFragment_to_profileFragment)
-            }
-            return@setOnNavigationItemSelectedListener true
-        }
-
-        with(binding) {
-            with(userName.toString().isNotBlank() && userName.toString().isNotEmpty()) {
-                if (this) {
-                    cvIsYou.visibility = VISIBLE
-                    profileJobId.visibility = VISIBLE
-                    profileJob.visibility = VISIBLE
-                    profilePostId.visibility = VISIBLE
-                    btAddJob.visibility = VISIBLE
-                    btLike.visibility = VISIBLE
-                    btParticipants.visibility = VISIBLE
-                    ivOnline.visibility = VISIBLE
-                    tvOnline.visibility = VISIBLE
-                    btAddProfile.visibility = GONE
-                    tvWarning.visibility = GONE
-                }
-            }
-        }
 
         return binding.root
     }
+
 }
+
+
+//class ProfileFragment : Fragment() {
+//
+//    val userViewModel: UserViewModel by viewModels(ownerProducer = ::requireParentFragment)
+//    val jobViewModel: JobViewModel by viewModels(ownerProducer = ::requireParentFragment)
+//    val postViewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
+//    private val profileViewModel: ProfileViewModel by viewModels(ownerProducer = ::requireParentFragment)
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        val binding = FragmentProfileBinding.inflate(inflater, container, false)
+//        binding.bnvProfile.selectedItemId = R.id.page_3
+//
+////        val profileAccess = profileViewModel.dataUser.observe(viewLifecycleOwner) { users->
+////            users.find { user->
+////                    user.idUser == idUser
+////                }
+////                binding.tvUserName.text = user.name
+////            }
+//
+//
+//        val postAdapter = PostsAdapter(object : OnPostInteractionListener {
+//            override fun onEditPost(post: Post) {
+//                postViewModel.editPost(post)
+//                findNavController().navigate(R.id.action_profileFragment_to_addEditPostFragment,
+//                    Bundle().apply {
+//                        textDataContent = post.content
+//                    })
+//            }
+//
+//            override fun onLikePost(post: Post) {
+//                postViewModel.likedById(post.id)
+//            }
+//
+//            override fun onRemovePost(post: Post) {
+//                postViewModel.removedById(post.id)
+//            }
+//
+//            override fun onSharePost(post: Post) {
+//                val intent = Intent().apply {
+//                    action = Intent.ACTION_SEND
+//                    putExtra(Intent.EXTRA_TEXT, post.content)
+//                    type = "text/plain"
+//                }
+//                val shareIntent =
+//                    Intent.createChooser(intent, getString(R.string.chooser_share_post))
+//                startActivity(shareIntent)
+//                postViewModel.sharedById(post.id)
+//            }
+//
+//            override fun onShowPost(post: Post) {
+//                postViewModel.viewedById(post.id)
+//                findNavController().navigate(R.id.action_profileFragment_to_showPostFragment,
+//                    Bundle().apply { postData = post }
+//                )
+//            }
+//        })
+//
+//        binding.rvListOfPosts.adapter = postAdapter
+//        postViewModel.data.observe(viewLifecycleOwner, { state ->
+//            postAdapter.submitList(state.posts)
+////            binding.tvEmptyText.isVisible = state.empty
+//        })
+//
+//        val jobAdapter = JobsAdapter(object : OnJobInteractionListener {
+//            override fun onDeleteJob(job: Job) {
+//                jobViewModel.removedById(job.id)
+//            }
+//
+//            override fun onEdinJob(job: Job) {
+//                jobViewModel.editJob(job)
+//                findNavController().navigate(R.id.action_profileFragment_to_addEditJobFragment,
+//                    Bundle().apply {
+//                        textDataCompany = job.company
+//                        textDataPosition = job.position
+//                        textDataStart = job.start
+//                        textDataFinish = job.finish
+//                        textDataLink = job.link
+//                    })
+//            }
+//        })
+//
+//        binding.rvListOfJobs.adapter = jobAdapter
+//        jobViewModel.data.observe(viewLifecycleOwner, { state ->
+//            jobAdapter.submitList(state.jobs)
+////            binding.tvEmptyText.isVisible = state.empty
+//        })
+//
+//        val userName = binding.tvUserName.text.toString().trim()
+//
+//        binding.btAddJob.setOnClickListener {
+//            findNavController().navigate(R.id.action_profileFragment_to_addEditJobFragment)
+//        }
+//
+//        binding.btAddProfile.setOnClickListener {
+//            findNavController().navigate(R.id.action_profileFragment_to_addEditUserFragment)
+//        }
+//
+//        binding.bnvProfile.setOnNavigationItemSelectedListener {
+//            when (it.itemId) {
+//                R.id.page_1 -> Toast.makeText(context, R.string.at_home, Toast.LENGTH_SHORT).show()
+////                R.id.page_2 -> findNavController().navigate(R.id.action_postsFragment_to_profileFragment)
+//                R.id.page_3 -> findNavController().navigate(R.id.action_profileFragment_to_addEditPostFragment)
+////                R.id.page_4 -> findNavController().navigate(R.id.action_postsFragment_to_profileFragment)
+//                else -> findNavController().navigate(R.id.action_postsFragment_to_profileFragment)
+//            }
+//            return@setOnNavigationItemSelectedListener true
+//        }
+//
+//        with(binding) {
+//            with(userName.toString().isNotBlank() && userName.toString().isNotEmpty()) {
+//                if (this) {
+//                    cvIsYou.visibility = VISIBLE
+//                    profileJobId.visibility = VISIBLE
+//                    profileJob.visibility = VISIBLE
+//                    profilePostId.visibility = VISIBLE
+//                    btAddJob.visibility = VISIBLE
+//                    btLike.visibility = VISIBLE
+//                    btParticipants.visibility = VISIBLE
+//                    ivOnline.visibility = VISIBLE
+//                    tvOnline.visibility = VISIBLE
+//                    btAddProfile.visibility = GONE
+//                    tvWarning.visibility = GONE
+//                }
+//            }
+//        }
+//
+//        return binding.root
+//    }
+//}
