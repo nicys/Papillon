@@ -24,12 +24,13 @@
                 android:id="@+id/et_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/text_new_post"
                 android:background="@android:color/transparent"
                 android:inputType="textMultiLine"
                 android:padding="@dimen/common_spacing" />
 
             <FrameLayout
-                android:id="@+id/photoContainer"
+                android:id="@+id/mediaContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -40,8 +41,14 @@
                     android:layout_gravity="center_horizontal"
                     android:contentDescription="@string/description_photo" />
 
+                <VideoView
+                    android:id="@+id/media"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal" />
+
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/removePhoto"
+                    android:id="@+id/removeMedia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|bottom"
