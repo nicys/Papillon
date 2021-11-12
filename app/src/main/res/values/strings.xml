@@ -65,5 +65,6 @@
     <string name="exit_annotation">Log out of your account?</string>
     <string name="yes">YES</string>
     <string name="not">NOT</string>
+    <string name="text_new_post">Content of new post</string>
 
 </resources>

@@ -51,5 +51,6 @@
     <string name="exit_annotation">Выйти из аккаунта?</string>
     <string name="yes">ДА</string>
     <string name="not">НЕТ</string>
+    <string name="text_new_post">Контент нового поста</string>
 
 </resources>
