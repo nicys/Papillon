@@ -83,8 +83,7 @@ class PostRepositoryImpl(private val postDao: PostDao) : PostRepository {
     override suspend fun saveWithAttachment(post: Post, upload: MediaUpload, type: AttachmentType) {
         try {
             val media = upload(upload)
-            // TODO: add support for other types
-            val postWithAttachment = post.copy(attachment = Attachment(media.url, AttachmentType.IMAGE))
+            val postWithAttachment = post.copy(attachment = Attachment(media.url, type = type))
             save(postWithAttachment)
         } catch (e: AppError) {
             throw e
