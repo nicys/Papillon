@@ -77,6 +77,12 @@
         <action
             android:id="@+id/action_profileFragment_to_showPostFragment"
             app:destination="@id/showPostFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_showPostFragment2"
+            app:destination="@id/showPostFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_photoImageFragment"
+            app:destination="@id/photoImageFragment" />
     </fragment>
     <fragment
         android:id="@+id/addEditUserFragment"
