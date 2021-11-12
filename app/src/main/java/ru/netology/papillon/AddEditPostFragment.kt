@@ -13,7 +13,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import com.google.android.material.snackbar.Snackbar
 import ru.netology.papillon.databinding.FragmentAddEditPostBinding
-import ru.netology.papillon.utils.AndroidUtils
+import ru.netology.papillon.enumeration.AttachmentType
 import ru.netology.papillon.utils.AndroidUtils.hideKeyboard
 import ru.netology.papillon.utils.AndroidUtils.showKeyboard
 import ru.netology.papillon.utils.StringArg
@@ -79,7 +79,7 @@ class AddEditPostFragment : Fragment() {
                     }
                     Activity.RESULT_OK -> {
                         val uri: Uri? = it.data?.data
-                        postViewModel.changePhoto(uri, uri?.toFile())
+                        postViewModel.changeMedia(uri, uri?.toFile(), AttachmentType.IMAGE)
                     }
                 }
             }
@@ -89,7 +89,7 @@ class AddEditPostFragment : Fragment() {
                 .crop()
                 .compress(2048)
                 .provider(ImageProvider.GALLERY)
-                .galleryMimeTypes(arrayOf("image/*"))
+                .galleryMimeTypes(arrayOf("image/png", "image/jpeg"))
                 .createIntent(pickPhotoLauncher::launch)
         }
 
@@ -101,20 +101,20 @@ class AddEditPostFragment : Fragment() {
                 .createIntent(pickPhotoLauncher::launch)
         }
 
-        binding.removePhoto.setOnClickListener {
-            postViewModel.changePhoto(null, null)
+        binding.removeMedia.setOnClickListener {
+            postViewModel.changeMedia(null, null, null)
         }
 
         postViewModel.postCreated.observe(viewLifecycleOwner) {
             findNavController().navigateUp()
         }
 
-        postViewModel.photo.observe(viewLifecycleOwner) {
+        postViewModel.media.observe(viewLifecycleOwner) {
             if (it.uri == null) {
-                binding.photoContainer.visibility = View.GONE
+                binding.mediaContainer.visibility = View.GONE
                 return@observe
             }
-            binding.photoContainer.visibility = View.VISIBLE
+            binding.mediaContainer.visibility = View.VISIBLE
             binding.photo.setImageURI(it.uri)
         }
 
