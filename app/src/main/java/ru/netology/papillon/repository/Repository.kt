@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import ru.netology.papillon.dto.Media
 import ru.netology.papillon.dto.MediaUpload
 import ru.netology.papillon.dto.Post
+import ru.netology.papillon.enumeration.AttachmentType
 
 interface PostRepository {
     val data: Flow<List<Post>>
@@ -16,7 +17,7 @@ interface PostRepository {
     suspend fun viewedById(id: Long)
     suspend fun removedById(id: Long)
     suspend fun save(post: Post)
-    suspend fun saveWithAttachment(post: Post, upload: MediaUpload)
+    suspend fun saveWithAttachment(post: Post, upload: MediaUpload, type: AttachmentType)
     suspend fun upload(upload: MediaUpload): Media
     suspend fun authentication(login: String, password: String)
     suspend fun registration(nameUser: String, login: String, password: String)
