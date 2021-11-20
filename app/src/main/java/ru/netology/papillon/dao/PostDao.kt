@@ -43,7 +43,7 @@ interface PostDao {
     suspend fun viewedById(id: Long)
 
     @Query("DELETE FROM PostEntity WHERE id = :id")
-    fun removedById(id: Long)
+    suspend fun removedById(id: Long)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPost(post: PostEntity)
