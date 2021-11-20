@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 import ru.netology.papillon.entity.JobEntity
+import ru.netology.papillon.entity.PostEntity
 import ru.netology.papillon.entity.UserEntity
 
 @Dao
@@ -25,4 +26,7 @@ interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(users: List<UserEntity>)
+
+    @Query("SELECT * FROM UserEntity WHERE idUser = :id ")
+    suspend fun getUserById(id: Long) : UserEntity
 }

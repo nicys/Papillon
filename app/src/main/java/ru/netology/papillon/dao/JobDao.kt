@@ -25,4 +25,7 @@ interface JobDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(jobs: List<JobEntity>)
+
+    @Query("SELECT * FROM JobEntity WHERE id = :id ")
+    suspend fun getJobById(id: Long) : JobEntity
 }
