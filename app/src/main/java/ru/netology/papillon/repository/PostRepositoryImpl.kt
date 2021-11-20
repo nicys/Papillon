@@ -163,35 +163,35 @@ class PostRepositoryImpl(
         }
     }
 
-    override suspend fun removedById(id: Long) {
-            postDao.removedById(id)
-            try {
-                val response = Api.service.removedByIdPost(id)
-                if (!response.isSuccessful) {
-                    throw ApiError(response.code(), response.message())
-                }
-        } catch (e: IOException) {
-            throw NetworkError
-        } catch (e: Exception) {
-            throw UnknownError
-        }
-    }
-
 //    override suspend fun removedById(id: Long) {
-//        try {
-//            val response = Api.service.removedByIdPost(id)
-//            if (!response.isSuccessful) {
-//                throw ApiError(response.code(), response.message())
-//            }
-//
-//            response.body() ?: throw ApiError(response.code(), response.message())
 //            postDao.removedById(id)
+//            try {
+//                val response = Api.service.removedByIdPost(id)
+//                if (!response.isSuccessful) {
+//                    throw ApiError(response.code(), response.message())
+//                }
 //        } catch (e: IOException) {
 //            throw NetworkError
 //        } catch (e: Exception) {
 //            throw UnknownError
 //        }
 //    }
+
+    override suspend fun removedById(id: Long) {
+        try {
+            val response = Api.service.removedByIdPost(id)
+            if (!response.isSuccessful) {
+                throw ApiError(response.code(), response.message())
+            }
+
+            response.body() ?: throw ApiError(response.code(), response.message())
+            postDao.removedById(id)
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError
+        }
+    }
 
 //    override suspend fun removedById(id: Long) {
 //        val postToDelete = postDao.getPostById(id)
