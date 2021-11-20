@@ -10,6 +10,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import ru.netology.papillon.api.Api
 import ru.netology.papillon.auth.AppAuth
 import ru.netology.papillon.dao.PostDao
+import ru.netology.papillon.dao.PostWorkDao
 import ru.netology.papillon.dto.*
 import ru.netology.papillon.entity.PostEntity
 import ru.netology.papillon.enumeration.AttachmentType
@@ -22,7 +23,10 @@ import ru.netology.papillon.extensions.toEntityPost
 import java.io.IOException
 import java.sql.SQLException
 
-class PostRepositoryImpl(private val postDao: PostDao) : PostRepository {
+class PostRepositoryImpl(
+    private val postDao: PostDao,
+    private val postWorkDao: PostWorkDao,
+) : PostRepository {
     override val data = postDao.getAll()
         .map(List<PostEntity>::toDtoPost)
         .flowOn(Dispatchers.Default)
@@ -233,6 +237,17 @@ class PostRepositoryImpl(private val postDao: PostDao) : PostRepository {
 
         } catch (e: IOException) {
             throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError
+        }
+    }
+
+    override suspend fun processWorkRemoved(id: Long) {
+        try {
+            val response = Api.service.removedByIdPost(id)
+            response.body() ?: throw ApiError(response.code(), response.message())
+            postDao.removedById(id)
+            postWorkDao.removedById(id)
         } catch (e: Exception) {
             throw UnknownError
         }
