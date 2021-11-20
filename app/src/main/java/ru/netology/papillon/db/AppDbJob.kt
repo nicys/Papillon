@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import ru.netology.papillon.dao.JobDao
+import ru.netology.papillon.dao.JobWorkDao
 import ru.netology.papillon.entity.JobEntity
 
 @Database(
@@ -14,6 +15,7 @@ import ru.netology.papillon.entity.JobEntity
 )
 abstract class AppDbJob : RoomDatabase() {
     abstract fun jobsDao(): JobDao
+    abstract fun jobsWorkDao(): JobWorkDao
 
     companion object {
         @Volatile
