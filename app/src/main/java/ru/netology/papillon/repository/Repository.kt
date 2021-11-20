@@ -30,6 +30,7 @@ interface Repository<T> {
     suspend fun getAll()
     suspend fun removedById(id: Long)
     suspend fun save(t: T)
+    suspend fun processWorkRemoved(id: Long)
 }
 
 interface ProfileRepository {
