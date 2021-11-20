@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import ru.netology.papillon.api.Api
 import ru.netology.papillon.dao.JobDao
+import ru.netology.papillon.dao.JobWorkDao
 import ru.netology.papillon.dto.Job
 import ru.netology.papillon.dto.Post
 import ru.netology.papillon.entity.JobEntity
@@ -19,7 +20,10 @@ import ru.netology.papillon.extensions.toDtoPost
 import ru.netology.papillon.extensions.toEntityJob
 import java.io.IOException
 
-class JobRepositoryImpl(private val jobDao: JobDao): Repository<Job> {
+class JobRepositoryImpl(
+    private val jobDao: JobDao,
+    private val jobWorkDao: JobWorkDao,
+    ): Repository<Job> {
 
     override val data = jobDao.getAll()
         .map(List<JobEntity>::toDtoJob)
@@ -70,6 +74,17 @@ class JobRepositoryImpl(private val jobDao: JobDao): Repository<Job> {
             NetworkError
         } catch (e: Exception) {
             UnknownError
+        }
+    }
+
+    override suspend fun processWorkRemoved(id: Long) {
+        try {
+            val response = Api.service.removedByIdJob(id)
+            response.body() ?: throw ApiError(response.code(), response.message())
+            jobDao.removedById(id)
+            jobWorkDao.removedById(id)
+        } catch (e: Exception) {
+            throw UnknownError
         }
     }
 }
