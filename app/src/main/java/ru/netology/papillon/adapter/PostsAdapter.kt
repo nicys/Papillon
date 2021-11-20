@@ -116,7 +116,7 @@ class PostViewHolder(
                     AttachmentType.IMAGE -> {
                         imageAttachment.visibility = VISIBLE
                         videoContainer.visibility = GONE
-                        imageAttachment.load("${BuildConfig.BASE_URL}/media/${post.attachment!!.url}")
+                        imageAttachment.load("${BuildConfig.BASE_URL}/media/${post.attachment?.url.orEmpty()}")
                     }
                     AttachmentType.VIDEO -> {
                         imageAttachment.visibility = GONE
