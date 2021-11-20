@@ -34,12 +34,12 @@ interface JobWorkDao {
 
 @Dao
 interface UserWorkDao {
-    @Query("SELECT * FROM UserWorkEntity WHERE id = :id")
+    @Query("SELECT * FROM UserWorkEntity WHERE idUser = :id")
     suspend fun getUserById(id: Long): UserWorkEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(work: UserWorkEntity): Long
 
-    @Query("DELETE FROM UserWorkEntity WHERE id = :id")
+    @Query("DELETE FROM UserWorkEntity WHERE idUser = :id")
     suspend fun removedById(id: Long)
 }
