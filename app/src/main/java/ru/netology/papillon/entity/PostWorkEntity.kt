@@ -2,10 +2,12 @@ package ru.netology.papillon.entity
 
 import androidx.annotation.Nullable
 import androidx.room.Embedded
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ru.netology.papillon.dto.Post
 
-class PostWorkEntity(
+@Entity
+data class PostWorkEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val postId: Long,

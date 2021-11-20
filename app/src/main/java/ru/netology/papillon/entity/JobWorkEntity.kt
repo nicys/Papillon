@@ -1,9 +1,11 @@
 package ru.netology.papillon.entity
 
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ru.netology.papillon.dto.Job
 
-class JobWorkEntity(
+@Entity
+data class JobWorkEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val company: String,
@@ -16,6 +18,6 @@ class JobWorkEntity(
 
     companion object {
         fun fromDtoJob(dto: Job) =
-            JobEntity(dto.id, dto.company, dto.position, dto.start, dto.finish, dto.link)
+            JobWorkEntity(dto.id, dto.company, dto.position, dto.start, dto.finish, dto.link)
     }
 }
