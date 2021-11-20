@@ -33,100 +33,100 @@ import ru.netology.papillon.viewmodel.*
 
 class ProfileFragment : Fragment() {
 
-    val profileViewModel: ProfileViewModel by viewModels(ownerProducer = ::requireParentFragment)
-    val authViewModel: AuthViewModel by viewModels(ownerProducer = ::requireParentFragment)
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        val binding = FragmentProfileBinding.inflate(inflater, container, false)
-
-        // Create postAdapter
-        val postAdapter = PostsAdapter(object : OnPostInteractionListener {
-            override fun onEditPost(post: Post) {
-                profileViewModel.editPost(post)
-                findNavController().navigate(R.id.action_profileFragment_to_addEditPostFragment,
-                    Bundle().apply {
-                        textDataContent = post.content
-                    })
-            }
-
-            override fun onLikePost(post: Post) {
-                profileViewModel.likedById(post.id)
-            }
-
-            override fun onRemovePost(post: Post) {
-                profileViewModel.removedById(post.id)
-            }
-
-            override fun onSharePost(post: Post) {
-                val intent = Intent().apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, post.content)
-                    type = "text/plain"
-                }
-                val shareIntent =
-                    Intent.createChooser(intent, getString(R.string.chooser_share_post))
-                startActivity(shareIntent)
-                profileViewModel.sharedById(post.id)
-            }
-
-            override fun onShowPost(post: Post) {
-                profileViewModel.viewedById(post.id)
-                findNavController().navigate(R.id.action_profileFragment_to_showPostFragment2,
-                    Bundle().apply { postData = post }
-                )
-            }
-
-            override fun onAvatarClicked(post: Post) {
-                // TODO
-            }
-
-            override fun onPhotoImage(post: Post) {
-                findNavController().navigate(R.id.action_profileFragment_to_photoImageFragment,
-                    Bundle().apply
-                    {
-                        postData = post
-                        postPhoto = post.attachment?.url
-                    })
-            }
-        })
-
-        binding.rvListOfPosts.adapter = postAdapter
-        binding.rvListOfPosts.addItemDecoration(
-            DividerItemDecoration(
-                requireContext(),
-                DividerItemDecoration.VERTICAL
-            )
-        )
-
-        // Create jobAdapter
-        val jobAdapter = JobsAdapter(object : OnJobInteractionListener {
-            override fun onDeleteJob(job: Job) {
-                profileViewModel.removedById(job.id)
-            }
-            override fun onEdinJob(job: Job) {
-                profileViewModel.editJob(job)
-                findNavController().navigate(R.id.action_profileFragment_to_addEditJobFragment,
-                    Bundle().apply {
-                        textDataCompany = job.company
-                        textDataPosition = job.position
-                        textDataStart = job.start
-                        textDataFinish = job.finish
-                        textDataLink = job.link
-                    })
-            }
-        })
-
-        binding.rvListOfJobs.adapter = jobAdapter
-
-
-
-        return binding.root
-    }
+//    val profileViewModel: ProfileViewModel by viewModels(ownerProducer = ::requireParentFragment)
+//    val authViewModel: AuthViewModel by viewModels(ownerProducer = ::requireParentFragment)
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//
+//        val binding = FragmentProfileBinding.inflate(inflater, container, false)
+//
+//        // Create postAdapter
+//        val postAdapter = PostsAdapter(object : OnPostInteractionListener {
+//            override fun onEditPost(post: Post) {
+//                profileViewModel.editPost(post)
+//                findNavController().navigate(R.id.action_profileFragment_to_addEditPostFragment,
+//                    Bundle().apply {
+//                        textDataContent = post.content
+//                    })
+//            }
+//
+//            override fun onLikePost(post: Post) {
+//                profileViewModel.likedById(post.id)
+//            }
+//
+//            override fun onRemovePost(post: Post) {
+//                profileViewModel.removedById(post.id)
+//            }
+//
+//            override fun onSharePost(post: Post) {
+//                val intent = Intent().apply {
+//                    action = Intent.ACTION_SEND
+//                    putExtra(Intent.EXTRA_TEXT, post.content)
+//                    type = "text/plain"
+//                }
+//                val shareIntent =
+//                    Intent.createChooser(intent, getString(R.string.chooser_share_post))
+//                startActivity(shareIntent)
+//                profileViewModel.sharedById(post.id)
+//            }
+//
+//            override fun onShowPost(post: Post) {
+//                profileViewModel.viewedById(post.id)
+//                findNavController().navigate(R.id.action_profileFragment_to_showPostFragment2,
+//                    Bundle().apply { postData = post }
+//                )
+//            }
+//
+//            override fun onAvatarClicked(post: Post) {
+//                // TODO
+//            }
+//
+//            override fun onPhotoImage(post: Post) {
+//                findNavController().navigate(R.id.action_profileFragment_to_photoImageFragment,
+//                    Bundle().apply
+//                    {
+//                        postData = post
+//                        postPhoto = post.attachment?.url
+//                    })
+//            }
+//        })
+//
+//        binding.rvListOfPosts.adapter = postAdapter
+//        binding.rvListOfPosts.addItemDecoration(
+//            DividerItemDecoration(
+//                requireContext(),
+//                DividerItemDecoration.VERTICAL
+//            )
+//        )
+//
+//        // Create jobAdapter
+//        val jobAdapter = JobsAdapter(object : OnJobInteractionListener {
+//            override fun onDeleteJob(job: Job) {
+//                profileViewModel.removedById(job.id)
+//            }
+//            override fun onEdinJob(job: Job) {
+//                profileViewModel.editJob(job)
+//                findNavController().navigate(R.id.action_profileFragment_to_addEditJobFragment,
+//                    Bundle().apply {
+//                        textDataCompany = job.company
+//                        textDataPosition = job.position
+//                        textDataStart = job.start
+//                        textDataFinish = job.finish
+//                        textDataLink = job.link
+//                    })
+//            }
+//        })
+//
+//        binding.rvListOfJobs.adapter = jobAdapter
+//
+//
+//
+//        return binding.root
+//    }
 
 }
 
