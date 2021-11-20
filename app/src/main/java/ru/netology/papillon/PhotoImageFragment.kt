@@ -32,13 +32,13 @@ class PhotoImageFragment : Fragment() {
         val binding = FragmentPhotoImageBinding.inflate(inflater, container, false)
 
         with(postViewModel) {
-            arguments?.postData?.let {
-                val postWithPhoto = it
+            arguments?.postData?.let { post ->
+                val postWithPhoto = post
                 getPostById(postWithPhoto.id).observe(viewLifecycleOwner, { post ->
                     post ?: return@observe
                 })
                 arguments?.postPhoto?.let {
-                    binding.fullScreenPhoto.load("${BuildConfig.BASE_URL}/media/${postWithPhoto.attachment?.url}")
+                    binding.fullScreenPhoto.load(post.attachment?.url.orEmpty())
                 }
             }
             return binding.root
