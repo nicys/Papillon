@@ -116,12 +116,12 @@ class PostViewHolder(
                     AttachmentType.IMAGE -> {
                         imageAttachment.visibility = VISIBLE
                         videoContainer.visibility = GONE
-                        imageAttachment.load("${BuildConfig.BASE_URL}/media/${post.attachment?.url.orEmpty()}")
+                        imageAttachment.load(post.attachment?.url.orEmpty())
                     }
                     AttachmentType.VIDEO -> {
                         imageAttachment.visibility = GONE
                         videoContainer.visibility = VISIBLE
-                        Glide.with(binding.root).load(post.attachment!!.url).into(ivVideo)
+                        Glide.with(binding.root).load(post.attachment?.url.orEmpty()).into(ivVideo)
                     }
                     AttachmentType.AUDIO -> {
                         imageAttachment.visibility = GONE
