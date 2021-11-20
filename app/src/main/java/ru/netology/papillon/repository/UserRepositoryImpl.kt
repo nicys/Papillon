@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import ru.netology.papillon.api.Api
 import ru.netology.papillon.dao.UserDao
+import ru.netology.papillon.dao.UserWorkDao
 import ru.netology.papillon.dto.Job
 import ru.netology.papillon.dto.User
 import ru.netology.papillon.entity.JobEntity
@@ -19,7 +20,10 @@ import ru.netology.papillon.extensions.toDtoUser
 import ru.netology.papillon.extensions.toEntityUser
 import java.io.IOException
 
-class UserRepositoryImpl(private val userDao: UserDao) : Repository<User> {
+class UserRepositoryImpl(
+    private val userDao: UserDao,
+    private val userWorkDao: UserWorkDao,
+    ) : Repository<User> {
 
     override val data = userDao.getAll()
         .map(List<UserEntity>::toDtoUser)
@@ -70,6 +74,17 @@ class UserRepositoryImpl(private val userDao: UserDao) : Repository<User> {
             NetworkError
         } catch (e: Exception) {
             UnknownError
+        }
+    }
+
+    override suspend fun processWorkRemoved(id: Long) {
+        try {
+            val response = Api.service.removedByIdPost(id)
+            response.body() ?: throw ApiError(response.code(), response.message())
+            userDao.removedById(id)
+            userWorkDao.removedById(id)
+        } catch (e: Exception) {
+            throw UnknownError
         }
     }
 }
