@@ -2,7 +2,9 @@ package ru.netology.papillon.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*
+import androidx.work.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -14,13 +16,21 @@ import ru.netology.papillon.model.FeedModelUsers
 import ru.netology.papillon.repository.Repository
 import ru.netology.papillon.repository.UserRepositoryImpl
 import ru.netology.papillon.utils.SingleLiveEvent
+import ru.netology.papillon.work.RemovePostWorker
+import ru.netology.papillon.work.RemoveUserWorker
 
 private val empty = User()
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: Repository<User> =
-        UserRepositoryImpl(AppDbUser.getInstance(context = application).usersDao())
+        UserRepositoryImpl(
+            AppDbUser.getInstance(context = application).usersDao(),
+            AppDbUser.getInstance(context = application).usersWorkDao(),
+        )
+
+    private val workManager: WorkManager =
+        WorkManager.getInstance(application)
 
     val data: LiveData<FeedModelUsers> = repository.data
         .map(::FeedModelUsers)
@@ -89,14 +99,26 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
+    @ExperimentalCoroutinesApi
     fun removedById(id: Long) {
+        val users = data.value?.users.orEmpty()
+            .filter { it.idUser != id }
+        data.value?.copy(users = users, empty = users.isEmpty())
+
         viewModelScope.launch {
             try {
-                repository.removedById(id)
-                val users = data.value?.users.orEmpty().filter { user -> user.idUser != id }
-                data.value?.copy(users = users.orEmpty())
+                val data = workDataOf(RemovePostWorker.removeKey to id)
+                val constraints = Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build()
+                val request = OneTimeWorkRequestBuilder<RemoveUserWorker>()
+                    .setInputData(data)
+                    .setConstraints(constraints)
+                    .build()
+                workManager.enqueue(request)
+
             } catch (e: Exception) {
-                _networkError.value = e.message
+                _dataState.value = FeedModelState(error = true)
             }
         }
     }
