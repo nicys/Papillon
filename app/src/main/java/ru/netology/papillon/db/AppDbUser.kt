@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import ru.netology.papillon.dao.UserDao
+import ru.netology.papillon.dao.UserWorkDao
 import ru.netology.papillon.entity.UserEntity
 
 @Database(
@@ -14,6 +15,7 @@ import ru.netology.papillon.entity.UserEntity
 )
 abstract class AppDbUser : RoomDatabase() {
     abstract fun usersDao(): UserDao
+    abstract fun usersWorkDao(): UserWorkDao
 
     companion object {
         @Volatile
