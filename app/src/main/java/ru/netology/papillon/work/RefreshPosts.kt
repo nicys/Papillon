@@ -6,6 +6,7 @@ import androidx.work.WorkerParameters
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.netology.papillon.db.AppDbPost
+import ru.netology.papillon.repository.PostRepository
 import ru.netology.papillon.repository.PostRepositoryImpl
 
 class RefreshPostsWorker(
@@ -17,10 +18,10 @@ class RefreshPostsWorker(
     }
 
     override suspend fun doWork(): Result = withContext(Dispatchers.Default) {
-        val repository: PostRepositoryImpl =
+        val repository: PostRepository =
             PostRepositoryImpl(
                 AppDbPost.getInstance(context = applicationContext).postsDao(),
-//                AppDbPost.getInstance(context = applicationContext).postsWorkDao(),
+                AppDbPost.getInstance(context = applicationContext).postsWorkDao(),
             )
 
         try {
