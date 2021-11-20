@@ -2,7 +2,9 @@ package ru.netology.papillon.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*
+import androidx.work.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -13,13 +15,21 @@ import ru.netology.papillon.model.FeedModelState
 import ru.netology.papillon.repository.JobRepositoryImpl
 import ru.netology.papillon.repository.Repository
 import ru.netology.papillon.utils.SingleLiveEvent
+import ru.netology.papillon.work.RemoveJobWorker
+import ru.netology.papillon.work.RemovePostWorker
 
 private var empty = Job()
 
 class JobViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: Repository<Job> =
-        JobRepositoryImpl(AppDbJob.getInstance(context = application).jobsDao())
+        JobRepositoryImpl(
+            AppDbJob.getInstance(context = application).jobsDao(),
+            AppDbJob.getInstance(context = application).jobsWorkDao(),
+        )
+
+    private val workManager: WorkManager =
+        WorkManager.getInstance(application)
 
     val data: LiveData<FeedModelJobs> = repository.data
         .map(::FeedModelJobs)
@@ -92,14 +102,26 @@ class JobViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
+    @ExperimentalCoroutinesApi
     fun removedById(id: Long) {
+        val jobs = data.value?.jobs.orEmpty()
+            .filter { it.id != id }
+        data.value?.copy(jobs = jobs, empty = jobs.isEmpty())
+
         viewModelScope.launch {
             try {
-                repository.removedById(id)
-                val jobs = data.value?.jobs.orEmpty().filter { job-> job.id != id }
-                data.value?.copy(jobs = jobs.orEmpty())
+                val data = workDataOf(RemovePostWorker.removeKey to id)
+                val constraints = Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build()
+                val request = OneTimeWorkRequestBuilder<RemoveJobWorker>()
+                    .setInputData(data)
+                    .setConstraints(constraints)
+                    .build()
+                workManager.enqueue(request)
+
             } catch (e: Exception) {
-                _networkError.value = e.message
+                _dataState.value = FeedModelState(error = true)
             }
         }
     }
