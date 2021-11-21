@@ -120,6 +120,9 @@
         <action
             android:id="@+id/action_signUpFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_jobsFragment"
+            app:destination="@id/jobsFragment" />
     </fragment>
     <fragment
         android:id="@+id/exitFragment"
