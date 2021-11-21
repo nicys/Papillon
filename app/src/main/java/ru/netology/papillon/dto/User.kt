@@ -9,6 +9,6 @@ data class User(
     val avatar: String? = null,
     val entered: String = "",
     val name: String = "",
-    val surname: String = "",
+    val login: String = "",
     val isMe: Boolean = false,
 ) : Parcelable

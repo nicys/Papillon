@@ -2,7 +2,6 @@ package ru.netology.papillon.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import ru.netology.papillon.dto.Job
 import ru.netology.papillon.dto.User
 
 @Entity
@@ -12,13 +11,13 @@ data class UserEntity(
     val avatar: String?,
     val entered: String,
     val name: String,
-    val surname: String,
+    val login: String,
     val isMe: Boolean,
 ) {
-    fun toDtoUser() = User(idUser, avatar, entered, name, surname, isMe)
+    fun toDtoUser() = User(idUser, avatar, entered, name, login, isMe)
 
     companion object {
         fun fromDtoUser(dto: User) =
-            UserEntity(dto.idUser, dto.avatar, dto.entered, dto.name, dto.surname, dto.isMe)
+            UserEntity(dto.idUser, dto.avatar, dto.entered, dto.name, dto.login, dto.isMe)
     }
 }
