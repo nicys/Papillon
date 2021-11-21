@@ -41,7 +41,7 @@ class SignUpFragment : Fragment() {
             } else {
                 authViewModel.registration(userName, login, password)
                 hideKeyboard(it)
-                findNavController().navigateUp()
+                findNavController().navigate(R.id.action_signUpFragment_to_jobsFragment)
             }
 
         }

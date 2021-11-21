@@ -64,7 +64,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
             jobRepository.data
                 .map { jobs ->
                     FeedModelJobs(
-                        jobs.map { it.copy(ownedByMe = it.id == myId) },
+                        jobs.map { it.copy(ownedByMe = it.jobId == myId) },
                         jobs.isEmpty()
                     )
                 }
