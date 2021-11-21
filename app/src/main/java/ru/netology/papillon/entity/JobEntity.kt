@@ -14,11 +14,12 @@ data class JobEntity(
     val finish: String,
     val link: String,
     val ownedByMe: Boolean,
+    val jobId: Long,
 ) {
-    fun toDtoJob() = Job(id, company, position, start, finish, link, ownedByMe)
+    fun toDtoJob() = Job(id, company, position, start, finish, link, ownedByMe, jobId)
 
     companion object {
         fun fromDtoJob(dto: Job) =
-            JobEntity(dto.id, dto.company, dto.position, dto.start, dto.finish, dto.link, dto.ownedByMe)
+            JobEntity(dto.id, dto.company, dto.position, dto.start, dto.finish, dto.link, dto.ownedByMe, dto.jobId)
     }
 }
