@@ -55,13 +55,8 @@ class PostViewHolder(
             tvContent.text = post.content
 
             post.authorAvatar?.let {
-                ivAvatar.loadCircleCrop("${BuildConfig.BASE_URL}/avatars/${post.authorAvatar}")
+                ivAvatar.loadCircleCrop(post.attachment?.url.orEmpty())
             } ?: ivAvatar.setImageResource(R.drawable.ic_no_avatar_user)
-
-//            if (post.attachment != null) {
-//                imageAttachment.visibility = VISIBLE
-//                imageAttachment.load("${BuildConfig.BASE_URL}/media/${post.attachment!!.url}")
-//            } else imageAttachment.visibility = GONE
 
             btLike.isChecked = post.likedByMe
             btLike.setOnClickListener {
