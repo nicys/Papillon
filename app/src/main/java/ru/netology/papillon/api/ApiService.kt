@@ -109,7 +109,12 @@ interface ApiService {
 
     @DELETE("users/{id}")
     suspend fun removedByIdUser(@Path("id") id: Long): Response<Unit>
+
+    @GET("users/{id}")
+    suspend fun getUserById(@Path("id") id: Long) : Response<User>
 }
+
+
 
 object Api {
     val service by lazy {
