@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.netology.papillon.R
 import ru.netology.papillon.databinding.CardUserBinding
 import ru.netology.papillon.dto.User
+import ru.netology.papillon.extensions.loadCircleCrop
 
 interface OnUserInteractionListener {
     fun onEditUser(user: User)
     fun oDeleteUser(user: User)
-//    fun onUserClick(user: User)
+    fun onUserClick(user: User)
 }
 
 class UsersAdapter(private val onUserInteractionListener: OnUserInteractionListener) :
@@ -49,6 +50,13 @@ class UsersViewHolder(
     fun bind(user: User) {
         with(binding) {
             tvUserName.text = user.name
+            user.avatar?.let {
+                ivAvatar.loadCircleCrop(it)
+            } ?: ivAvatar.setImageResource(R.drawable.ic_no_avatar_user)
+
+            cvIsYou.visibility = if (user.isMe) View.VISIBLE
+            else View.GONE
+
             mbPopupMenu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.user_options_menu)
