@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import ru.netology.papillon.AddEditUserFragment.Companion.textUserName
+import ru.netology.papillon.SignUpFragment.Companion.textLoginName
 import ru.netology.papillon.adapter.OnUserInteractionListener
 import ru.netology.papillon.adapter.UsersAdapter
 import ru.netology.papillon.databinding.FragmentUsersBinding
@@ -34,6 +35,7 @@ class UsersFragment : Fragment() {
                 findNavController().navigate(R.id.action_profileFragment_to_addEditUserFragment,
                     Bundle().apply {
                         textUserName = user.name
+                        textLoginName = user.login
                     })
             }
             override fun oDeleteUser(user: User) {

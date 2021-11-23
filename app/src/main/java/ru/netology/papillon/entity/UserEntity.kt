@@ -13,11 +13,12 @@ data class UserEntity(
     val name: String,
     val login: String,
     val isMe: Boolean,
+    val userId: Long,
 ) {
-    fun toDtoUser() = User(idUser, avatar, entered, name, login, isMe)
+    fun toDtoUser() = User(idUser, avatar, entered, name, login, isMe, userId)
 
     companion object {
         fun fromDtoUser(dto: User) =
-            UserEntity(dto.idUser, dto.avatar, dto.entered, dto.name, dto.login, dto.isMe)
+            UserEntity(dto.idUser, dto.avatar, dto.entered, dto.name, dto.login, dto.isMe, dto.userId)
     }
 }

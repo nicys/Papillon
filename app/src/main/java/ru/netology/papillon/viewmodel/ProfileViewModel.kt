@@ -17,10 +17,7 @@ import ru.netology.papillon.dto.MediaUpload
 import ru.netology.papillon.dto.Post
 import ru.netology.papillon.dto.User
 import ru.netology.papillon.enumeration.AttachmentType
-import ru.netology.papillon.model.FeedModelJobs
-import ru.netology.papillon.model.FeedModelPosts
-import ru.netology.papillon.model.FeedModelState
-import ru.netology.papillon.model.MediaModel
+import ru.netology.papillon.model.*
 import ru.netology.papillon.repository.*
 import ru.netology.papillon.utils.SingleLiveEvent
 import ru.netology.papillon.utils.sumTotalFeed
@@ -70,9 +67,23 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
                 }
         }.asLiveData(Dispatchers.Default)
 
+    @ExperimentalCoroutinesApi
+    val dataUsers: LiveData<FeedModelUsers> = AppAuth.getInstance()
+        .authStateFlow
+        .flatMapLatest { (myId, _) ->
+            userRepository.data
+                .map { users ->
+                    FeedModelUsers(
+                        users.map { it.copy(isMe = it.userId == myId) },
+                        users.isEmpty()
+                    )
+                }
+        }.asLiveData(Dispatchers.Default)
+
 
     val editedPost = MutableLiveData(emptyPost)
     val editedJob = MutableLiveData(emptyJob)
+    val editedUser = MutableLiveData(emptyUser)
     val myId: Long? = appAuth?.authStateFlow?.value?.id
 
     private val _dataState = MutableLiveData(FeedModelState())
@@ -212,12 +223,30 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         editedJob.value = job
     }
 
+    @ExperimentalCoroutinesApi
     fun removedByIdJob(id: Long) {
         viewModelScope.launch {
             try {
                 repository?.removedById(id)
                 val jobs = dataJobs.value?.jobs.orEmpty().filter { job-> job.id != id }
                 dataJobs.value?.copy(jobs = jobs.orEmpty())
+            } catch (e: Exception) {
+                _networkError.value = e.message
+            }
+        }
+    }
+
+    fun editUser(user: User) {
+        editedUser.value = user
+    }
+
+    @ExperimentalCoroutinesApi
+    fun removedByIdUser(id: Long) {
+        viewModelScope.launch {
+            try {
+                repository?.removedById(id)
+                val users = dataUsers.value?.users.orEmpty().filter { user-> user.idUser != id }
+                dataUsers.value?.copy(users = users.orEmpty())
             } catch (e: Exception) {
                 _networkError.value = e.message
             }

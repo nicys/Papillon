@@ -11,4 +11,5 @@ data class User(
     val name: String = "",
     val login: String = "",
     val isMe: Boolean = false,
+    val userId: Long = 0L,
 ) : Parcelable

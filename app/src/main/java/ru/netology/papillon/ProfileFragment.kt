@@ -1,16 +1,11 @@
 package ru.netology.papillon
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -24,15 +19,15 @@ import ru.netology.papillon.AddEditJobFragment.Companion.textDataStart
 import ru.netology.papillon.AddEditPostFragment.Companion.textDataContent
 import ru.netology.papillon.PhotoImageFragment.Companion.postPhoto
 import ru.netology.papillon.ShowPostFragment.Companion.postData
-import ru.netology.papillon.adapter.JobsAdapter
-import ru.netology.papillon.adapter.OnJobInteractionListener
-import ru.netology.papillon.adapter.OnPostInteractionListener
-import ru.netology.papillon.adapter.PostsAdapter
+import ru.netology.papillon.SignUpFragment.Companion.textUserName
+import ru.netology.papillon.adapter.*
 import ru.netology.papillon.databinding.FragmentProfileBinding
 import ru.netology.papillon.dto.Job
 import ru.netology.papillon.dto.Post
+import ru.netology.papillon.dto.User
 import ru.netology.papillon.extensions.loadCircleCrop
-import ru.netology.papillon.viewmodel.*
+import ru.netology.papillon.viewmodel.AuthViewModel
+import ru.netology.papillon.viewmodel.ProfileViewModel
 
 class ProfileFragment : Fragment() {
 
@@ -122,6 +117,7 @@ class ProfileFragment : Fragment() {
             override fun onDeleteJob(job: Job) {
                 profileViewModel.removedByIdJob(job.id)
             }
+
             override fun onEdinJob(job: Job) {
                 profileViewModel.editJob(job)
                 findNavController().navigate(R.id.action_profileFragment_to_addEditJobFragment,
@@ -147,12 +143,27 @@ class ProfileFragment : Fragment() {
         profileViewModel.currentUser.observe(viewLifecycleOwner) { user ->
 //            user.avatar?.let {
 //                binding.ivAvatar.loadCircleCrop(it)
-//            } ?:
-//            binding.ivAvatar.setImageDrawable(
+//            } ?: binding.ivAvatar.setImageDrawable(
 //                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_no_avatar_user)
 //            )
             binding.tvUserName.text = user.name
         }
+
+        // Create userAdapter
+        val userAdapter = UsersAdapter(object : OnUserInteractionListener {
+            override fun onEditUser(user: User) {
+                profileViewModel.editUser(user)
+                findNavController().navigate(R.id.action_profileFragment_to_addEditUserFragment,
+                    Bundle().apply {
+                        textUserName = user.name
+                    })
+            }
+
+            override fun oDeleteUser(user: User) {
+                profileViewModel.removedByIdUser(user.idUser)
+            }
+        })
+
 
 
 
