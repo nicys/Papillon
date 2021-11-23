@@ -145,11 +145,12 @@ class ProfileFragment : Fragment() {
         binding.rvListOfJobs.adapter = jobAdapter
 
         profileViewModel.currentUser.observe(viewLifecycleOwner) { user ->
-            user.avatar?.let {
-                binding.ivAvatar.loadCircleCrop(it)
-            } ?: binding.ivAvatar.setImageDrawable(
-                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_no_avatar_user)
-            )
+//            user.avatar?.let {
+//                binding.ivAvatar.loadCircleCrop(it)
+//            } ?:
+//            binding.ivAvatar.setImageDrawable(
+//                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_no_avatar_user)
+//            )
             binding.tvUserName.text = user.name
         }
 

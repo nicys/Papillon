@@ -15,7 +15,7 @@ import ru.netology.papillon.extensions.loadCircleCrop
 interface OnUserInteractionListener {
     fun onEditUser(user: User)
     fun oDeleteUser(user: User)
-    fun onUserClick(user: User)
+//    fun onUserClick(user: User)
 }
 
 class UsersAdapter(private val onUserInteractionListener: OnUserInteractionListener) :
